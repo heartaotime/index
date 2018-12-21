@@ -5,7 +5,7 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
-    <link rel="shortcut icon" type="image/x-icon" href="img/home.ico" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="img/search.png" media="screen"/>
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
@@ -242,6 +242,8 @@
 
     h4 {
         text-align: center;
+        margin-top: 5px;
+        margin-bottom: 5px;;
     }
 
     img.index {
@@ -263,7 +265,7 @@
         display: table;
         vertical-align: middle;
         width: 80%;
-        height: 40px;
+        height: 300px;
         max-width: 400px;
         margin: 10px auto;
     }
@@ -289,7 +291,7 @@
             <img class="index" src="img/douyu.png">
         </a>
         <!--<a class="" href="http://106.13.46.83/" target="_blank">-->
-            <!--<img class="index" src="img/csdn.png">-->
+        <!--<img class="index" src="img/csdn.png">-->
         <!--</a>-->
     </div>
 
@@ -298,9 +300,11 @@
 
 <script type="text/javascript">
     function search() {
-        if (document.getElementById("search_input").value != "") {
-            window.location.href = "https://www.baidu.com/s?word=" + document.getElementById("search_input").value;
-            document.getElementById("search_input").value = "";
+        if ($("#search_input").val() != "") {
+            // window.location.href = "https://www.baidu.com/s?word=" + document.getElementById("search_input").value;
+            window.open("https://www.baidu.com/s?word=" + $("#search_input").val());
+
+            $("#search_input").val("");
         }
         return false;
     }
