@@ -15,7 +15,7 @@ function getIndex() {
     var param = {
         userid: userInfo.id
     };
-    Util.postJson("./proxyapi/douyu/api/v1/index", param, function (response) {
+    Util.postJson("./common-server/user/api/v1/index", param, function (response) {
         if (response.code != 0) {
             alert(response.message);
             return;
