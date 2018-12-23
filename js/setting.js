@@ -57,7 +57,6 @@ function getIndex() {
                 alert(response.message);
                 return;
             }
-
             result = response.result;
             $.each(result, function (i, v) {
                 var html = '<li class="list-inline-item">' +
@@ -251,6 +250,8 @@ $('#submit').on('click', function () {
         $('.login a:eq(1)').css('display', 'block');
 
         $('#loginname').html(response.userInfo.userName);
+
+        userInfo = response.userInfo;
 
         // 设置cookie的有效期为10天
         $.cookie("userInfo", JSON.stringify(response.userInfo), {

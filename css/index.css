@@ -22,6 +22,11 @@ body {
     padding: 10px;
 }
 
+.login img {
+    width: 2.5em;
+    height: 2.5em;
+}
+
 
 /*翻译
 logo图标样式
