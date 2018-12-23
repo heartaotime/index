@@ -66,23 +66,24 @@ function getIndex() {
         }
         result = response.result;
         $.each(result, function (i, v) {
-            var html = '<li class="list-inline-item">' +
-                '<a href="javascript:void(0);" rowid="' + v.id + '" menuid="' + v.menuId + '">' + v.menuName + '</a>' +
+            var html =
+                '<li class="list-inline-item">' +
+                '<a href="javascript:void(0);" rowid="' + v.id + '">' + v.menuName + '</a>' +
                 '</li>';
             $('#list ul').append(html);
         });
     });
 }
 
-$('#list').on('click', 'a[menuid]', function () {
+$('#list').on('click', 'a[rowid]', function () {
     // $('#editIndex').trigger('click');
 
-    var menuId = $(this).attr('menuid');
     rowid = $(this).attr('rowid');
+
 
     var res = {};
     $.each(result, function (i, v) {
-        if (v.menuId == menuId) {
+        if (v.id == rowid) {
             res = v;
             return false;
         }
@@ -104,7 +105,7 @@ function check() {
 
     menuurl = $('#menuurl').val();
     if (menuurl == "") {
-        alert("请填写URL");
+        alert("请输入网址链接");
         return false;
     }
 
@@ -116,7 +117,7 @@ function check() {
 
     sort = $('#sort').val();
     if (sort == "") {
-        alert("请填写排序");
+        alert("请输入排序");
         return false;
     }
 
@@ -149,7 +150,8 @@ function addIndex() {
             alert(response.message);
             return;
         }
-        alert("新增成功");
+        alert("新增成功，返回到导航页刷新页面即可看到效果哦");
+        reset();
     });
 
 
@@ -177,7 +179,7 @@ function editIndex() {
             alert(response.message);
             return;
         }
-        alert("修改成功");
+        alert("修改成功，返回到导航页刷新页面即可看到效果哦");
         $('#editIndex').trigger('click');
     });
 }
