@@ -17,14 +17,20 @@ body {
     background-color: #ffffff;
 }
 
+.weather{
+    float: left;
+    padding: 10px;
+    margin-top: 10px;
+}
+
 .login {
     float: right;
     padding: 10px;
 }
 
 .login img {
-    width: 2.5em;
-    height: 2.5em;
+    width: 2em;
+    height: 2em;
 }
 
 
