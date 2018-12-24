@@ -172,7 +172,8 @@ function editIndex() {
         menuname: menuname,
         menuurl: menuurl,
         menuimgurl: $('#menuimgurl').attr('src'),
-        sort: sort
+        sort: sort,
+        userid: userInfo.id
     };
     Util.postJson("./common-server/user/api/v1/editIndex", param, function (response) {
         if (response.code != 0) {
@@ -192,7 +193,8 @@ function delIndex() {
 
     if (confirm('确认删除吗？')) {
         var param = {
-            rowid: rowid
+            rowid: rowid,
+            userid: userInfo.id
         };
         Util.postJson("./common-server/user/api/v1/delIndex", param, function (response) {
             if (response.code != 0) {
