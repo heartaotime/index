@@ -28,8 +28,56 @@ function getIndex() {
     });
 }
 
+function getConfig() {
+    var param = {
+        userid: userInfo.id
+    };
+    Util.postJson("./common-server/user/api/v1/getConfig", param, function (response) {
+        if (response.code != 0) {
+            alert(response.message);
+            return;
+        }
+
+        var result = response.result;
+        if (result.length > 0) {
+            var config = result[0].config;
+            config = JSON.parse(config);
+            var weatherSwitch = config.weatherSwitch;
+            var searchInputShow = config.searchInputShow;
+            if (weatherSwitch) {
+                $('.weather').show();
+            } else {
+                $('.weather').hide();
+            }
+
+            if (searchInputShow) {
+                $.ajax({
+                    url: 'https://v2.jinrishici.com/one.json',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (result, status) {
+                        console.log(result);
+                        if(result && result.status == 'success') {
+                            var content = result.data.content;
+                            $('.search').attr('placeholder', content);
+                        }
+                    }
+                });
+            } else {
+                $('.search').attr('placeholder', '');
+            }
+        }
+    });
+}
+
+// $('.search').on('change', function () {
+//     $(this).val('');
+// });
+
 $(function () {
     if (userInfo) {
         getIndex();
+        getConfig();
     }
 });

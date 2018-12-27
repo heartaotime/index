@@ -51,6 +51,9 @@ function reset() {
     $('#confirm').html('新增').attr('btntype', '0');
 
     rowid = -1;
+
+    $('.config').hide();
+    $('.index').show();
 }
 
 
@@ -262,3 +265,61 @@ $('#submit').on('click', function () {
         });
     });
 });
+
+
+$("#config").on("click", function () {
+    $('.index').hide();
+    $('.config').show();
+
+    if ($('#list').attr('class') == 'collapse show') {
+        $('#list').attr('class', 'collapse');
+    }
+
+    var param = {
+        userid: userInfo.id
+    };
+    Util.postJson("./common-server/user/api/v1/getConfig", param, function (response) {
+        if (response.code != 0) {
+            alert(response.message);
+            return;
+        }
+
+        var result = response.result;
+        if(result.length > 0) {
+            var config = result[0].config;
+            config = JSON.parse(config);
+            var weatherSwitch = config.weatherSwitch;
+            var searchInputShow = config.searchInputShow;
+            if(weatherSwitch) {
+                $("[name='weatherswitch']").attr('checked', true);
+            }
+            if(searchInputShow) {
+                $("[name='searchinputshow']").attr('checked', true);
+            }
+
+            $("[name='weatherswitch']").bootstrapSwitch();
+            $("[name='searchinputshow']").bootstrapSwitch();
+        }
+    });
+
+});
+
+$("#editconfig").on("click", function () {
+    var weatherswitch = $("[name='weatherswitch']").is(':checked');
+    var searchinputshow = $("[name='searchinputshow']").is(':checked');
+
+    var param = {
+        userid: userInfo.id,
+        weatherSwitch: weatherswitch,
+        searchInputShow: searchinputshow
+    };
+    Util.postJson("./common-server/user/api/v1/editConfig", param, function (response) {
+        if (response.code != 0) {
+            alert(response.message);
+            return;
+        }
+        alert("修改成功");
+    });
+
+});
+
