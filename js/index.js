@@ -58,9 +58,9 @@ function getConfig() {
                     },
                     success: function (result, status) {
                         console.log(result);
-                        if(result && result.status == 'success') {
-                            var content = result.data.content;
-                            $('.search').attr('placeholder', content);
+                        if (result && result.status == 'success') {
+                            var content = result.data.content.split('，')[0];
+                            $('.search').attr('placeholder', '✎...  ' + content + '～');
                         }
                     }
                 });
