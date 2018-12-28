@@ -268,6 +268,11 @@ $('#submit').on('click', function () {
 
 
 $("#config").on("click", function () {
+    if (!userInfo) {
+        alert('请先登陆');
+        return;
+    }
+
     $('.index').hide();
     $('.config').show();
 
@@ -285,40 +290,46 @@ $("#config").on("click", function () {
         }
 
         var result = response.result;
-        if(result.length > 0) {
+        if (result.length > 0) {
             var config = result[0].config;
             config = JSON.parse(config);
             var weatherSwitch = config.weatherSwitch;
-            var searchInputShow = config.searchInputShow;
-            if(weatherSwitch) {
-                $("[name='weatherswitch']").attr('checked', true);
+            if (weatherSwitch) {
+                $("#weatherswitch").attr('checked', true);
             }
-            if(searchInputShow) {
-                $("[name='searchinputshow']").attr('checked', true);
-            }
+            $("#weatherswitch").bootstrapSwitch();
 
-            $("[name='weatherswitch']").bootstrapSwitch();
-            $("[name='searchinputshow']").bootstrapSwitch();
+            var searchInputShow = config.searchInputShow;
+            if (searchInputShow) {
+                $("#searchinputshow").attr('checked', true);
+            }
+            $("#searchinputshow").bootstrapSwitch();
+
+            var searchEngines = config.searchEngines;
+            $('#searchengines').find('option[value="'+ searchEngines +'"]').attr('selected', true)
+
+
         }
     });
 
 });
 
 $("#editconfig").on("click", function () {
-    var weatherswitch = $("[name='weatherswitch']").is(':checked');
-    var searchinputshow = $("[name='searchinputshow']").is(':checked');
-
+    var weatherswitch = $("#weatherswitch").is(':checked');
+    var searchinputshow = $("#searchinputshow").is(':checked');
+    var searchengines = $("#searchengines").val();
     var param = {
         userid: userInfo.id,
         weatherSwitch: weatherswitch,
-        searchInputShow: searchinputshow
+        searchInputShow: searchinputshow,
+        searchEngines: searchengines
     };
     Util.postJson("./common-server/user/api/v1/editConfig", param, function (response) {
         if (response.code != 0) {
             alert(response.message);
             return;
         }
-        alert("修改成功");
+        alert("修改成功，返回到导航页刷新页面即可看到效果哦");
     });
 
 });

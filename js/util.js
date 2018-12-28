@@ -60,7 +60,8 @@ window.Util = (function () {
         var userInfo_cookie = $.cookie("userInfo");
         if (userInfo_cookie) {
             userInfo = JSON.parse(userInfo_cookie);
-            console.log('get userinfo from cookie is exist, ', userInfo);
+            // console.log('get userinfo from cookie is exist, ', userInfo);
+            console.log('get userinfo from cookie is exist');
         }
         return userInfo;
     }

@@ -1,9 +1,19 @@
 var userInfo = Util.getUserInfo();
+var searchEngines;
 
 function search() {
     if ($("#search_input").val() != "") {
         // window.location.href = "https://www.baidu.com/s?word=" + document.getElementById("search_input").value;
-        window.open("https://www.baidu.com/s?word=" + $("#search_input").val());
+        if(!searchEngines) {
+            searchEngines = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
+        }
+        window.open(searchEngines + $("#search_input").val());
+        // window.open("https://www.baidu.com/s?wd=" + $("#search_input").val());
+        // window.open("http://www.google.com.hk/" + $("#search_input").val());
+        // window.open("http://www.bing.com/search?q=" + $("#search_input").val());
+        // window.open("http://www.bing.com/search?q=" + $("#search_input").val());
+        // window.open("http://www.so.com/s?q=" + $("#search_input").val());
+        // window.open("http://www.sogou.com/sogou?query=" + $("#search_input").val());
         $("#search_input").val("");
     }
     return false;
@@ -42,14 +52,15 @@ function getConfig() {
         if (result.length > 0) {
             var config = result[0].config;
             config = JSON.parse(config);
+
             var weatherSwitch = config.weatherSwitch;
-            var searchInputShow = config.searchInputShow;
             if (weatherSwitch) {
                 $('.weather').show();
             } else {
                 $('.weather').hide();
             }
 
+            var searchInputShow = config.searchInputShow;
             if (searchInputShow) {
                 $.ajax({
                     url: 'https://v2.jinrishici.com/one.json',
@@ -67,6 +78,9 @@ function getConfig() {
             } else {
                 $('.search').attr('placeholder', '');
             }
+
+            searchEngines = config.searchEngines;
+
         }
     });
 }

@@ -9,7 +9,8 @@
 
 
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css"
+          rel="stylesheet">
 
     <script src="js/util.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -35,8 +36,13 @@
             margin-right: 0px;
         }
 
-        .config{
+        .config {
             display: none;
+        }
+
+        #searchengines {
+            display: inline;
+            width: 150px;
         }
     </style>
 </head>
@@ -97,12 +103,22 @@
     <!-- 全局配置  0-->
     <div class="config">
         <div class="form-group">
-            <label for="weatherSwitch">天气开关:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="checkbox" name="weatherswitch" >
+            <label for="weatherswitch">天气开关:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" id="weatherswitch">
         </div>
         <div class="form-group">
-            <label for="searchInputShow">搜索框展示古诗词开关:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="checkbox" name="searchinputshow" >
+            <label for="searchinputshow">搜索框展示古诗词开关:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" id="searchinputshow">
+        </div>
+        <div class="form-group">
+            <label for="searchengines">搜索引擎:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <select class="form-control" id="searchengines">
+                <option value="https://www.baidu.com/s?wd=">百度</option>
+                <option value="https://www.google.com/search?q=">Google</option>
+                <option value="http://www.bing.com/search?q=">必应</option>
+                <option value="http://www.so.com/s?q=">360搜索</option>
+                <option value="http://www.sogou.com/sogou?query=">搜狗搜索</option>
+            </select>
         </div>
 
         <button id="editconfig" class="btn btn-primary btn-block">修改</button>
