@@ -1,10 +1,13 @@
 var userInfo = Util.getUserInfo();
 var searchEngines;
 
+var url = document.location.toString();
+var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
+
 function search() {
     if ($("#search_input").val() != "") {
         // window.location.href = "https://www.baidu.com/s?word=" + document.getElementById("search_input").value;
-        if(!searchEngines) {
+        if (!searchEngines) {
             searchEngines = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
         }
         window.open(searchEngines + $("#search_input").val());
@@ -55,9 +58,8 @@ function getConfig() {
 
             var weatherSwitch = config.weatherSwitch;
             if (weatherSwitch) {
-                $('.weather').show();
-            } else {
-                $('.weather').hide();
+                $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
+                    'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>')
             }
 
             var searchInputShow = config.searchInputShow;
@@ -79,8 +81,22 @@ function getConfig() {
                 $('.search').attr('placeholder', '');
             }
 
+            var logoShow = config.logoShow;
+            if (logoShow) {
+                $('.logo').attr('href', 'https://www.google.com');
+                $(".smaller").attr('src', 'img/google.gif');
+            }
+
             searchEngines = config.searchEngines;
 
+            var backgroundImgShow = config.backgroundImgShow;
+            if (backgroundImgShow) {
+                var backgroundImgUrl = config.backgroundImgUrl;
+                if (backgroundImgUrl) {
+                    var url = imgurl + backgroundImgUrl.split("/")[5];
+                    $('body').css("background-image", "url('" + url + "')");
+                }
+            }
         }
     });
 }

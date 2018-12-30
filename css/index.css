@@ -15,10 +15,15 @@
 body {
     text-align: center;
     background-color: #ffffff;
+    /*-moz-background-size: 100% 100%;*/
+    background-size: 100%;
+
+    /*background-repeat: no-repeat;*/
+    /*background-position-x: center;*/
+    /*background-position-y: center;*/
 }
 
-.weather{
-    display: none;
+.weather {
     float: left;
     padding: 10px;
     margin-top: 10px;
@@ -46,7 +51,7 @@ logo图标样式
 
 
 img.smaller {
-    width: 192px;
+    /*width: 192px;*/
     height: 108px;
     max-width: 250px;
     animation: flipInX 4s;

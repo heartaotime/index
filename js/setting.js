@@ -6,6 +6,8 @@ var menuname;
 var menuurl;
 var sort;
 
+var url = document.location.toString();
+var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
 
 $(function () {
     userInfo = Util.getUserInfo();
@@ -133,6 +135,14 @@ $('#menuimg').on('change', function () {
     reader.readAsDataURL($('#menuimg')[0].files[0]);
     reader.onload = function (event) {
         $('#menuimgurl').attr('src', event.target.result);
+    }
+});
+
+$('#backgroundimg').on('change', function () {
+    var reader = new FileReader();
+    reader.readAsDataURL($('#backgroundimg')[0].files[0]);
+    reader.onload = function (event) {
+        $('#backgroundimgurl').attr('src', event.target.result);
     }
 });
 
@@ -305,24 +315,61 @@ $("#config").on("click", function () {
             }
             $("#searchinputshow").bootstrapSwitch();
 
+            var logoShow = config.logoShow;
+            if (logoShow) {
+                $("#logoshow").attr('checked', true);
+            }
+            $("#logoshow").bootstrapSwitch();
+
             var searchEngines = config.searchEngines;
-            $('#searchengines').find('option[value="'+ searchEngines +'"]').attr('selected', true)
+            $('#searchengines').find('option[value="' + searchEngines + '"]').attr('selected', true);
 
+            var backgroundImgShow = config.backgroundImgShow;
+            if (backgroundImgShow) {
+                $("#backgroundimgshow").attr('checked', true);
+            }
+            $("#backgroundimgshow").bootstrapSwitch();
 
+            var backgroundImgUrl = config.backgroundImgUrl;
+            if (backgroundImgUrl) {
+                var url = imgurl + backgroundImgUrl.split("/")[5];
+                // var reader = new FileReader();
+                // reader.readAsDataURL(url);
+                // reader.onload = function (event) {
+                //     $('#backgroundimgurl').attr('src', event.target.result);
+                // }
+                $('#backgroundimgurl').attr('src', url);
+            }
         }
     });
 
 });
 
+// $("#backgroundimgshow").on('click', function () {
+//     if ($(this).is(":checked")) {
+//         $("label[for=backgroundimg]").show();
+//     } else {
+//         $("label[for=backgroundimg]").hide();
+//     }
+// });
+
 $("#editconfig").on("click", function () {
     var weatherswitch = $("#weatherswitch").is(':checked');
     var searchinputshow = $("#searchinputshow").is(':checked');
     var searchengines = $("#searchengines").val();
+
+    var logoshow = $("#logoshow").is(':checked');
+
+    var backgroundimgshow = $("#backgroundimgshow").is(':checked');
+    var backgroundimgurl = $('#backgroundimgurl').attr('src');
     var param = {
         userid: userInfo.id,
         weatherSwitch: weatherswitch,
         searchInputShow: searchinputshow,
-        searchEngines: searchengines
+        searchEngines: searchengines,
+        logoShow: logoshow,
+        backgroundImgShow: backgroundimgshow,
+        backgroundImgUrl: backgroundimgurl
     };
     Util.postJson("./common-server/user/api/v1/editConfig", param, function (response) {
         if (response.code != 0) {
