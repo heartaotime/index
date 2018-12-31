@@ -377,6 +377,7 @@ $("#editconfig").on("click", function () {
             return;
         }
         alert("修改成功，返回到导航页刷新页面即可看到效果哦");
+        $("#config").trigger("click");
     });
 
 });
