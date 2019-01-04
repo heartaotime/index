@@ -309,6 +309,11 @@ $("#config").on("click", function () {
             }
             $("#weatherswitch").bootstrapSwitch();
 
+            var weatherCity = config.weatherCity;
+            if (weatherCity) {
+                $("#weathercity").val(weatherCity);
+            }
+
             var searchInputShow = config.searchInputShow;
             if (searchInputShow) {
                 $("#searchinputshow").attr('checked', true);
@@ -355,6 +360,7 @@ $("#config").on("click", function () {
 
 $("#editconfig").on("click", function () {
     var weatherswitch = $("#weatherswitch").is(':checked');
+    var weathercity = $("#weathercity").val();
     var searchinputshow = $("#searchinputshow").is(':checked');
     var searchengines = $("#searchengines").val();
 
@@ -365,6 +371,7 @@ $("#editconfig").on("click", function () {
     var param = {
         userid: userInfo.id,
         weatherSwitch: weatherswitch,
+        weatherCity: weathercity,
         searchInputShow: searchinputshow,
         searchEngines: searchengines,
         logoShow: logoshow,
