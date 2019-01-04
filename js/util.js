@@ -85,49 +85,10 @@ window.Util = (function () {
         }()
     }
 
-    var getLocation = function (callback) {
-        var geolocation = new BMap.Geolocation();
-        geolocation.getCurrentPosition(function (r) {
-            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-                var mk = new BMap.Marker(r.point);
-                var currentLat = r.point.lat;
-                var currentLon = r.point.lng;
-                var pt = new BMap.Point(currentLon, currentLat);
-                var geoc = new BMap.Geocoder();
-                geoc.getLocation(pt, function (rs) {
-                    var addComp = rs.addressComponents;
-                    var city = addComp.city;
-                    var addComp = rs.addressComponents;
-                    var texts = addComp.district + "-" + addComp.street + "-" + addComp.streetNumber;
-                    //获取地理位置成功，跳转
-                    // console.log(city + '-' + texts);
-                    callback(city);
-                });
-            }
-        });
-
-
-    };
-
-    var getWeather = function (callback) {
-        getLocation(function (city) {
-            $.ajax({
-                async: true,
-                type: "GET",
-                url: "http://wthrcdn.etouch.cn/weather_mini?city=" + city,
-                success: function (res) {
-                    // console.log(city + '-' + res);
-                    callback(JSON.parse(res));
-                }
-            });
-        });
-    }
 
     return {
         postJson: postJson,
         getUserInfo: getUserInfo,
-        browser: browser,
-        getLocation: getLocation,
-        getWeather: getWeather
+        browser: browser
     }
 })();

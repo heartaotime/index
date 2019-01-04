@@ -61,38 +61,44 @@ function getConfig() {
 
                 var weatherCity = config.weatherCity;
                 if (weatherCity && weatherCity.replace(/\s+/g, '') != '') {
-                    //加载天气查询插件
-                    AMap.plugin('AMap.Weather', function () {
-                        //创建天气查询实例
-                        var weather = new AMap.Weather();
-                        //执行实时天气信息查询
-                        weather.getForecast(weatherCity, function (err, data) {
-                            console.log(err, data);
-                            if (data && data.info == 'OK') {
-                                var city = data.city;
-                                var c = data.forecasts[0].nightTemp + '℃ ~ ' + data.forecasts[0].dayTemp + '℃';
-                                var dayWeather = data.forecasts[0].dayWeather;
-                                var html = '<span>' + city + ' ' + dayWeather + ' ' + c + '</span>';
-                                $('.weather').append(html);
+                    setWeather(weatherCity);
+                } else {
+                    AMap.plugin('AMap.Geolocation', function () {
+                        var geolocation = new AMap.Geolocation({
+                            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                            timeout: 10000,          //超过10秒后停止定位，默认：5s
+                            // buttonPosition: 'RB',    //定位按钮的停靠位置
+                            // buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                            // zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+                        });
+                        geolocation.getCurrentPosition(function (status, result) {
+                            if (status == 'complete') {
+                                setWeather(result.addressComponent.city);
+                            } else {
+                                // alert('自动精准定位失败(建议在设置页面填写所在城市)\r\n' +
+                                //     'ps:其他解决方法\r\n' +
+                                //     '1.请确认浏览器已打开允许访问位置信息；\r\n' +
+                                //     '2.请使用https访问该页面(https://106.13.46.83/)；\r\n' +
+                                //     '3.如果1和2都已确认无误仍出错，请尝试在设置页面填写所在城市；\r\n' +
+                                //     '4.如果发现在手机端(via等)浏览器中使用https链接访问获取天气很慢，建议在设置页面填写所在城市');
+
+                                AMap.plugin('AMap.CitySearch', function () {
+                                    var citySearch = new AMap.CitySearch()
+                                    citySearch.getLocalCity(function (status, result) {
+                                        if (status === 'complete' && result.info === 'OK') {
+                                            // 查询成功，result即为当前所在城市信息
+                                            setWeather(result.city);
+                                        }
+                                    })
+                                });
                             }
                         });
                     });
-                } else {
-                    $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
-                        'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>');
-                }
 
-                // Util.getWeather(function (res) {
-                //     if (res && res.status == 1000) {
-                //         var data = res.data;
-                //         var city = data.city;
-                //         var c = data.forecast[0].low.split(' ')[1] + '~' + data.forecast[0].high.split(' ')[1];
-                //         var type = data.forecast[0].type;
-                //
-                //         var html = '<span>' + city + ' ' + type + ' ' + c + '</span>';
-                //         $('.weather').append(html);
-                //     }
-                // });
+
+                }
+                // $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
+                //     'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>');
             }
 
             var searchInputShow = config.searchInputShow;
@@ -135,6 +141,26 @@ function getConfig() {
 }
 
 
+function setWeather(weatherCity) {
+    //加载天气查询插件
+    AMap.plugin('AMap.Weather', function () {
+        //创建天气查询实例
+        var weather = new AMap.Weather();
+        //执行实时天气信息查询
+        weather.getForecast(weatherCity, function (err, data) {
+            // console.log(err, data);
+            if (data && data.info == 'OK') {
+                var city = data.city;
+                var c = data.forecasts[0].nightTemp + '℃ ~ ' + data.forecasts[0].dayTemp + '℃';
+                var dayWeather = data.forecasts[0].dayWeather;
+                var html = '<span>' + city + ' ' + dayWeather + ' ' + c + '</span>';
+                $('.weather').append(html);
+            }
+        });
+    });
+}
+
+
 $(function () {
     if (userInfo) {
         getIndex();
@@ -142,62 +168,18 @@ $(function () {
     }
 
 
-    // AMap.plugin('AMap.Geolocation', function () {
-    //     var geolocation = new AMap.Geolocation({
-    //         enableHighAccuracy: true,//是否使用高精度定位，默认:true
-    //         timeout: 10000,          //超过10秒后停止定位，默认：5s
-    //         buttonPosition: 'RB',    //定位按钮的停靠位置
-    //         buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-    //         zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
-    //     });
-    //     geolocation.getCurrentPosition(function (status, result) {
-    //         if (status == 'complete') {
-    //             onComplete(result)
-    //         } else {
-    //             onError(result)
-    //         }
-    //     });
-    // });
-    //
-    // //解析定位结果
-    // function onComplete(data) {
-    //     var str = [];
-    //     str.push('定位结果：' + data.position);
-    //     str.push('定位类别：' + data.location_type);
-    //     if (data.accuracy) {
-    //         str.push('精度：' + data.accuracy + ' 米');
-    //     }//如为IP精确定位结果则没有精度信息
-    //     str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
-    //
-    //     console.log(str);
-    // }
-    //
-    // //解析定位错误信息
-    // function onError(data) {
-    //     console.log(data);
-    // }
-
-
     //获取用户所在城市信息
-    // function showCityInfo() {
-    //     //实例化城市查询类
-    //     var citysearch = new AMap.CitySearch();
-    //     //自动获取用户IP，返回当前城市
-    //     citysearch.getLocalCity(function (status, result) {
+    // AMap.plugin('AMap.CitySearch', function () {
+    //     var citySearch = new AMap.CitySearch()
+    //     citySearch.getLocalCity(function (status, result) {
+    //         alert(status);
     //         if (status === 'complete' && result.info === 'OK') {
-    //             if (result && result.city && result.bounds) {
-    //                 var cityinfo = result.city;
-    //                 var citybounds = result.bounds;
-    //                 var str = '您当前所在城市：' + cityinfo;
-    //                 console.log(str);
-    //                 alert(str);
-    //             }
-    //         } else {
-    //             alert(result.info);
+    //             // 查询成功，result即为当前所在城市信息
+    //             console.log(result.city);
+    //             alert(result.city);
     //         }
-    //     });
-    // }
-    // showCityInfo();
+    //     })
+    // });
 
     // if (navigator.geolocation && navigator.geolocation.getCurrentPosition) {
     //     navigator.geolocation.getCurrentPosition(function (position) {
