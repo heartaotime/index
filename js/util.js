@@ -50,7 +50,7 @@ window.Util = (function () {
 
                 }
                 console.error('ajax post error, ', e);
-                alert('出错了[status=' + e.status + ', statusText=' + e.statusText + ']')
+                // alert('出错了[status=' + e.status + ', statusText=' + e.statusText + ']')
             }
         });
     };

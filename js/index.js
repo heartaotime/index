@@ -60,7 +60,7 @@ function getConfig() {
             if (weatherSwitch) {
 
                 var weatherCity = config.weatherCity;
-                if (weatherCity) {
+                if (weatherCity && weatherCity.replace(/\s+/g, '') != '') {
                     //加载天气查询插件
                     AMap.plugin('AMap.Weather', function () {
                         //创建天气查询实例
@@ -77,6 +77,9 @@ function getConfig() {
                             }
                         });
                     });
+                } else {
+                    $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
+                        'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>');
                 }
 
                 // Util.getWeather(function (res) {
@@ -90,9 +93,6 @@ function getConfig() {
                 //         $('.weather').append(html);
                 //     }
                 // });
-
-                // $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
-                //     'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>')
             }
 
             var searchInputShow = config.searchInputShow;
