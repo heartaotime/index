@@ -58,8 +58,19 @@ function getConfig() {
 
             var weatherSwitch = config.weatherSwitch;
             if (weatherSwitch) {
-                $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
-                    'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>')
+                Util.getWeather(function (res) {
+                    if (res && res.status == 1000) {
+                        var data = res.data;
+                        var city = data.city;
+                        var c = data.forecast[0].low.split(' ')[1] + '~' + data.forecast[0].high.split(' ')[1];
+                        var type = data.forecast[0].type;
+
+                        var html = '<span>' + city + ' ' + type + ' ' + c + '</span>';
+                        $('.weather').append(html);
+                    }
+                });
+                // $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
+                //     'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>')
             }
 
             var searchInputShow = config.searchInputShow;
@@ -101,13 +112,28 @@ function getConfig() {
     });
 }
 
-// $('.search').on('change', function () {
-//     $(this).val('');
-// });
 
 $(function () {
     if (userInfo) {
         getIndex();
         getConfig();
     }
+
+
+    // if (navigator.geolocation && navigator.geolocation.getCurrentPosition) {
+    //     navigator.geolocation.getCurrentPosition(function (position) {
+    //         alert(1);
+    //         // console.log("Latitude: " + position.coords.latitude);
+    //         // console.log("Longitude: " + position.coords.longitude);
+    //     }, function (error) {
+    //         console.log(error);
+    //     }, {
+    //         enableHighAccuracy: true,
+    //         maximumAge: 30000,
+    //         timeout: 20000
+    //     });
+    // } else {
+    //     alert('当前浏览器不支持获取位置信息');
+    // }
+
 });
