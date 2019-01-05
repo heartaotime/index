@@ -1,3 +1,4 @@
+Util.statistics('index');
 var userInfo = Util.getUserInfo();
 var searchEngines;
 
@@ -177,13 +178,11 @@ function setWeather(weatherCity) {
     });
 }
 
-
 $(function () {
     if (userInfo) {
         getIndex();
         getConfig();
     }
-
 
     //获取用户所在城市信息
     // AMap.plugin('AMap.CitySearch', function () {
