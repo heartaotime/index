@@ -1,3 +1,4 @@
+Util.statistics('setting');
 var rowid = -1;
 var userInfo;
 
@@ -290,7 +291,7 @@ $('#submit').on('click', function () {
         //     expires: 10
         // });
 
-        if(localStorage) {
+        if (localStorage) {
             localStorage.setItem("userInfo", JSON.stringify(response.userInfo));
         }
     });

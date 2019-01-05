@@ -1,3 +1,4 @@
+Util.statistics('index');
 var userInfo = Util.getUserInfo();
 var searchEngines;
 
@@ -130,6 +131,7 @@ function getConfig() {
                         if (result && result.status == 'success') {
                             var content = result.data.content.split('，')[0];
                             $('.search').attr('placeholder', '✎...  ' + content + '～');
+                            // document.title = content;
                         }
                     }
                 });
@@ -177,13 +179,11 @@ function setWeather(weatherCity) {
     });
 }
 
-
 $(function () {
     if (userInfo) {
         getIndex();
         getConfig();
     }
-
 
     //获取用户所在城市信息
     // AMap.plugin('AMap.CitySearch', function () {
