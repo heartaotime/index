@@ -56,11 +56,17 @@ window.Util = (function () {
     };
 
     var getUserInfo = function getUserInfo() {
+        if (localStorage && localStorage.getItem("userInfo")) {
+            console.log('get userinfo from localStorage is exist');
+            return JSON.parse(localStorage.getItem("userInfo"));
+        }
+
         var userInfo;
         var userInfo_cookie = $.cookie("userInfo");
         if (userInfo_cookie) {
+            localStorage.setItem("userInfo", userInfo_cookie);
             userInfo = JSON.parse(userInfo_cookie);
-            // console.log('get userinfo from cookie is exist, ', userInfo);
+            $.removeCookie("userInfo");
             console.log('get userinfo from cookie is exist');
         }
         return userInfo;

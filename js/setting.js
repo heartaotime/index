@@ -64,6 +64,7 @@ function getIndex() {
     var param = {
         userid: userInfo.id
     };
+    var key = 'index';
     Util.postJson("./common-server/user/api/v1/index", param, function (response) {
         if (response.code != 0) {
             alert(response.message);
@@ -77,6 +78,9 @@ function getIndex() {
                 '</li>';
             $('#list ul').append(html);
         });
+        if (localStorage) {
+            localStorage.setItem(key, JSON.stringify(result));
+        }
     });
 }
 
@@ -165,6 +169,10 @@ function addIndex() {
         }
         alert("新增成功，返回到导航页刷新页面即可看到效果哦");
         reset();
+        var key = 'index';
+        if (localStorage) {
+            localStorage.removeItem(key);
+        }
     });
 
 
@@ -195,6 +203,10 @@ function editIndex() {
         }
         alert("修改成功，返回到导航页刷新页面即可看到效果哦");
         $('#editIndex').trigger('click');
+        var key = 'index';
+        if (localStorage) {
+            localStorage.removeItem(key);
+        }
     });
 }
 
@@ -216,6 +228,10 @@ function delIndex() {
             }
             alert("删除成功");
             $('#editIndex').trigger('click');
+            var key = 'index';
+            if (localStorage) {
+                localStorage.removeItem(key);
+            }
         });
     }
 
@@ -270,9 +286,13 @@ $('#submit').on('click', function () {
         userInfo = response.userInfo;
 
         // 设置cookie的有效期为10天
-        $.cookie("userInfo", JSON.stringify(response.userInfo), {
-            expires: 10
-        });
+        // $.cookie("userInfo", JSON.stringify(response.userInfo), {
+        //     expires: 10
+        // });
+
+        if(localStorage) {
+            localStorage.setItem("userInfo", JSON.stringify(response.userInfo));
+        }
     });
 });
 

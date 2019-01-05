@@ -27,17 +27,34 @@ function getIndex() {
     var param = {
         userid: userInfo.id
     };
-    Util.postJson("./common-server/user/api/v1/index", param, function (response) {
-        if (response.code != 0) {
-            alert(response.message);
-            return;
-        }
-        $.each(response.result, function (i, v) {
-            $('#copy a').attr('href', v.menuUrl);
-            $('#copy img').attr('src', v.menuImgUrl);
-            $('#copy p:eq(1)').html(v.menuName);
-            $('.boxs').append($('#copy').html());
+
+    var key = 'index';
+    var result;
+    if (localStorage && localStorage.getItem(key)) {
+        result = JSON.parse(localStorage.getItem(key));
+        setIndexInfo(result);
+    } else {
+        Util.postJson("./common-server/user/api/v1/index", param, function (response) {
+            if (response.code != 0) {
+                alert(response.message);
+                return;
+            }
+            result = response.result;
+            setIndexInfo(result);
+            if (localStorage) {
+                localStorage.setItem(key, JSON.stringify(result));
+            }
         });
+    }
+
+}
+
+function setIndexInfo(result) {
+    $.each(result, function (i, v) {
+        $('#copy a').attr('href', v.menuUrl);
+        $('#copy img').attr('src', v.menuImgUrl);
+        $('#copy p:eq(1)').html(v.menuName);
+        $('.boxs').append($('#copy').html());
     });
 }
 
