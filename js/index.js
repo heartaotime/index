@@ -165,7 +165,7 @@ function setWeather(weatherCity) {
         var weather = new AMap.Weather();
         //执行实时天气信息查询
         weather.getForecast(weatherCity, function (err, data) {
-            // console.log(err, data);
+            // console.log(data);
             if (data && data.info == 'OK') {
                 var city = data.city;
                 var c = data.forecasts[0].nightTemp + '℃ ~ ' + data.forecasts[0].dayTemp + '℃';
