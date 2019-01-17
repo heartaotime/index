@@ -29,7 +29,7 @@ function getIndex() {
         userid: userInfo.id
     };
 
-    var key = 'index';
+    var key = 'index_' + userInfo.id;
     var result;
     if (localStorage && localStorage.getItem(key)) {
         result = JSON.parse(localStorage.getItem(key));

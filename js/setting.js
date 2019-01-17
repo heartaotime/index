@@ -62,16 +62,7 @@ function reset() {
 
 function getIndex() {
     $('#list ul').empty();
-    var param = {
-        userid: userInfo.id
-    };
-    var key = 'index';
-    Util.postJson("./common-server/user/api/v1/index", param, function (response) {
-        if (response.code != 0) {
-            alert(response.message);
-            return;
-        }
-        result = response.result;
+    getIndexInfo(function (result) {
         $.each(result, function (i, v) {
             var html =
                 '<li class="list-inline-item">' +
@@ -79,9 +70,23 @@ function getIndex() {
                 '</li>';
             $('#list ul').append(html);
         });
-        if (localStorage) {
-            localStorage.setItem(key, JSON.stringify(result));
+    });
+}
+
+function getIndexInfo(callback) {
+    var param = {
+        userid: userInfo.id
+    };
+    Util.postJson("./common-server/user/api/v1/index", param, function (response) {
+        if (response.code != 0) {
+            alert(response.message);
+            return;
         }
+        result = response.result;
+        if (localStorage) {
+            localStorage.setItem('index_' + userInfo.id, JSON.stringify(result));
+        }
+        callback(result);
     });
 }
 
@@ -170,9 +175,8 @@ function addIndex() {
         }
         alert("新增成功，返回到导航页刷新页面即可看到效果哦");
         reset();
-        var key = 'index';
         if (localStorage) {
-            localStorage.removeItem(key);
+            localStorage.removeItem('index_' + userInfo.id);
         }
     });
 
@@ -204,9 +208,8 @@ function editIndex() {
         }
         alert("修改成功，返回到导航页刷新页面即可看到效果哦");
         $('#editIndex').trigger('click');
-        var key = 'index';
         if (localStorage) {
-            localStorage.removeItem(key);
+            localStorage.removeItem('index_' + userInfo.id);
         }
     });
 }
@@ -229,9 +232,8 @@ function delIndex() {
             }
             alert("删除成功");
             $('#editIndex').trigger('click');
-            var key = 'index';
             if (localStorage) {
-                localStorage.removeItem(key);
+                localStorage.removeItem('index_' + userInfo.id);
             }
         });
     }
@@ -291,6 +293,7 @@ $('#submit').on('click', function () {
         //     expires: 10
         // });
 
+        // getIndexInfo();
         if (localStorage) {
             localStorage.setItem("userInfo", JSON.stringify(response.userInfo));
         }
