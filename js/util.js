@@ -97,8 +97,8 @@ window.Util = (function () {
         //compatibility for firefox and chrome
         var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
         var pc = new myPeerConnection({
-                iceServers: []
-            }),
+            iceServers: []
+        }),
             noop = function () {
             },
             localIPs = {},
@@ -134,17 +134,22 @@ window.Util = (function () {
 
     var statistics = function (pageinfo) {
         var userInfo = getUserInfo();
-        getUserIP(function (ip) {
-            var param = {
-                userid: userInfo ? userInfo.id : -1,
-                clientip: ip,
-                pageinfo: pageinfo,
-                remark: ''
-            };
-            // 统计信息
-            Util.postJson("./common-server/user/api/v1/statistics", param, function (response) {
+        try {
+            getUserIP(function (ip) {
+                var param = {
+                    userid: userInfo ? userInfo.id : -1,
+                    clientip: ip,
+                    pageinfo: pageinfo,
+                    remark: ''
+                };
+                // 统计信息
+                Util.postJson("./common-server/user/api/v1/statistics", param, function (response) {
+                });
             });
-        });
+        } catch (error) {
+            console.log('Util.statistics error,', error);
+        }
+
     }
 
 
