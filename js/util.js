@@ -97,8 +97,8 @@ window.Util = (function () {
         //compatibility for firefox and chrome
         var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
         var pc = new myPeerConnection({
-            iceServers: []
-        }),
+                iceServers: []
+            }),
             noop = function () {
             },
             localIPs = {},
