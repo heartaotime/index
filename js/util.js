@@ -60,20 +60,17 @@ window.Util = (function () {
     var getUserInfo = function () {
         if (localStorage && localStorage.getItem("userInfo")) {
             console.log('get userinfo from localStorage is exist');
-            var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-            return userInfo;
+            return JSON.parse(localStorage.getItem("userInfo"));
         }
-        return;
-        //
-        // var userInfo;
-        // var userInfo_cookie = $.cookie("userInfo");
-        // if (userInfo_cookie) {
-        //     localStorage.setItem("userInfo", userInfo_cookie);
-        //     userInfo = JSON.parse(userInfo_cookie);
-        //     $.removeCookie("userInfo");
-        //     console.log('get userinfo from cookie is exist');
-        // }
-        // return userInfo;
+        var userInfo;
+        var userInfo_cookie = $.cookie("userInfo");
+        if (userInfo_cookie) {
+            localStorage.setItem("userInfo", userInfo_cookie);
+            userInfo = JSON.parse(userInfo_cookie);
+            $.removeCookie("userInfo");
+            console.log('get userinfo from cookie is exist');
+        }
+        return userInfo;
     }
 
     var browser = {
