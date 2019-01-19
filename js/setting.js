@@ -112,6 +112,11 @@ $('#list').on('click', 'a[rowid]', function () {
 });
 
 function check() {
+    if (!userInfo) {
+        alert('请先登陆');
+        return false;
+    }
+
     menuname = $('#menuname').val();
     if (menuname == "") {
         alert("请输入网址名称");

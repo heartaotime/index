@@ -35,6 +35,10 @@
             white-space: nowrap;
         }
 
+        .main {
+            padding: 0 5px;
+        }
+
         .navbar-dark .navbar-brand {
             color: #c2c2c2;
         }
@@ -60,7 +64,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="main">
     <!-- 登陆/注册 0-->
     <div class="modal fade" id="logindiv" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
@@ -93,7 +97,6 @@
     </div>
     <!-- 登陆/注册 1-->
 
-
     <!-- 导航栏 0-->
     <nav class="navbar bg-dark navbar-dark" style="margin-bottom: 5px;">
         <div class="row">
@@ -111,6 +114,7 @@
         </div>
     </nav>
     <!-- 导航栏 1-->
+
 
     <!-- 全局配置  0-->
     <div class="config">
@@ -132,7 +136,8 @@
         <div class="form-group">
             <label for="weatherswitch">天气开关:</label>&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="checkbox" id="weatherswitch">&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" class="form-control" style="width: 100px;display: inline;" id="weathercity" placeholder="所在城市">
+            <input type="text" class="form-control" style="width: 100px;display: inline;" id="weathercity"
+                   placeholder="所在城市">
         </div>
         <div class="form-group">
             <label for="searchinputshow">搜索框展示古诗词开关:</label>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -157,7 +162,7 @@
 
     <!-- 修改导航  0-->
     <div id="list" class="collapse">
-        <ul class="list-inline">
+        <ul class="list-inline" style="padding: 0 5px;">
             <!--<li class="list-inline-item"><a href="#" class="btn btn-link">所有</a></li>-->
         </ul>
     </div>
