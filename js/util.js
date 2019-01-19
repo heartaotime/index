@@ -15,13 +15,25 @@ window.Util = (function () {
             showLoadingFlag = showLoading;
         }
 
+        var index;
+
         try {
             if (showLoadingFlag) {
-                $('#loading').modal('show');
+                try {
+                    index = layer.load(2);
+                } catch (e) {
+
+                }
+                try {
+                    $('#loading').modal('show');
+                } catch (e) {
+
+                }
             }
         } catch (e) {
 
         }
+
 
         $.ajax({
             type: "POST",
@@ -38,6 +50,11 @@ window.Util = (function () {
             dataType: "json", // 预期服务器返回的数据类型。如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断，比如 XML MIME 类型就被识别为 XML
             success: function (response) {
                 try {
+                    layer.close(index);
+                } catch (e) {
+
+                }
+                try {
                     $('#loading').modal('hide');
                 } catch (e) {
 
@@ -47,15 +64,27 @@ window.Util = (function () {
             },
             error: function (e) {
                 try {
+                    layer.close(index);
+                } catch (e) {
+
+                }
+                try {
                     $('#loading').modal('hide');
                 } catch (e) {
 
                 }
+                layer.close(index);
                 console.error('ajax post error, ', e);
                 // alert('出错了[status=' + e.status + ', statusText=' + e.statusText + ']')
             }
         });
     };
+
+    var setUserInfo = function (userInfo) {
+        if (localStorage) {
+            localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        }
+    }
 
     var getUserInfo = function () {
         if (localStorage && localStorage.getItem("userInfo")) {
@@ -147,16 +176,23 @@ window.Util = (function () {
             };
             // 统计信息
             Util.postJson("./common-server/user/api/v1/statistics", param, function (response) {
-            });
+            }, true, false);
         });
+    }
+
+    var tips = function (content) {
+        $('#tips .modal-body').html(content);
+        $('#tips').modal('show');
     }
 
 
     return {
         postJson: postJson,
+        setUserInfo: setUserInfo,
         getUserInfo: getUserInfo,
         browser: browser,
         getUserIP: getUserIP,
-        statistics: statistics
+        statistics: statistics,
+        tips: tips
     }
 })();

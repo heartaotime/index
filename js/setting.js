@@ -21,7 +21,7 @@ $(function () {
 
 $('#addIndex').on('click', function () {
     if (!userInfo) {
-        alert('请先登陆');
+        Util.tips('请先登陆');
         return;
     }
     reset();
@@ -29,7 +29,7 @@ $('#addIndex').on('click', function () {
 
 $('#editIndex').on('click', function () {
     if (!userInfo) {
-        alert('请先登陆');
+        Util.tips('请先登陆');
         return;
     }
     reset();
@@ -79,7 +79,7 @@ function getIndexInfo(callback) {
     };
     Util.postJson("./common-server/user/api/v1/index", param, function (response) {
         if (response.code != 0) {
-            alert(response.message);
+            Util.tips(response.message);
             return;
         }
         result = response.result;
@@ -113,31 +113,31 @@ $('#list').on('click', 'a[rowid]', function () {
 
 function check() {
     if (!userInfo) {
-        alert('请先登陆');
+        Util.tips('请先登陆');
         return false;
     }
 
     menuname = $('#menuname').val();
     if (menuname == "") {
-        alert("请输入网址名称");
+        Util.tips('请输入网址名称');
         return false;
     }
 
     menuurl = $('#menuurl').val();
     if (menuurl == "") {
-        alert("请输入网址链接");
+        Util.tips('请输入网址链接');
         return false;
     }
 
     // menuimgurl = $('#menuimgurl').val();
     // if (menuimgurl == "") {
-    //     alert("请选择网址对应图片");
+    //     Util.tips("请选择网址对应图片");
     //     return false;
     // }
 
     sort = $('#sort').val();
     if (sort == "") {
-        alert("请输入排序");
+        Util.tips('请输入排序');
         return false;
     }
 
@@ -175,10 +175,10 @@ function addIndex() {
     };
     Util.postJson("./common-server/user/api/v1/addIndex", param, function (response) {
         if (response.code != 0) {
-            alert(response.message);
+            Util.tips(response.message);
             return;
         }
-        alert("新增成功，返回到导航页刷新页面即可看到效果哦");
+        Util.tips("新增成功，返回到导航页刷新页面即可看到效果哦");
         reset();
         if (localStorage) {
             localStorage.removeItem('index_' + userInfo.id);
@@ -190,7 +190,7 @@ function addIndex() {
 
 function editIndex() {
     if (rowid == -1) {
-        alert('请选择一条记录修改');
+        Util.tips('请选择一条记录修改');
         return;
     }
 
@@ -208,10 +208,10 @@ function editIndex() {
     };
     Util.postJson("./common-server/user/api/v1/editIndex", param, function (response) {
         if (response.code != 0) {
-            alert(response.message);
+            Util.tips(response.message);
             return;
         }
-        alert("修改成功，返回到导航页刷新页面即可看到效果哦");
+        Util.tips("修改成功，返回到导航页刷新页面即可看到效果哦");
         $('#editIndex').trigger('click');
         if (localStorage) {
             localStorage.removeItem('index_' + userInfo.id);
@@ -221,7 +221,7 @@ function editIndex() {
 
 function delIndex() {
     if (rowid == -1) {
-        alert('请选择一条记录删除');
+        Util.tips('请选择一条记录删除');
         return;
     }
 
@@ -232,10 +232,10 @@ function delIndex() {
         };
         Util.postJson("./common-server/user/api/v1/delIndex", param, function (response) {
             if (response.code != 0) {
-                alert(response.message);
+                Util.tips(response.message);
                 return;
             }
-            alert("删除成功");
+            Util.tips("删除成功");
             $('#editIndex').trigger('click');
             if (localStorage) {
                 localStorage.removeItem('index_' + userInfo.id);
@@ -263,13 +263,13 @@ $('#delIndex').on('click', function () {
 $('#submit').on('click', function () {
     var username = $('#name').val();
     if (username == "") {
-        alert("请填写用户名");
+        Util.tips("请填写用户名");
         return;
     }
 
     var password = $('#pwd').val();
     if (password === "") {
-        alert("请填写密码");
+        Util.tips("请填写密码");
         return;
     }
 
@@ -279,7 +279,7 @@ $('#submit').on('click', function () {
     };
     Util.postJson("./common-server/user/api/v1/login", param, function (response) {
         if (response.code != 0) {
-            alert(response.message);
+            Util.tips(response.message);
             return;
         }
 
@@ -308,7 +308,7 @@ $('#submit').on('click', function () {
 
 $("#config").on("click", function () {
     if (!userInfo) {
-        alert('请先登陆');
+        Util.tips('请先登陆');
         return;
     }
 
@@ -324,7 +324,7 @@ $("#config").on("click", function () {
     };
     Util.postJson("./common-server/user/api/v1/getConfig", param, function (response) {
         if (response.code != 0) {
-            alert(response.message);
+            Util.tips(response.message);
             return;
         }
 
@@ -409,10 +409,10 @@ $("#editconfig").on("click", function () {
     };
     Util.postJson("./common-server/user/api/v1/editConfig", param, function (response) {
         if (response.code != 0) {
-            alert(response.message);
+            Util.tips(response.message);
             return;
         }
-        alert("修改成功，返回到导航页刷新页面即可看到效果哦");
+        Util.tips("修改成功，返回到导航页刷新页面即可看到效果哦");
         $("#config").trigger("click");
     });
 

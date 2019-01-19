@@ -60,42 +60,48 @@
             display: inline;
             width: 150px;
         }
+
+        body {
+            padding-right: 0 !important;
+        }
     </style>
 </head>
 <body>
 
-<div class="main">
-    <!-- 登陆/注册 0-->
-    <div class="modal fade" id="logindiv" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modelTitleId">登录&nbsp;&nbsp;</h5>
-                    <mark>
-                        <small>tips：账号不存在会自动注册哦</small>
-                    </mark>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+<!-- 登陆/注册 0-->
+<div class="modal fade" id="logindiv" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modelTitleId">登录&nbsp;&nbsp;</h5>
+                <mark>
+                    <small>tips：账号不存在会自动注册哦</small>
+                </mark>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name">用户名:</label>
+                    <input type="text" class="form-control" id="name" placeholder="请输入登录名" required autofocus>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="name">用户名:</label>
-                        <input type="text" class="form-control" id="name" placeholder="请输入登录名" required autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">密码:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="请输入密码" required>
-                    </div>
+                <div class="form-group">
+                    <label for="pwd">密码:</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="请输入密码" required>
                 </div>
-                <div class="modal-footer">
-                    <div style="width:100%">
-                        <button id="submit" class="btn btn-primary btn-block">登陆</button>
-                        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">关闭</button>
-                    </div>
+            </div>
+            <div class="modal-footer">
+                <div style="width:100%">
+                    <button id="submit" class="btn btn-primary btn-block">登陆</button>
+                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">关闭</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- 登陆/注册 1-->
+</div>
+<!-- 登陆/注册 1-->
+
+<div class="container">
 
     <!-- 导航栏 0-->
     <nav class="navbar bg-dark navbar-dark" style="margin-bottom: 5px;">
@@ -114,7 +120,6 @@
         </div>
     </nav>
     <!-- 导航栏 1-->
-
 
     <!-- 全局配置  0-->
     <div class="config">
@@ -204,6 +209,20 @@
 </div>
 
 
+<!-- tips 0 -->
+<div class="modal fade" id="tips" style="margin-top: 100px;" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm btn-block" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- tips 1 -->
+
 <!-- loading 0-->
 <div class="modal" id="loading" data-backdrop="static" data-keyboard="false"
      style="padding: 0px;margin:0px auto; width: 50%">
@@ -212,14 +231,11 @@
             <div class="modal-body">
                 <img src="./img/loading.gif" width="100%" height="100%" alt="loading">
             </div>
-            <div class="modal-footer" style="display:none;">
-                <button type="button" id="closeLoading" class="btn btn-secondary" data-dismiss="modal">Close
-                </button>
-            </div>
         </div>
     </div>
 </div>
 <!-- loading 1-->
+
 
 <script src="js/setting.js"></script>
 </body>
