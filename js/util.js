@@ -73,7 +73,6 @@ window.Util = (function () {
                 } catch (e) {
 
                 }
-                layer.close(index);
                 console.error('ajax post error, ', e);
                 // alert('出错了[status=' + e.status + ', statusText=' + e.statusText + ']')
             }

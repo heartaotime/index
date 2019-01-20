@@ -1,27 +1,31 @@
-var userInfo, from, rowid;
+var layer, element, form, userInfo, rowid;
 
 var url = document.location.toString();
 var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
 
 $(function () {
-    Util.statistics('setting');
     userInfo = Util.getUserInfo();
     if (userInfo) {
         $('.layui-tab-title li:eq(3)').html(userInfo.userName);
     }
 });
 
+function init() {
+    Util.statistics('setting');
+}
 
-layui.use('element', function () {
-    var element = layui.element;
+
+layui.use(['layer', 'element', 'form'], function () {
+    layer = layui.layer;
+    element = layui.element;
+    form = layui.form;
+
+    init();
 
     element.on('tab(tab)', function (data) {
-        // console.log(this); //当前Tab标题所在的原始DOM元素
-        // console.log(data.index); //得到当前Tab的所在下标
-        // console.log(data.elem); //得到当前的Tab大容器
         var index = data.index;
 
-        if(index == 0) {// 新增导航
+        if (index == 0) {// 新增导航
             if (!userInfo) {
                 layer.msg('请先登陆');
                 return;
@@ -45,10 +49,7 @@ layui.use('element', function () {
             }
         }
     });
-});
 
-layui.use('form', function () {
-    form = layui.form;
 
     form.on('submit(submit-add)', function (data) {
         if (!userInfo) {
@@ -210,7 +211,6 @@ layui.use('form', function () {
         });
         return false;
     });
-
 });
 
 $('#del').on('click', function () {
