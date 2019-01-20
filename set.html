@@ -79,7 +79,7 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="submit-add">提交</button>
+                        <button class="layui-btn" lay-submit lay-filter="submit-add">新增</button>
                         <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">修改项</label>
                     <div class="layui-input-inline">
-                        <select name="index" lay-search lay-filter="select-index">
+                        <select name="index" lay-filter="select-index">
                         </select>
                     </div>
                 </div>
@@ -123,7 +123,6 @@
                         <input hidden type="file" id="menuimg-edit" name="menuimg"
                                accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"/>
                     </div>
-
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">排序</label>
@@ -136,8 +135,12 @@
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <input hidden name="rowid" value=""/>
-                        <button class="layui-btn" lay-submit lay-filter="submit-edit">修改</button>
-                        <button class="layui-btn layui-btn-danger" lay-submit lay-filter="submit-del">删除</button>
+                        <button name="btn-edit" disabled class="layui-btn layui-btn-disabled" lay-submit
+                                lay-filter="submit-edit">修改
+                        </button>
+                        <button name="btn-del" disabled class="layui-btn layui-btn-danger layui-btn-disabled" id="del">
+                            删除
+                        </button>
                         <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
                     </div>
                 </div>
@@ -213,14 +216,16 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="username" autofocus lay-verify="required" placeholder="请输入登录名"
+                        <input type="text" name="username" autofocus lay-verify="required" lay-verType="tips"
+                               placeholder="请输入登录名"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="password" lay-verify="required" placeholder="请输入密码"
+                        <input type="password" name="password" lay-verify="required" lay-verType="tips"
+                               placeholder="请输入密码"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
