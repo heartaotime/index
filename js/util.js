@@ -90,15 +90,13 @@ window.Util = (function () {
             console.log('get userinfo from localStorage is exist');
             return JSON.parse(localStorage.getItem("userInfo"));
         }
-        // var userInfo;
-        // var userInfo_cookie = $.cookie("userInfo");
-        // if (userInfo_cookie) {
-        //     localStorage.setItem("userInfo", userInfo_cookie);
-        //     userInfo = JSON.parse(userInfo_cookie);
-        //     $.removeCookie("userInfo");
-        //     console.log('get userinfo from cookie is exist');
-        // }
         return;
+    }
+
+    var removeUserInfo = function () {
+        if (localStorage) {
+            localStorage.removeItem("userInfo");
+        }
     }
 
     var browser = {
@@ -189,6 +187,7 @@ window.Util = (function () {
         postJson: postJson,
         setUserInfo: setUserInfo,
         getUserInfo: getUserInfo,
+        removeUserInfo: removeUserInfo,
         browser: browser,
         getUserIP: getUserIP,
         statistics: statistics,

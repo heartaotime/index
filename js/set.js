@@ -265,6 +265,18 @@ $('#del').on('click', function () {
     });
 });
 
+$('#logout').on('click', function () {
+    if (!userInfo) {
+        layer.msg('请先登陆');
+        return;
+    }
+    var html = '<span style="color: #FFB800;">确认退出[' + userInfo.userName + ']吗?</span>';
+    layer.confirm(html, {icon: 3, title: '提示'}, function (index) {
+        Util.removeUserInfo();
+        layer.msg('退出成功');
+        history.go(0);
+    });
+});
 
 function refreshSelect(callback) {
     getIndexInfo(function (data) {
