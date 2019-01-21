@@ -2,7 +2,7 @@ window.Util = (function () {
 
     // 引入jquery
     document.write('<script src = "https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>');
-    document.write('<script src = "https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>');
+    // document.write('<script src = "https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>');
 
     var postJson = function (url, data, callback, async, showLoading) {
         var asyncFlag = true;
@@ -20,7 +20,7 @@ window.Util = (function () {
         try {
             if (showLoadingFlag) {
                 try {
-                    index = layer.load(2);
+                    index = layer.load(1);
                 } catch (e) {
 
                 }
@@ -90,15 +90,15 @@ window.Util = (function () {
             console.log('get userinfo from localStorage is exist');
             return JSON.parse(localStorage.getItem("userInfo"));
         }
-        var userInfo;
-        var userInfo_cookie = $.cookie("userInfo");
-        if (userInfo_cookie) {
-            localStorage.setItem("userInfo", userInfo_cookie);
-            userInfo = JSON.parse(userInfo_cookie);
-            $.removeCookie("userInfo");
-            console.log('get userinfo from cookie is exist');
-        }
-        return userInfo;
+        // var userInfo;
+        // var userInfo_cookie = $.cookie("userInfo");
+        // if (userInfo_cookie) {
+        //     localStorage.setItem("userInfo", userInfo_cookie);
+        //     userInfo = JSON.parse(userInfo_cookie);
+        //     $.removeCookie("userInfo");
+        //     console.log('get userinfo from cookie is exist');
+        // }
+        return;
     }
 
     var browser = {
