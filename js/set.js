@@ -100,14 +100,12 @@ layui.use(['layer', 'element', 'form'], function () {
                 return;
             }
             userInfo = response.userInfo;
+            if (localStorage) {
+                localStorage.clear();
+            }
             Util.setUserInfo(response.userInfo);
             $('.layui-tab-title li:eq(3)').html(response.userInfo.userName);
             layer.msg("登陆成功[" + response.userInfo.userName + "]");
-
-            // 删除数据
-            if (localStorage) {
-                localStorage.removeItem('index_' + userInfo.id);
-            }
 
             // 更新修改导航页面
             rowid = undefined;
@@ -272,7 +270,9 @@ $('#logout').on('click', function () {
     }
     var html = '<span style="color: #FFB800;">确认退出[' + userInfo.userName + ']吗?</span>';
     layer.confirm(html, {icon: 3, title: '提示'}, function (index) {
-        Util.removeUserInfo();
+        if (localStorage) {
+            localStorage.clear();
+        }
         layer.msg('退出成功');
         history.go(0);
     });
