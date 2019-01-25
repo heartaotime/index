@@ -34,7 +34,7 @@ window.Util = (function () {
 
         }
 
-
+        console.log('req url, ', url, '\nreq param, ', data);
         $.ajax({
             type: "POST",
             url: url,
