@@ -349,6 +349,21 @@ $('#backgroundimg').on('change', function () {
     }
 });
 
+$('#donate').on('click', function () {
+    layer.open({
+        title: '打开支付宝扫一扫',
+        offset: '100px',
+        content: '<image src="./img/donate.png" width="220px"/><br/><br/>或复制支付宝账号：<br/>heartaotime@foxmail.com',
+        closeBtn: 0, // 不显示关闭按钮
+        btn: ['关闭'],
+        btnAlign: 'c',
+        // yes: function (index, layero) {
+        //     layer.close(index); //如果设定了yes回调，需进行手工关闭
+        //     // return false;// 开启该代码可禁止点击该按钮关闭
+        // }
+    });
+});
+
 
 function getConfig() {
     if (!userInfo) {
