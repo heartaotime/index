@@ -141,8 +141,13 @@ function getConfig() {
 
             var logoShow = config.logoShow;
             if (logoShow) {
-                $('.logo').attr('href', 'https://www.google.com');
-                $(".smaller").attr('src', 'img/google.gif');
+                // $('.logo').attr('href', 'https://www.google.com');
+                // $(".smaller").attr('src', 'img/google.gif');
+                var logoImgUrl = config.logoImgUrl;
+                if (logoImgUrl) {
+                    logoImgUrl = imgurl + logoImgUrl.split("/")[5];
+                    $(".smaller").attr('src', logoImgUrl);
+                }
             }
 
             searchEngines = config.searchEngines;
@@ -151,8 +156,8 @@ function getConfig() {
             if (backgroundImgShow) {
                 var backgroundImgUrl = config.backgroundImgUrl;
                 if (backgroundImgUrl) {
-                    var url = imgurl + backgroundImgUrl.split("/")[5];
-                    $('body').css("background-image", "url('" + url + "')");
+                    backgroundImgUrl = imgurl + backgroundImgUrl.split("/")[5];
+                    $('body').css("background-image", "url('" + backgroundImgUrl + "')");
                 }
             }
         }

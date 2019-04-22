@@ -196,6 +196,7 @@ layui.use(['layer', 'element', 'form'], function () {
             searchInputShow: field.searchinputshow == 'on' ? true : false,
             searchEngines: field.searchengines,
             logoShow: field.logoshow == 'on' ? true : false,
+            logoImgUrl: $('#logoimgurl').attr('src'),
             backgroundImgShow: field.backgroundimgshow == 'on' ? true : false,
             backgroundImgUrl: $('#backgroundimgurl').attr('src')
         }
@@ -341,6 +342,14 @@ $('#menuimg-edit').on('change', function () {
     }
 });
 
+$('#logoimg').on('change', function () {
+    var reader = new FileReader();
+    reader.readAsDataURL($('#logoimg')[0].files[0]);
+    reader.onload = function (event) {
+        $('#logoimgurl').attr('src', event.target.result);
+    }
+});
+
 $('#backgroundimg').on('change', function () {
     var reader = new FileReader();
     reader.readAsDataURL($('#backgroundimg')[0].files[0]);
@@ -419,14 +428,19 @@ function getConfig() {
             var res = {
                 "searchengines": config.searchEngines,
                 "logoshow": config.logoShow,
+                //logoImgUrl: $('#logoimgurl').attr('src'),
                 "weatherswitch": config.weatherSwitch,
                 "weathercity": config.weatherCity,
                 "searchinputshow": config.searchInputShow,
                 "backgroundimgshow": config.backgroundImgShow
             }
             form.val("config", res);
-            var url = imgurl + config.backgroundImgUrl.split("/")[5];
-            $('#backgroundimgurl').attr('src', url);
+
+            var logoImgUrl = imgurl + config.logoImgUrl.split("/")[5];
+            $('#logoimgurl').attr('src', logoImgUrl);
+
+            var backgroundImgUrl = imgurl + config.backgroundImgUrl.split("/")[5];
+            $('#backgroundimgurl').attr('src', backgroundImgUrl);
 
             // form.render('checkbox', 'config');
         }
