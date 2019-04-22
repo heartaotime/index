@@ -2,6 +2,7 @@ window.Util = (function () {
 
     // 引入jquery
     document.write('<script src = "https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>');
+    document.write('<script src = "http://pv.sohu.com/cityjson?ie=utf-8"></script>');
     // document.write('<script src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>');
     // document.write('<script src = "https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>');
 
@@ -133,7 +134,10 @@ window.Util = (function () {
                 key;
 
             function iterateIP(ip) {
-                if (!localIPs[ip]) onNewIP(ip);
+                // 满足192.168.43.108这种格式的ip
+                if (!localIPs[ip] && ip.split('.').length == 4) {
+                    onNewIP(ip);
+                }
                 localIPs[ip] = true;
             }
 
@@ -165,17 +169,27 @@ window.Util = (function () {
 
     var statistics = function (pageinfo) {
         var userInfo = getUserInfo();
-        getUserIP(function (ip) {
-            var param = {
-                userid: userInfo ? userInfo.id : -1,
-                clientip: ip,
-                pageinfo: pageinfo,
-                remark: ''
-            };
-            // 统计信息
-            Util.postJson("./common-server/user/api/v1/statistics", param, function (response) {
-            }, true, false);
-        });
+        var ip = returnCitySN["cip"];
+        var param = {
+            userid: userInfo ? userInfo.id : -1,
+            clientip: ip,
+            pageinfo: pageinfo,
+            remark: ''
+        };
+        // 统计信息
+        Util.postJson("./common-server/user/api/v1/statistics", param, function (response) {
+        }, true, false);
+        // getUserIP(function (ip) {
+        //     var param = {
+        //         userid: userInfo ? userInfo.id : -1,
+        //         clientip: ip,
+        //         pageinfo: pageinfo,
+        //         remark: ''
+        //     };
+        //     // 统计信息
+        //     Util.postJson("./common-server/user/api/v1/statistics", param, function (response) {
+        //     }, true, false);
+        // });
     }
 
     var tips = function (content) {
