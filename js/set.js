@@ -430,6 +430,10 @@ $('#readme').on('click', function () {
 
 
 function getConfig() {
+    $('#logoimgurldiv').hide();
+    $('#backgroundimgurldiv').hide();
+    $('#weathercitydiv').hide();
+
     if (!userInfo) {
         layer.msg('请先登陆');
         return;
