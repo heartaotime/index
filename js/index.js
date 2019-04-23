@@ -184,6 +184,40 @@ function setWeather(weatherCity) {
     });
 }
 
+$('#search_input').on('input', function () {
+    return;
+    var $input = $(this);
+    var ulTag = $('<ul name="suggest"></ul>');
+    $('ul[name=suggest]').remove();
+    $('.search_part').append(ulTag);
+    // $input.parents('span').after(ulTag);
+    $.ajax({
+        url: 'http://suggestion.baidu.com/su?wd=' + $input.val(),
+        dataType: 'jsonp',
+        jsonp: 'cb', //回调函数的参数名(键值)key
+        // jsonpCallback: 'fun', //回调函数名(值) value
+        // beforeSend: function () {
+        //     $('#word').append('<div>正在加载。。。</div>');
+        // },
+        success: function (data) {
+            ulTag.empty();
+            $.each(data.s, function (i, v) {
+                if (i == 4) {
+                    return false;
+                }
+                ulTag.append('<li><a class="sugurl" href="javascript:void(0);" name="suga">' + v + '</a></li>');
+            });
+        },
+        error: function () {
+        }
+    });
+});
+
+$('.search_part').on('click', 'a[name=suga]', function () {
+    $('#search_input').val($(this).html());
+    $('ul[name=suggest]').remove();
+});
+
 $(function () {
     if (userInfo) {
         getIndex();

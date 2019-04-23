@@ -5,6 +5,33 @@
     margin: 0;
 }
 
+ul li {
+    list-style: none;
+    /*display: inline;*/
+    /*float: left;*/
+    /*padding-bottom: 5px;*/
+    /*padding-left: 25px;*/
+}
+
+.sugurl {
+    font-size: 13px;
+    color: #000000;
+}
+
+.sugurl:link {
+    text-decoration: none;
+}
+
+/*.sugurl:visited {*/
+/*    font-size: 13px;*/
+/*    color: #000000;*/
+/*    text-decoration: none;*/
+/*}*/
+
+.sugurl:hover {
+    text-decoration: underline;
+}
+
 /*翻译
 主页整体样式
 文本对齐︰ 中心;
