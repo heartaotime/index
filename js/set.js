@@ -210,6 +210,30 @@ layui.use(['layer', 'element', 'form'], function () {
         });
         return false;
     });
+
+    form.on('switch(logoshow-filter)', function (data) {
+        if (data.elem.checked) {
+            $('#logoimgurldiv').show();
+        } else {
+            $('#logoimgurldiv').hide();
+        }
+    });
+
+    form.on('switch(backgroundimg-filter)', function (data) {
+        if (data.elem.checked) {
+            $('#backgroundimgurldiv').show();
+        } else {
+            $('#backgroundimgurldiv').hide();
+        }
+    });
+
+    form.on('switch(weatherswitch-filter)', function (data) {
+        if (data.elem.checked) {
+            $('#weathercitydiv').show();
+        } else {
+            $('#weathercitydiv').hide();
+        }
+    });
 });
 
 $('#del').on('click', function () {
@@ -366,8 +390,8 @@ $('#donate').on('click', function () {
         content: '<span style="margin-left: 30px;">支付宝</span><span style="margin-left: 80px">微信</span><br/>' +
             '<image src="./img/zfb.png" width="109px"/>' +
             '<image src="./img/wx.png" width="109px" style="margin-left: 2px;"/><br/><br/>' +
-            '或复制支付宝账号：<br/>heartaotime@foxmail.com<br/>' +
-            '目前已收到总计 7 笔，共 31.18 元',
+            '或复制支付宝账号：<br/>heartaotime@foxmail.com<br/>',
+        // '目前已收到总计 7 笔，共 31.18 元',
         closeBtn: 0, // 不显示关闭按钮
         btn: ['关闭'],
         btnAlign: 'c',
@@ -428,7 +452,6 @@ function getConfig() {
             var res = {
                 "searchengines": config.searchEngines,
                 "logoshow": config.logoShow,
-                //logoImgUrl: $('#logoimgurl').attr('src'),
                 "weatherswitch": config.weatherSwitch,
                 "weathercity": config.weatherCity,
                 "searchinputshow": config.searchInputShow,
@@ -440,8 +463,19 @@ function getConfig() {
             $('#logoimgurl').attr('src', logoImgUrl);
 
             var backgroundImgUrl = imgurl + config.backgroundImgUrl.split("/")[5];
-            $('#backgroundimgurl').attr('src', backgroundImgUrl);
+            $('#backgroundimgurl').attr('src', backgroundImgUrl).show();
 
+            if (config.logoShow) {
+                $('#logoimgurldiv').show();
+            }
+
+            if (config.backgroundImgShow) {
+                $('#backgroundimgurldiv').show();
+            }
+
+            if (config.weatherSwitch) {
+                $('#weathercitydiv').show();
+            }
             // form.render('checkbox', 'config');
         }
     });
