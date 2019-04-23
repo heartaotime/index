@@ -392,9 +392,9 @@ $('#readme').on('click', function () {
             content: '<blockquote class="layui-elem-quote">\n' +
                 '        你是第 ' + userInfo.id + ' 位注册用户<br>\n' +
                 '        注册于 ' + userInfo.createTimeStr + '<br>\n' +
-                '        目前注册人数 ' + response.userCountAll + '<br>\n' +
+                '        总注册人数 ' + response.userCountAll + '<br>\n' +
                 '        今日注册人数 ' + response.userDayCountAll + '<br>\n' +
-                '        目前访问主页次数 ' + response.accessCountAll + '<br>\n' +
+                '        总访问主页次数 ' + response.accessCountAll + '<br>\n' +
                 '        今日访问主页次数 ' + response.accessDayCountAll + '<br>\n' +
                 '    </blockquote>',
             closeBtn: 0, // 不显示关闭按钮
