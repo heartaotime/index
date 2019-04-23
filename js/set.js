@@ -367,7 +367,7 @@ $('#donate').on('click', function () {
             '<image src="./img/zfb.png" width="109px"/>' +
             '<image src="./img/wx.png" width="109px" style="margin-left: 2px;"/><br/><br/>' +
             '或复制支付宝账号：<br/>heartaotime@foxmail.com<br/>' +
-            '目前已收到总计 6 笔，共 29.18 元',
+            '目前已收到总计 7 笔，共 31.18 元',
         closeBtn: 0, // 不显示关闭按钮
         btn: ['关闭'],
         btnAlign: 'c',
