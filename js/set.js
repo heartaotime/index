@@ -213,13 +213,31 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
                 layer.msg(response.message);
                 return;
             }
-            if (field.logoshow != 'on') {
+
+            var result = response.result;
+            if (result.length > 0) {
+                var config = result[0].config;
+                config = JSON.parse(config);
+
                 $('#logoimgurl').remove();
-            }
-            if (field.backgroundimgshow != 'on') {
+                if (field.logoshow == 'on') {
+                    var logoImgUrl = imgurl + 'img/' + config.logoImgUrl.split("/")[5];
+                    $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
+                    $img.attr('src', logoImgUrl).attr('realpath', config.logoImgUrl);
+                    $('#logoimgupload').after($img);
+                    $('#logoimgurldiv').show();
+                }
+
                 $('#backgroundimgurl').remove();
+                if (field.backgroundimgshow == 'on') {
+                    var backgroundImgUrl = imgurl + 'img/' + config.backgroundImgUrl.split("/")[5];
+                    $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
+                    $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
+                    $('#backgroundimgupload').after($img);
+                    $('#backgroundimgurldiv').show();
+                }
+                layer.msg("保存成功，返回到导航页刷新页面即可看到效果哦");
             }
-            layer.msg("保存成功，返回到导航页刷新页面即可看到效果哦");
         });
         return false;
     });
