@@ -257,7 +257,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             name: 'logoimg',
             userid: userInfo.id
         },
-        size: 10240, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
+        size: 20480, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
         done: function (res) {
             //上传完毕回调
             console.log(res);
@@ -279,7 +279,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             name: 'bgimg',
             userid: userInfo.id
         },
-        size: 10240, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
+        size: 20480, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
         done: function (res) {
             //上传完毕回调
             console.log(res);
