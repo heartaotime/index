@@ -145,7 +145,7 @@ function getConfig() {
                 // $(".smaller").attr('src', 'img/google.gif');
                 var logoImgUrl = config.logoImgUrl;
                 if (logoImgUrl) {
-                    logoImgUrl = imgurl + logoImgUrl.split("/")[5];
+                    logoImgUrl = imgurl + 'img/' + logoImgUrl.split("/")[5];
                     $(".smaller").attr('src', logoImgUrl);
                 }
             }
@@ -156,7 +156,7 @@ function getConfig() {
             if (backgroundImgShow) {
                 var backgroundImgUrl = config.backgroundImgUrl;
                 if (backgroundImgUrl) {
-                    backgroundImgUrl = imgurl + backgroundImgUrl.split("/")[5];
+                    backgroundImgUrl = imgurl + 'img/' + backgroundImgUrl.split("/")[5];
                     $('body').css("background-image", "url('" + backgroundImgUrl + "')");
                 }
             }
