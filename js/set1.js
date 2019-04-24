@@ -1,4 +1,4 @@
-var layer, element, form, upload, userInfo, rowid;
+var layer, element, form, userInfo, rowid;
 
 var url = document.location.toString();
 var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
@@ -14,11 +14,11 @@ function init() {
     Util.statistics('setting');
 }
 
-layui.use(['layer', 'element', 'form', 'upload'], function () {
+
+layui.use(['layer', 'element', 'form'], function () {
     layer = layui.layer;
     element = layui.element;
     form = layui.form;
-    upload = layui.upload;
 
     init();
 
@@ -188,14 +188,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             return;
         }
         var field = data.field;
-        if (field.logoshow == 'on' && ($('#logoimgurl').attr('realpath') == undefined || $('#logoimgurl').attr('realpath') == '')) {
-            layer.msg("如果开关打开，请选择一张图片上传哦");
-            return;
-        }
-        if (field.backgroundimgshow == 'on' && ($('#backgroundimgurl').attr('realpath') == undefined || $('#backgroundimgurl').attr('realpath') == '')) {
-            layer.msg("如果开关打开，请选择一张图片上传哦");
-            return;
-        }
+
         var param = {
             userid: userInfo.id,
             weatherSwitch: field.weatherswitch == 'on' ? true : false,
@@ -203,21 +196,15 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             searchInputShow: field.searchinputshow == 'on' ? true : false,
             searchEngines: field.searchengines,
             logoShow: field.logoshow == 'on' ? true : false,
-            logoImgUrl: $('#logoimgurl').attr('realpath') == undefined ? "" : $('#logoimgurl').attr('realpath'),
+            logoImgUrl: $('#logoimgurl').attr('src'),
             backgroundImgShow: field.backgroundimgshow == 'on' ? true : false,
-            backgroundImgUrl: $('#backgroundimgurl').attr('realpath') == undefined ? "" : $('#backgroundimgurl').attr('realpath')
+            backgroundImgUrl: $('#backgroundimgurl').attr('src')
         }
 
         Util.postJson("./common-server/user/api/v1/editConfig", param, function (response) {
             if (response.code != 0) {
                 layer.msg(response.message);
                 return;
-            }
-            if (field.logoshow != 'on') {
-                $('#logoimgurl').remove();
-            }
-            if (field.backgroundimgshow != 'on') {
-                $('#backgroundimgurl').remove();
             }
             layer.msg("保存成功，返回到导航页刷新页面即可看到效果哦");
         });
@@ -247,56 +234,6 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             $('#weathercitydiv').hide();
         }
     });
-
-
-    //执行实例
-    upload.render({
-        elem: '#logoimgupload', //绑定元素
-        url: './common-server/user/api/v1/upload/', //上传接口
-        data: {
-            name: 'logoimg',
-            userid: userInfo.id
-        },
-        size: 10240, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
-        done: function (res) {
-            //上传完毕回调
-            console.log(res);
-            $('#logoimgurl').remove();
-            var logoImgUrl = imgurl + 'imgtemp/' + res.path.split("/")[5];
-            $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
-            $img.attr('src', logoImgUrl).attr("realpath", res.path);
-            $('#logoimgupload').after($img);
-        },
-        error: function () {
-            //请求异常回调
-        }
-    });
-
-    upload.render({
-        elem: '#backgroundimgupload', //绑定元素
-        url: './common-server/user/api/v1/upload/', //上传接口
-        data: {
-            name: 'bgimg',
-            userid: userInfo.id
-        },
-        size: 10240, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
-        done: function (res) {
-            //上传完毕回调
-            console.log(res);
-            $('#backgroundimgurl').remove();
-            var backgroundImgUrl = imgurl + 'imgtemp/' + res.path.split("/")[5];
-            $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
-            $img.attr('src', backgroundImgUrl).attr("realpath", res.path);
-            $('#backgroundimgupload').after($img);
-        },
-        error: function () {
-            //请求异常回调
-        }
-    });
-});
-
-$('img').on('error', function () {
-    alert(1);
 });
 
 $('#del').on('click', function () {
@@ -526,21 +463,17 @@ function getConfig() {
             }
             form.val("config", res);
 
+            var logoImgUrl = imgurl + config.logoImgUrl.split("/")[5];
+            $('#logoimgurl').attr('src', logoImgUrl);
+
+            var backgroundImgUrl = imgurl + config.backgroundImgUrl.split("/")[5];
+            $('#backgroundimgurl').attr('src', backgroundImgUrl).show();
+
             if (config.logoShow) {
-                $('#logoimgurl').remove();
-                var logoImgUrl = imgurl + 'img/' + config.logoImgUrl.split("/")[5];
-                $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
-                $img.attr('src', logoImgUrl).attr('realpath', config.logoImgUrl);
-                $('#logoimgupload').after($img);
                 $('#logoimgurldiv').show();
             }
 
             if (config.backgroundImgShow) {
-                $('#backgroundimgurl').remove();
-                var backgroundImgUrl = imgurl + 'img/' + config.backgroundImgUrl.split("/")[5];
-                $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
-                $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
-                $('#backgroundimgupload').after($img);
                 $('#backgroundimgurldiv').show();
             }
 
