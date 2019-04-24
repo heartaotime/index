@@ -338,7 +338,10 @@ $('#del').on('click', function () {
         });
     });
 
-    layer.confirm('确认删除[' + selected.menuName + ']吗?', {icon: 3, title: '提示'}, function (index) {
+    layer.confirm('确认删除[<span style="color: #FFB800;"> ' + selected.menuName + ' </span>]吗?', {
+        icon: 3,
+        title: '提示'
+    }, function (index) {
         layer.close(index);
 
         var param = {
