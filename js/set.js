@@ -287,6 +287,18 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         }
     });
 
+    form.on('switch(searchinput-filter)', function (data) {
+        if (data.elem.checked) {
+            if (!userInfo) {
+                layer.msg("请先 登陆/注册");
+                form.val("config", {
+                    "searchinputshow": false
+                });
+                return;
+            }
+        }
+    });
+
 
     var logoimgupload;
     //执行实例

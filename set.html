@@ -195,7 +195,7 @@
                         <button type="button" class="layui-btn layui-btn-sm" id="logoimgupload">
                             <i class="layui-icon">&#xe67c;</i>上传/修改图片
                         </button>
-<!--                        <img id="logoimgurl" style="width: 50px;height: 50px;" realpath=""/>-->
+                        <!--                        <img id="logoimgurl" style="width: 50px;height: 50px;" realpath=""/>-->
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -212,7 +212,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">展示古诗词</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" name="searchinputshow" lay-skin="switch" lay-text="开启|关闭">
+                        <input type="checkbox" name="searchinputshow" lay-skin="switch" lay-text="开启|关闭"
+                               lay-filter="searchinput-filter">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -225,7 +226,7 @@
                         <button type="button" class="layui-btn layui-btn-sm" id="backgroundimgupload">
                             <i class="layui-icon">&#xe67c;</i>上传/修改图片
                         </button>
-<!--                        <img id="backgroundimgurl" style="width: 50px;height: 50px;" realpath=""/>-->
+                        <!--                        <img id="backgroundimgurl" style="width: 50px;height: 50px;" realpath=""/>-->
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -249,7 +250,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="username"  lay-verify="required" lay-verType="tips"
+                        <input type="text" name="username" lay-verify="required" lay-verType="tips"
                                placeholder="请输入登录名"
                                autocomplete="off" class="layui-input">
                     </div>
