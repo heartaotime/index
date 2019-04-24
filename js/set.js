@@ -267,16 +267,22 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
     });
 
 
+    var logoimgupload;
     //执行实例
     upload.render({
         elem: '#logoimgupload', //绑定元素
         url: './common-server/user/api/v1/upload/', //上传接口
+        acceptMime: 'image/*',
         data: {
             name: 'logoimg',
             userid: userInfo.id
         },
         size: 20480, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
+        choose: function () {
+            logoimgupload = layer.load(1);
+        },
         done: function (res) {
+            layer.close(logoimgupload);
             //上传完毕回调
             console.log(res);
             $('#logoimgurl').remove();
@@ -287,18 +293,25 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         },
         error: function () {
             //请求异常回调
+            layer.close(logoimgupload);
         }
     });
 
+    var backgroundimgupload;
     upload.render({
         elem: '#backgroundimgupload', //绑定元素
         url: './common-server/user/api/v1/upload/', //上传接口
+        acceptMime: 'image/*',
         data: {
             name: 'bgimg',
             userid: userInfo.id
         },
         size: 20480, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
+        choose: function () {
+            backgroundimgupload = layer.load(1);
+        },
         done: function (res) {
+            layer.close(backgroundimgupload);
             //上传完毕回调
             console.log(res);
             $('#backgroundimgurl').remove();
@@ -309,6 +322,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         },
         error: function () {
             //请求异常回调
+            layer.close(backgroundimgupload);
         }
     });
 });
