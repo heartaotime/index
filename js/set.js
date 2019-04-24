@@ -27,7 +27,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
         if (index == 0) {// 新增导航
             if (!userInfo) {
-                layer.msg('请先登陆');
+                layer.msg('请先 登陆/注册');
                 return;
             }
         }
@@ -53,7 +53,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
     form.on('submit(submit-add)', function (data) {
         if (!userInfo) {
-            layer.msg("请先登陆");
+            layer.msg("请先 登陆/注册");
             return;
         }
         var field = data.field;
@@ -144,7 +144,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
     form.on('submit(submit-edit)', function (data) {
         if (!userInfo) {
-            layer.msg("请先登陆");
+            layer.msg("请先 登陆/注册");
             return;
         }
 
@@ -184,7 +184,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
     form.on('submit(submit-config)', function (data) {
         if (!userInfo) {
-            layer.msg("请先登陆");
+            layer.msg("请先 登陆/注册");
             return;
         }
         var field = data.field;
@@ -244,6 +244,13 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
     form.on('switch(logoshow-filter)', function (data) {
         if (data.elem.checked) {
+            if (!userInfo) {
+                layer.msg("请先 登陆/注册");
+                form.val("config", {
+                    "logoshow": false
+                });
+                return;
+            }
             $('#logoimgurldiv').show();
         } else {
             $('#logoimgurldiv').hide();
@@ -252,6 +259,13 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
     form.on('switch(backgroundimg-filter)', function (data) {
         if (data.elem.checked) {
+            if (!userInfo) {
+                layer.msg("请先 登陆/注册");
+                form.val("config", {
+                    "backgroundimgshow": false
+                });
+                return;
+            }
             $('#backgroundimgurldiv').show();
         } else {
             $('#backgroundimgurldiv').hide();
@@ -260,6 +274,13 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
     form.on('switch(weatherswitch-filter)', function (data) {
         if (data.elem.checked) {
+            if (!userInfo) {
+                layer.msg("请先 登陆/注册");
+                form.val("config", {
+                    "weatherswitch": false
+                });
+                return;
+            }
             $('#weathercitydiv').show();
         } else {
             $('#weathercitydiv').hide();
@@ -275,11 +296,12 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         acceptMime: 'image/*',
         data: {
             name: 'logoimg',
-            userid: userInfo.id
+            userid: userInfo ? userInfo.id : "-1"
         },
         size: 20480, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
-        choose: function () {
+        before: function () {
             logoimgupload = layer.load(1);
+            // layer.load(); //上传loading
         },
         done: function (res) {
             layer.close(logoimgupload);
@@ -304,10 +326,10 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         acceptMime: 'image/*',
         data: {
             name: 'bgimg',
-            userid: userInfo.id
+            userid: userInfo ? userInfo.id : "-1"
         },
         size: 20480, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
-        choose: function () {
+        before: function () {
             backgroundimgupload = layer.load(1);
         },
         done: function (res) {
@@ -333,7 +355,7 @@ $('img').on('error', function () {
 
 $('#del').on('click', function () {
     if (!userInfo) {
-        layer.msg("请先登陆");
+        layer.msg("请先 登陆/注册");
         return;
     }
 
@@ -388,7 +410,7 @@ $('#del').on('click', function () {
 
 $('#logout').on('click', function () {
     if (!userInfo) {
-        layer.msg('请先登陆');
+        layer.msg('请先 登陆/注册');
         return;
     }
     var html = '确认退出[<span style="color: #FFB800;"> ' + userInfo.userName + ' </span>]吗?';
@@ -420,7 +442,7 @@ function refreshSelect(callback) {
 
 function getIndexInfo(callback) {
     if (!userInfo) {
-        layer.msg('请先登陆');
+        layer.msg('请先 登陆/注册');
         return;
     }
     var param = {
@@ -503,7 +525,7 @@ $('#donate').on('click', function () {
 
 $('#readme').on('click', function () {
     if (!userInfo) {
-        layer.msg('请先登陆');
+        layer.msg('请先 登陆/注册');
         return;
     }
     Util.postJson("./common-server/user/api/v1/getCount", {}, function (response) {
@@ -533,7 +555,7 @@ function getConfig() {
     $('#weathercitydiv').hide();
 
     if (!userInfo) {
-        layer.msg('请先登陆');
+        layer.msg('请先 登陆/注册');
         return;
     }
 
