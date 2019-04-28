@@ -97,6 +97,7 @@ logo添加文字样式
 }*/
 
 .logo {
+    display: inline-block;
     font-size: 2em;
     white-space: normal;
     word-wrap: break-word;
