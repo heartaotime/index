@@ -536,22 +536,27 @@ $('#donate').on('click', function () {
 });
 
 $('#readme').on('click', function () {
+    var userName = "访客";
+    var num = "~";
+    var createTimeStr = "~";
     if (!userInfo) {
-        layer.msg('请先 登陆/注册');
-        return;
+        userName = userInfo.userName;
+        num = userInfo.id;
+        createTimeStr = userInfo.createTimeStr;
     }
     Util.postJson("./common-server/user/api/v1/getCount", {}, function (response) {
         layer.open({
-            title: '<img src="../img/readme.png" width="40px;"/> ' + userInfo.userName + ' 你好',
+            title: '<img src="../img/readme.png" width="40px;"/> ' + userName + ' 你好',
             offset: '100px',
             // area: '280px',
             content: '<blockquote class="layui-elem-quote">\n' +
-                '        你是第 ' + userInfo.id + ' 位注册用户<br>\n' +
-                '        注册于 ' + userInfo.createTimeStr + '<br>\n' +
+                '        你是第 ' + num + ' 位注册用户<br>\n' +
+                '        注册于 ' + createTimeStr + '<br>\n' +
                 '        总注册人数 ' + response.userCountAll + '<br>\n' +
                 '        今日注册人数 ' + response.userDayCountAll + '<br>\n' +
                 '        总访问主页次数 ' + response.accessCountAll + '<br>\n' +
                 '        今日访问主页次数 ' + response.accessDayCountAll + '<br>\n' +
+                '        友情链接： <a style="color: #009688;" target="_blank" href="http://igeeka.tk/">' + 极咖网 + '</a><br>\n' +
                 '    </blockquote>',
             closeBtn: 0, // 不显示关闭按钮
             btn: ['关闭'],
