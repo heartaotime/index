@@ -34,6 +34,12 @@
             position: fixed;
             bottom: 10px;
         }
+
+        /*加上body是为了保证优先级可以不被后面加载的样式覆盖*/
+        /*body .layui-layer-dialog .layui-layer-content {*/
+        /*    padding-top: 5px;*/
+        /*    padding-bottom: 10px;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -239,8 +245,7 @@
                 <blockquote class="layui-elem-quote">
                     1：填写城市参考 北京<br>
                     2：Logo和背景图可以使用动态图片，但是大小不能超过20M<br>
-                    3：新增Logo更换，需要重新保存下全局配置logo展示才会生效<br>
-                    4：部分图片 <a style="color: #009688;" target="_blank" href="./imgshare.html">下载</a><br>
+                    3：部分图片 <a style="color: #009688;" target="_blank" href="./imgshare.html">下载</a><br>
                 </blockquote>
             </div>
         </div>
