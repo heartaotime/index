@@ -15,7 +15,7 @@
     <!--为移动设备添加 viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 浏览网站时的小图标 -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/search-desk.png" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="img/search.png" media="screen"/>
 
 
     <title>主页</title>
@@ -58,7 +58,9 @@
         </a>
         <br/>
         <form onsubmit="return search()" class="search_bar">
-            <input type="submit" id="search_submit" value="Search">
+            <!--            <input type="submit" id="search_submit" value="搜索">-->
+            <img onclick="search()" id="search_submit" src="img/search.png">
+
             <span><input class="search" type="text" value="" autocomplete="off" id="search_input" placeholder=""></span>
         </form>
     </div>
