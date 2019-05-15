@@ -4,7 +4,7 @@ var userInfo = Util.getUserInfo();
 var url = document.location.toString();
 var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
 
-var form;
+var form, searchEngines;
 layui.use(['form'], function () {
     form = layui.form;
 
@@ -16,8 +16,10 @@ layui.use(['form'], function () {
         console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
         console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
         console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-
-        window.open(data.field.searchengines + data.field.search_input);
+        if (!searchEngines) {
+            searchEngines = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
+        }
+        window.open(searchEngines + data.field.search_input);
         $("#search_input").val("");
 
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
@@ -33,24 +35,26 @@ $('#search_input').on('input', function () {
         dataType: 'jsonp',
         jsonp: 'cb', //回调函数的参数名(键值)key
         success: function (data) {
-            // if (!datda || !data.s || data.s.length == 0) {
-            //     $('select[name=suggest]').remove();
-            //     form.render('select', 'search');
-            //     return;
-            // }
+            $('select[name=suggest]').remove();
+            $('.layui-form-select').remove();
+
+            if (data.s.length == 0) {
+                return;
+            }
             $.each(data.s, function (i, v) {
                 if (i == 5) {
                     return false;
                 }
                 seTag.append('<option><a class="sugurl" href="javascript:void(0);">' + v + '</a></option>');
             });
-            $('select[name=suggest]').remove();
             $('#search_input').after(seTag);
+            // 重新渲染 select
             form.render('select', 'search');
-            $('.layui-select-title:eq(1)').hide();
-            $('.layui-form-select:eq(1)').addClass('layui-form-selected');
-            $('.layui-form-select:eq(1) dl').css('top', '0px').removeClass('layui-anim');
-            $('.layui-form-select:eq(1) dl dd').removeClass('layui-this');
+
+            $('.layui-select-title').remove();
+            $('.layui-form-select').addClass('layui-form-selected');
+            $('.layui-form-select dl').css('top', '0px').removeClass('layui-anim');
+            $('.layui-form-select dl dd').removeClass('layui-this');
         },
         error: function () {
         }
@@ -62,7 +66,7 @@ $(document).keydown(function (event) {
     // console.log(event.keyCode);
     if (event.keyCode == 38) { // 上
         var isThis = false;
-        $.each($('.layui-form-select:eq(1) dl dd'), function (i, e) {
+        $.each($('.layui-form-select dl dd'), function (i, e) {
             if ($(e).hasClass('layui-this')) {
                 $(e).removeClass('layui-this');
                 if ($(e).prev('dd').length > 0) {
@@ -75,13 +79,13 @@ $(document).keydown(function (event) {
             }
         });
         if (!isThis) {
-            $('.layui-form-select:eq(1) dl dd:eq(0)').addClass('layui-this');
+            $('.layui-form-select dl dd:eq(0)').addClass('layui-this');
         }
         return;
     }
     if (event.keyCode == 40) { // 下
         var isThis = false;
-        $.each($('.layui-form-select:eq(1) dl dd'), function (i, e) {
+        $.each($('.layui-form-select dl dd'), function (i, e) {
             if ($(e).hasClass('layui-this')) {
                 $(e).removeClass('layui-this');
                 if ($(e).next('dd').length > 0) {
@@ -94,17 +98,17 @@ $(document).keydown(function (event) {
             }
         });
         if (!isThis) {
-            $('.layui-form-select:eq(1) dl dd:eq(0)').addClass('layui-this');
+            $('.layui-form-select dl dd:eq(0)').addClass('layui-this');
         }
         return;
     }
 
     if (event.keyCode == 13) { // 回车
         var isThis = false;
-        $.each($('.layui-form-select:eq(1) dl dd'), function (i, e) {
+        $.each($('.layui-form-select dl dd'), function (i, e) {
             if ($(e).hasClass('layui-this')) {
                 $('#search_input').val($(e).html());
-                $('.layui-form-select:eq(1)').remove();
+                $('.layui-form-select').remove();
                 isThis = true;
                 return false;
             }
@@ -180,21 +184,11 @@ function getConfig() {
                         var geolocation = new AMap.Geolocation({
                             enableHighAccuracy: true,//是否使用高精度定位，默认:true
                             timeout: 10000,          //超过10秒后停止定位，默认：5s
-                            // buttonPosition: 'RB',    //定位按钮的停靠位置
-                            // buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-                            // zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
                         });
                         geolocation.getCurrentPosition(function (status, result) {
                             if (status == 'complete') {
                                 setWeather(result.addressComponent.city);
                             } else {
-                                // alert('自动精准定位失败(建议在设置页面填写所在城市)\r\n' +
-                                //     'ps:其他解决方法\r\n' +
-                                //     '1.请确认浏览器已打开允许访问位置信息；\r\n' +
-                                //     '2.请使用https访问该页面(https://106.13.46.83/)；\r\n' +
-                                //     '3.如果1和2都已确认无误仍出错，请尝试在设置页面填写所在城市；\r\n' +
-                                //     '4.如果发现在手机端(via等)浏览器中使用https链接访问获取天气很慢，建议在设置页面填写所在城市');
-
                                 AMap.plugin('AMap.CitySearch', function () {
                                     var citySearch = new AMap.CitySearch()
                                     citySearch.getLocalCity(function (status, result) {
@@ -210,8 +204,6 @@ function getConfig() {
 
 
                 }
-                // $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
-                //     'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>');
             }
 
             var searchInputShow = config.searchInputShow;
@@ -270,8 +262,8 @@ function setWeather(weatherCity) {
                 var city = data.city;
                 var c = data.forecasts[0].nightTemp + '℃ ~ ' + data.forecasts[0].dayTemp + '℃';
                 var dayWeather = data.forecasts[0].dayWeather;
-                var html = '<span>' + city + ' ' + dayWeather + ' ' + c + '</span>';
-                $('.weather').append(html);
+                var html = city + ' ' + dayWeather + ' ' + c;
+                $('.weather span').append(html);
             }
         });
     });
