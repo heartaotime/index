@@ -2,7 +2,7 @@ Util.statistics('index');
 var userInfo = Util.getUserInfo();
 
 var url = document.location.toString();
-var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
+var imgurl = "https://" + url.split('/')[2].split(':')[0] + '/';
 
 var form, searchEngines;
 layui.use(['form'], function () {
@@ -31,7 +31,8 @@ $('#search_input').on('input', function () {
     var $input = $(this);
     var seTag = $('<select name="suggest" lay-filter="suggest"></select>');
     $.ajax({
-        url: 'http://suggestion.baidu.com/su?wd=' + $input.val(),
+        // url: 'http://suggestion.baidu.com/su?wd=' + $input.val(),
+        url: './suggest?wd=' + $input.val(),
         dataType: 'jsonp',
         jsonp: 'cb', //回调函数的参数名(键值)key
         success: function (data) {
@@ -230,7 +231,7 @@ function getConfig() {
             if (logoShow) {
                 var logoImgUrl = config.logoImgUrl;
                 if (logoImgUrl) {
-                    logoImgUrl = imgurl + 'img/' + logoImgUrl.split("/")[5];
+                    logoImgUrl = imgurl + 'imgproxy/' + logoImgUrl.split("/")[5];
                     $(".smaller").attr('src', logoImgUrl);
                 }
             }
@@ -241,7 +242,7 @@ function getConfig() {
             if (backgroundImgShow) {
                 var backgroundImgUrl = config.backgroundImgUrl;
                 if (backgroundImgUrl) {
-                    backgroundImgUrl = imgurl + 'img/' + backgroundImgUrl.split("/")[5];
+                    backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
                     $('body').css("background-image", "url('" + backgroundImgUrl + "')");
                 }
             }
