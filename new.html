@@ -18,66 +18,26 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/search.png" media="screen"/>
     <title>主页</title>
 
-    <link rel="stylesheet" href="./module/layui/css/layui.css"/>
-
 
     <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
         body {
-            text-align: center;
-            background-color: #ffffff;
+            /*background-color: #ffffff;*/
             background-size: 100%;
-        }
-
-        body .layui-input, .layui-select, .layui-btn, .layui-btn .layui-btn-primary {
-            background-color: transparent;
-        }
-
-        .layui-form-select dl {
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-
-        .layui-container {
-            max-width: 500px;
-            /*padding: 10px;*/
-        }
-
-        img.smaller {
-            height: 108px;
-            max-width: 250px;
-        }
-
-        .layui-form {
-            margin-top: 20px;
-            padding-left: 10px;
-            padding-right: 10px;
         }
 
         .top {
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 8px;
-        }
-
-        .boxs {
-            margin: 20px auto;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            /*position: relative;*/
-            /*z-index: 1;*/
-        }
-
-        .icon {
-            width: 45px;
-            height: 45px;
-            border: none;
+            flex-direction: row; /**主轴为水平方向，起点在左端*/
+            justify-content: space-between; /**项目在主轴上的对齐方式*/
+            padding: 5px;
         }
 
         .weather {
-            /*margin-top: 5px;*/
             font-size: 13px;
         }
 
@@ -86,11 +46,110 @@
             height: 30px;
         }
 
-        .layui-input {
-            border-color: #c2c2c2;
+
+        .logoimg {
+            text-align: center;
+            height: 112px;
+        }
+
+
+        .logoimg img {
+            height: 108px;
+            max-width: 250px;
+        }
+
+        .container {
+            margin: 10px auto;
+            max-width: 500px;
+            text-align: center;
+            padding: 15px;
+        }
+
+
+        .form {
+            height: 38px;
+            /*border: 1px solid darkgray;*/
+            border-radius: 50px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+        }
+
+        .form input {
+            float: left;
+            font-size: 18px;
+            background-color: transparent;
+            outline: none;
+            /*border: 1px solid darkgray;*/
+            border: none;
+            padding: 0px 20px;
+            height: 38px;
+            width: 70%;
+        }
+
+        .form button {
+            float: right;
+            background-color: transparent;
+            outline: none;
+            /*border: 1px solid darkgray;*/
+            border: none;
+            cursor: pointer;
+            margin-right: 15px;
+            font-size: 15px;
+            max-width: 30px;
+            height: 38px;
+            margin-right: 15px;
+            width: 30%;
+        }
+
+        .suggest {
+            display: none;
+            position: absolute;
+            text-align: left;
+            /*border: 1px solid darkgrey;*/
+            border-radius: 10px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+            border-top: none;
+            /*background-color: rgba(70, 70, 40, .255);*/
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 100%;
+            /*max-width: 420px;*/
+        }
+
+        .suggest a {
+            display: inherit;
+            /*background-color: darkgray;*/
+            margin-top: 1px;
+            line-height: 35px;
+            padding: 0px 20px;
+            border-radius: 10px;
+        }
+
+        .boxs {
+            margin: 30px auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            border: none;
+        }
+
+        .url {
+            font-size: 13px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
         }
 
     </style>
+
+    <script>
+    </script>
 </head>
 <body>
 
@@ -100,80 +159,40 @@
     </div>
     <div class="login">
         <a href="set.html" target="_blank" style="display: inline-block;">
-            <i class="layui-icon layui-icon-username" style="font-size: 20px;"></i>
+            <img src="img/login.png">
         </a>
     </div>
 </div>
 
-<div class="layui-container">
-
-    <div class="layui-row">
-        <a href="set.html" target="_blank" style="display: inline-block;">
-            <img class="smaller" src=""/>
-        </a>
+<div class="logoimg">
+    <a href="set.html" target="_blank" style="display: inline-block;">
+        <img src=""/>
+    </a>
+</div>
+<div class="container">
+    <div class="form">
+        <input type="text">
+        <button>搜索</button>
     </div>
-
-    <div class="layui-form" lay-filter="search">
-        <div class="layui-row" style="">
-            <!--            <div class="layui-col-xs3 layui-col-sm2 layui-col-md2">-->
-            <!--                <select name="searchengines" lay-filter="select-config">-->
-            <!--                    <option value="https://www.baidu.com/s?wd=">百度</option>-->
-            <!--                    <option value="https://www.google.com/search?q=">Google</option>-->
-            <!--                    <option value="http://www.bing.com/search?q=">必应</option>-->
-            <!--                    <option value="http://www.so.com/s?q=">360</option>-->
-            <!--                    <option value="http://www.sogou.com/sogou?query=">搜狗</option>-->
-            <!--                    <option value="https://quark.sm.cn/s?q=">夸克AI</option>-->
-            <!--                    <option value="http://www.miguyu.com/Link/so/">咪咕鱼</option>-->
-            <!--                    <option value="https://www.qwant.com/?q=">Qwant</option>-->
-            <!--                </select>-->
-            <!--            </div>-->
-            <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
-                <input type="text" id="search_input" name="search_input" placeholder="" autocomplete="off"
-                       class="layui-input">
-            </div>
-            <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">
-                <button class="layui-btn layui-btn-primary" style="width: 100%" lay-submit lay-filter="form-submit">
-                    <i class="layui-icon layui-icon-search"></i>
-                </button>
-            </div>
-        </div>
+    <div class="suggest">
     </div>
 
     <div class="boxs">
     </div>
 </div>
 
-
 <div style="display: none;" id="copy">
-    <div class="layui-anim layui-anim-upbit" style="width: 60px;padding: 10px;">
+    <div style="width: 60px;padding: 10px;">
         <a target="_blank" style="display: inline-block;" href="">
-            <div class="" style="line-height: 40px;">
-                <div class="">
-                    <img class="icon" src="">
-                </div>
-                <div class="">
-                    <span class="url"></span>
-                </div>
+            <div>
+                <img class="icon" src="">
+                <span class="url"></span>
             </div>
         </a>
     </div>
 </div>
 
-<!--    <div class="layui-anim layui-anim-upbit layui-col-xs3 layui-col-sm3 layui-col-md3 box" style="position: relative;z-index: 1;">-->
-<!--        <a target="_blank" style="display: inline-block;" href="#">-->
-<!--            <div class="layui-row layui-col-space5" style="line-height: 3em;">-->
-<!--                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">-->
-<!--                    <img class="icon" src="">-->
-<!--                </div>-->
-<!--                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">-->
-<!--                    <span class="url"></span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </a>-->
-<!--    </div>-->
-
 </body>
-<script src="./module/layui/layui.js"></script>
 <!-- 加载地图JSAPI脚本 -->
 <script src="https://webapi.amap.com/maps?v=1.4.12&key=6d12e65f78519a51b052b15208a5da2f"></script>
 <script src="./js/util.js"></script>
