@@ -5,57 +5,41 @@ var url = document.location.toString();
 var splitUrl = url.split('/');
 var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
 
-var searchEngines;
+var form, searchEngines;
+layui.use(['form'], function () {
+    form = layui.form;
 
-$('.form button').on('click', function () {
-    if (!searchEngines) {
-        searchEngines = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
-    }
-    var searchKey = $('.form input').val();
-    window.open(searchEngines + searchKey);
-    $(".form input").val("");
+    form.on('select(suggest)', function (data) {
+        $('#search_input').val(data.value);
+    });
 
-    // 记录下搜索历史 只最新的3个
-    if (localStorage) {
-        var searchHistorys = localStorage.getItem("searchHistorys");
-        if (!searchHistorys) {
-            searchHistorys = JSON.stringify([]);
+    form.on('submit(form-submit)', function (data) {
+        console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+        console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+        console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+        if (!searchEngines) {
+            searchEngines = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
         }
-        searchHistorys = JSON.parse(searchHistorys);
-        searchHistorys.push(searchKey);
-        if (searchHistorys.length > 5) {
-            searchHistorys.splice(-6, 1);
-        }
-        localStorage.setItem("searchHistorys", JSON.stringify(searchHistorys))
-    }
-})
+        window.open(searchEngines + data.field.search_input);
+        $("#search_input").val("");
 
-$('.form input').on('input', function () {
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    });
+
+});
+
+$('#search_input').on('input', function () {
     var $input = $(this);
-    $('.suggest').empty().hide();
-    if ($input.val() == '') {
-        if (localStorage) {
-            var searchHistorys = localStorage.getItem("searchHistorys");
-            if (searchHistorys) {
-                $.each(JSON.parse(searchHistorys), function (i, v) {
-                    if (i == 5) {
-                        return false;
-                    }
-                    $('.suggest').append('<a href="javascript:void(0);">' + v + '</a>');
-                });
-                $('.suggest').show();
-            }
-        }
-        return;
-    }
-
+    var seTag = $('<select name="suggest" lay-filter="suggest"></select>');
     $.ajax({
         // url: 'http://suggestion.baidu.com/su?wd=' + $input.val(),
         url: './suggest?wd=' + $input.val(),
         dataType: 'jsonp',
         jsonp: 'cb', //回调函数的参数名(键值)key
         success: function (data) {
-            $('.suggest').empty().hide();
+            $('select[name=suggest]').remove();
+            $('.layui-form-select').remove();
+
             if (data.s.length == 0) {
                 return;
             }
@@ -63,72 +47,78 @@ $('.form input').on('input', function () {
                 if (i == 5) {
                     return false;
                 }
-                $('.suggest').append('<a href="javascript:void(0);">' + v + '</a>');
+                seTag.append('<option><a class="sugurl" href="javascript:void(0);">' + v + '</a></option>');
             });
-            $('.suggest').show();
+            $('#search_input').after(seTag);
+            // 重新渲染 select
+            form.render('select', 'search');
+
+            $('.layui-select-title').remove();
+            $('.layui-form-select').addClass('layui-form-selected');
+            $('.layui-form-select dl').css('top', '0px').removeClass('layui-anim');
+            $('.layui-form-select dl dd').removeClass('layui-this');
         },
         error: function () {
         }
     });
 });
 
-$('.suggest').on('click', 'a', function () {
-    $('.form input').val($(this).html());
-    $('.suggest').empty().hide();
-})
-
 
 $(document).keydown(function (event) {
     // console.log(event.keyCode);
     if (event.keyCode == 38) { // 上
         var isThis = false;
-        $.each($('.suggest a'), function (i, e) {
-            if ($(e).css('background-color') == 'rgb(95, 184, 120)') {
-                $(e).removeAttr('style');
-                if ($(e).prev('a').length > 0) {
-                    $(e).prev('a').css('background-color', 'rgb(95, 184, 120)');
-                    isThis = true;
+        $.each($('.layui-form-select dl dd'), function (i, e) {
+            if ($(e).hasClass('layui-this')) {
+                $(e).removeClass('layui-this');
+                if ($(e).prev('dd').length > 0) {
+                    $(e).prev('dd').addClass('layui-this');
+                } else {
+                    $(e).parent('dl').children('dd:eq(4)').addClass('layui-this');
                 }
+                isThis = true;
                 return false;
             }
         });
         if (!isThis) {
-            $('.suggest a:last').css('background-color', 'rgb(95, 184, 120)');
+            $('.layui-form-select dl dd:eq(0)').addClass('layui-this');
         }
         return;
     }
     if (event.keyCode == 40) { // 下
         var isThis = false;
-        $.each($('.suggest a'), function (i, e) {
-            if ($(e).css('background-color') == 'rgb(95, 184, 120)') {
-                $(e).removeAttr('style');
-                if ($(e).next('a').length > 0) {
-                    $(e).next().css('background-color', 'rgb(95, 184, 120)');
-                    isThis = true;
+        $.each($('.layui-form-select dl dd'), function (i, e) {
+            if ($(e).hasClass('layui-this')) {
+                $(e).removeClass('layui-this');
+                if ($(e).next('dd').length > 0) {
+                    $(e).next('dd').addClass('layui-this');
+                } else {
+                    $(e).parent('dl').children('dd:eq(0)').addClass('layui-this');
                 }
+                isThis = true;
                 return false;
             }
         });
         if (!isThis) {
-            $('.suggest a:first').css('background-color', 'rgb(95, 184, 120)');
+            $('.layui-form-select dl dd:eq(0)').addClass('layui-this');
         }
         return;
     }
 
     if (event.keyCode == 13) { // 回车
         var isThis = false;
-        $.each($('.suggest a'), function (i, e) {
-            if ($(e).css('background-color') == 'rgb(95, 184, 120)') {
-                $('.form input').val($(e).html());
+        $.each($('.layui-form-select dl dd'), function (i, e) {
+            if ($(e).hasClass('layui-this')) {
+                $('#search_input').val($(e).html());
+                $('.layui-form-select').remove();
                 isThis = true;
                 return false;
             }
         });
         if (!isThis) {
             // 搜索
-            $('.form button').click();
+            $('button[lay-submit]').click();
         }
-        $('.suggest').empty().hide();
     }
 
 });
@@ -229,13 +219,13 @@ function getConfig() {
                         console.log(result);
                         if (result && result.status == 'success') {
                             var content = result.data.content.split('，')[0];
-                            $('.form input').attr('placeholder', '✎...  ' + content + '～');
+                            $('#search_input').attr('placeholder', '✎...  ' + content + '～');
                             // document.title = content;
                         }
                     }
                 });
             } else {
-                $('.form input').attr('placeholder', '');
+                $('#search_input').attr('placeholder', '');
             }
 
             var logoShow = config.logoShow;
@@ -243,7 +233,7 @@ function getConfig() {
                 var logoImgUrl = config.logoImgUrl;
                 if (logoImgUrl) {
                     logoImgUrl = imgurl + 'imgproxy/' + logoImgUrl.split("/")[5];
-                    $(".logoimg img").attr('src', logoImgUrl);
+                    $(".smaller").attr('src', logoImgUrl);
                 }
             }
 
@@ -283,7 +273,6 @@ function setWeather(weatherCity) {
 
 
 $(function () {
-    $('.suggest').width($('.form').width());
     if (userInfo) {
         getIndex();
         getConfig();

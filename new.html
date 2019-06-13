@@ -31,6 +31,7 @@
         }
 
         .top {
+            display: -webkit-flex; /* Safari */
             display: flex;
             flex-direction: row; /**主轴为水平方向，起点在左端*/
             justify-content: space-between; /**项目在主轴上的对齐方式*/
@@ -48,6 +49,8 @@
 
 
         .logoimg {
+            -webkit-animation: fadeInDown 0.2s;
+            animation: fadeInDown 0.2s;
             text-align: center;
             height: 112px;
         }
@@ -101,6 +104,8 @@
         }
 
         .suggest {
+            -webkit-animation: fadeInDown 0.2s;
+            animation: fadeInDown 0.2s;
             display: none;
             position: absolute;
             text-align: left;
@@ -125,6 +130,7 @@
 
         .boxs {
             margin: 30px auto;
+            display: -webkit-flex; /* Safari */
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -144,6 +150,116 @@
         a {
             text-decoration: none;
             color: #333;
+        }
+
+        .box {
+            -webkit-animation: fadeInDown 1s;
+            animation: fadeInDown 1s;
+        }
+
+        /**
+         * 下方为动画样式，不懂的不要修改
+         */
+        @-webkit-keyframes flipInX {
+            0% {
+                -webkit-transform: perspective(400px) rotateX(90deg);
+                transform: perspective(400px) rotateX(90deg);
+                opacity: 0
+            }
+
+            40% {
+                -webkit-transform: perspective(400px) rotateX(-10deg);
+                transform: perspective(400px) rotateX(-10deg)
+            }
+
+            70% {
+                -webkit-transform: perspective(400px) rotateX(10deg);
+                transform: perspective(400px) rotateX(10deg)
+            }
+
+            100% {
+                -webkit-transform: perspective(400px) rotateX(0);
+                transform: perspective(400px) rotateX(0);
+                opacity: 1
+            }
+        }
+
+        @keyframes flipInX {
+            0% {
+                -webkit-transform: perspective(400px) rotateX(90deg);
+                -ms-transform: perspective(400px) rotateX(90deg);
+                transform: perspective(400px) rotateX(90deg);
+                opacity: 0
+            }
+
+            40% {
+                -webkit-transform: perspective(400px) rotateX(-10deg);
+                -ms-transform: perspective(400px) rotateX(-10deg);
+                transform: perspective(400px) rotateX(-10deg)
+            }
+
+            70% {
+                -webkit-transform: perspective(400px) rotateX(10deg);
+                -ms-transform: perspective(400px) rotateX(10deg);
+                transform: perspective(400px) rotateX(10deg)
+            }
+
+            100% {
+                -webkit-transform: perspective(400px) rotateX(0);
+                -ms-transform: perspective(400px) rotateX(0);
+                transform: perspective(400px) rotateX(0);
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateY(-20px);
+                transform: translateY(-20px)
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateY(-20px);
+                -ms-transform: translateY(-20px);
+                transform: translateY(-20px)
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                -ms-transform: translateY(0);
+                transform: translateY(0)
+            }
         }
 
     </style>
@@ -182,7 +298,7 @@
 </div>
 
 <div style="display: none;" id="copy">
-    <div style="width: 60px;padding: 10px;">
+    <div style="width: 60px;padding: 10px;" class="box">
         <a target="_blank" style="display: inline-block;" href="">
             <div>
                 <img class="icon" src="">
