@@ -30,7 +30,32 @@ $('.form button').on('click', function () {
     }
 })
 
-$('.form input').on('input', function () {
+$('.form input').on('focus', function () {
+    // console.log('focus');
+    var $input = $(this);
+    if ($input.val() == '') {
+        $('.suggest').empty().hide();
+        if (localStorage) {
+            var searchHistorys = localStorage.getItem("searchHistorys");
+            if (searchHistorys) {
+                $.each(JSON.parse(searchHistorys), function (i, v) {
+                    if (i == 5) {
+                        return false;
+                    }
+                    $('.suggest').append('<a href="javascript:void(0);">' + v + '</a>');
+                });
+                $('.suggest').append('<span>清空</span>');
+                $('.suggest').show();
+            }
+        }
+    }
+}).on('blur', function () {
+    // console.log('blur');
+    setTimeout(function () {
+        $('.suggest').empty().hide();
+    }, 200);
+}).on('input', function () {
+    // console.log('input');
     var $input = $(this);
     $('.suggest').empty().hide();
     if ($input.val() == '') {
@@ -41,8 +66,9 @@ $('.form input').on('input', function () {
                     if (i == 5) {
                         return false;
                     }
-                    $('.suggest').append('<a href="javascript:void(0);">' + v + '</a>');
+                    $('.suggest').append('</i><a href="javascript:void(0);">' + v + '</a>');
                 });
+                $('.suggest').append('<span>清空</span>');
                 $('.suggest').show();
             }
         }
@@ -75,7 +101,12 @@ $('.form input').on('input', function () {
 $('.suggest').on('click', 'a', function () {
     $('.form input').val($(this).html());
     $('.suggest').empty().hide();
-})
+}).on('click', 'span', function () {
+    if (localStorage) {
+        localStorage.removeItem("searchHistorys");
+    }
+    $('.suggest').empty().hide();
+});
 
 
 $(document).keydown(function (event) {
