@@ -1,7 +1,10 @@
 var layer, element, form, upload, userInfo, rowid;
 
 var url = document.location.toString();
-var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
+// var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
+
+var splitUrl = url.split('/');
+var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
 
 $(function () {
     userInfo = Util.getUserInfo();
@@ -203,6 +206,8 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             searchInputShow: field.searchinputshow == 'on' ? true : false,
             searchEngines: field.searchengines,
             logoShow: field.logoshow == 'on' ? true : false,
+            suggestSwitch: field.suggestswitch == 'on' ? true : false,
+            historySwitch: field.historyswitch == 'on' ? true : false,
             logoImgUrl: $('#logoimgurl').attr('realpath') == undefined ? "" : $('#logoimgurl').attr('realpath'),
             backgroundImgShow: field.backgroundimgshow == 'on' ? true : false,
             backgroundImgUrl: $('#backgroundimgurl').attr('realpath') == undefined ? "" : $('#backgroundimgurl').attr('realpath')
@@ -221,7 +226,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
                 $('#logoimgurl').remove();
                 if (field.logoshow == 'on') {
-                    var logoImgUrl = imgurl + 'img/' + config.logoImgUrl.split("/")[5];
+                    var logoImgUrl = imgurl + 'imgproxy/' + config.logoImgUrl.split("/")[5];
                     $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                     $img.attr('src', logoImgUrl).attr('realpath', config.logoImgUrl);
                     $('#logoimgupload').after($img);
@@ -230,7 +235,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
 
                 $('#backgroundimgurl').remove();
                 if (field.backgroundimgshow == 'on') {
-                    var backgroundImgUrl = imgurl + 'img/' + config.backgroundImgUrl.split("/")[5];
+                    var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
                     $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                     $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
                     $('#backgroundimgupload').after($img);
@@ -299,6 +304,31 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         }
     });
 
+    form.on('switch(suggestswitch-filter)', function (data) {
+        if (data.elem.checked) {
+            if (!userInfo) {
+                layer.msg("请先 登陆/注册");
+                form.val("config", {
+                    "suggestswitch": false
+                });
+                return;
+            }
+        }
+    });
+
+    form.on('switch(historyswitch-filter)', function (data) {
+        if (data.elem.checked) {
+            if (!userInfo) {
+                layer.msg("请先 登陆/注册");
+                form.val("config", {
+                    "historyswitch": false
+                });
+                return;
+            }
+        }
+    });
+
+
 
     var logoimgupload;
     //执行实例
@@ -320,7 +350,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             //上传完毕回调
             console.log(res);
             $('#logoimgurl').remove();
-            var logoImgUrl = imgurl + 'imgtemp/' + res.path.split("/")[5];
+            var logoImgUrl = imgurl + 'imgtempproxy/' + res.path.split("/")[5];
             $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
             $img.attr('src', logoImgUrl).attr("realpath", res.path);
             $('#logoimgupload').after($img);
@@ -349,7 +379,7 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             //上传完毕回调
             console.log(res);
             $('#backgroundimgurl').remove();
-            var backgroundImgUrl = imgurl + 'imgtemp/' + res.path.split("/")[5];
+            var backgroundImgUrl = imgurl + 'imgtempproxy/' + res.path.split("/")[5];
             $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
             $img.attr('src', backgroundImgUrl).attr("realpath", res.path);
             $('#backgroundimgupload').after($img);
@@ -597,6 +627,8 @@ function getConfig() {
                 "logoshow": config.logoShow,
                 "weatherswitch": config.weatherSwitch,
                 "weathercity": config.weatherCity,
+                "suggestswitch": config.suggestSwitch,
+                "historyswitch": config.historySwitch,
                 "searchinputshow": config.searchInputShow,
                 "backgroundimgshow": config.backgroundImgShow
             }
@@ -604,7 +636,7 @@ function getConfig() {
 
             if (config.logoShow) {
                 $('#logoimgurl').remove();
-                var logoImgUrl = imgurl + 'img/' + config.logoImgUrl.split("/")[5];
+                var logoImgUrl = imgurl + 'imgproxy/' + config.logoImgUrl.split("/")[5];
                 $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', logoImgUrl).attr('realpath', config.logoImgUrl);
                 $('#logoimgupload').after($img);
@@ -613,7 +645,7 @@ function getConfig() {
 
             if (config.backgroundImgShow) {
                 $('#backgroundimgurl').remove();
-                var backgroundImgUrl = imgurl + 'img/' + config.backgroundImgUrl.split("/")[5];
+                var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
                 $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
                 $('#backgroundimgupload').after($img);

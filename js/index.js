@@ -1,27 +1,178 @@
 Util.statistics('index');
 var userInfo = Util.getUserInfo();
-var searchEngines;
 
 var url = document.location.toString();
-var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
+var splitUrl = url.split('/');
+var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
 
-function search() {
-    if ($("#search_input").val() != "") {
-        // window.location.href = "https://www.baidu.com/s?word=" + document.getElementById("search_input").value;
-        if (!searchEngines) {
-            searchEngines = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
-        }
-        window.open(searchEngines + $("#search_input").val());
-        // window.open("https://www.baidu.com/s?wd=" + $("#search_input").val());
-        // window.open("http://www.google.com.hk/" + $("#search_input").val());
-        // window.open("http://www.bing.com/search?q=" + $("#search_input").val());
-        // window.open("http://www.bing.com/search?q=" + $("#search_input").val());
-        // window.open("http://www.so.com/s?q=" + $("#search_input").val());
-        // window.open("http://www.sogou.com/sogou?query=" + $("#search_input").val());
-        $("#search_input").val("");
+var searchEngines, suggestSwitch, historySwitch;
+
+$('.form button').on('click', function () {
+    if (!searchEngines) {
+        searchEngines = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
     }
-    return false;
+    var searchKey = $('.form input').val();
+    window.open(searchEngines + searchKey);
+    $(".form input").val("");
+
+    // 记录下搜索历史 只最新的3个
+    if (localStorage) {
+        var searchHistorys = localStorage.getItem("searchHistorys");
+        if (!searchHistorys) {
+            searchHistorys = JSON.stringify([]);
+        }
+        searchHistorys = JSON.parse(searchHistorys);
+        searchHistorys.push(searchKey);
+        if (searchHistorys.length > 5) {
+            searchHistorys.splice(-6, 1);
+        }
+        localStorage.setItem("searchHistorys", JSON.stringify(searchHistorys))
+    }
+})
+
+function setSuggestHis() {
+    if (historySwitch == undefined || !historySwitch) {
+        return;
+    }
+    if (localStorage) {
+        var searchHistorys = localStorage.getItem("searchHistorys");
+        if (searchHistorys) {
+            $.each(JSON.parse(searchHistorys).reverse(), function (i, v) {
+                if (i == 5) {
+                    return false;
+                }
+                $('.suggest').append('</i><a href="javascript:void(0);">' + v + '</a>');
+            });
+            $('.suggest').append('<span>清空历史</span>');
+            $('.suggest').show();
+        }
+    }
 }
+
+var winHeight = $(window).height();   //获取当前页面高度
+$(window).resize(function () {
+    var thisHeight = $(this).height();
+    if (winHeight - thisHeight > 50) {
+        //当软键盘弹出，在这里面操作
+    } else {
+        //当软键盘收起，在此处操作
+        $('.form input').blur();
+    }
+});
+
+$('.form input').on('focus', function () {
+    // console.log('focus');
+    var $input = $(this);
+    if ($input.val() == '') {
+        $('.suggest').empty().hide();
+        setSuggestHis();
+    }
+}).on('blur', function () {
+    // console.log('blur');
+    setTimeout(function () {
+        $('.suggest').empty().hide();
+    }, 200);
+}).on('input', function () {
+    // console.log('input');
+    var $input = $(this);
+    $('.suggest').empty().hide();
+    if ($input.val() == '') {
+        setSuggestHis();
+        return;
+    }
+
+    if (suggestSwitch == undefined || !suggestSwitch) {
+        return;
+    }
+
+    $.ajax({
+        // url: 'http://suggestion.baidu.com/su?wd=' + $input.val(),
+        url: './suggest?wd=' + $input.val(),
+        dataType: 'jsonp',
+        jsonp: 'cb', //回调函数的参数名(键值)key
+        success: function (data) {
+            $('.suggest').empty().hide();
+            if (data.s.length == 0) {
+                return;
+            }
+            $.each(data.s, function (i, v) {
+                if (i == 5) {
+                    return false;
+                }
+                $('.suggest').append('<a href="javascript:void(0);">' + v + '</a>');
+            });
+            $('.suggest').show();
+        },
+        error: function () {
+        }
+    });
+});
+
+$('.suggest').on('click', 'a', function () {
+    $('.form input').val($(this).html());
+    $('.suggest').empty().hide();
+}).on('click', 'span', function () {
+    if (localStorage) {
+        localStorage.removeItem("searchHistorys");
+    }
+    $('.suggest').empty().hide();
+});
+
+
+$(document).keydown(function (event) {
+    // console.log(event.keyCode);
+    if (event.keyCode == 38) { // 上
+        var isThis = false;
+        $.each($('.suggest a'), function (i, e) {
+            if ($(e).css('background-color') == 'rgb(95, 184, 120)') {
+                $(e).removeAttr('style');
+                if ($(e).prev('a').length > 0) {
+                    $(e).prev('a').css('background-color', 'rgb(95, 184, 120)');
+                    isThis = true;
+                }
+                return false;
+            }
+        });
+        if (!isThis) {
+            $('.suggest a:last').css('background-color', 'rgb(95, 184, 120)');
+        }
+        return;
+    }
+    if (event.keyCode == 40) { // 下
+        var isThis = false;
+        $.each($('.suggest a'), function (i, e) {
+            if ($(e).css('background-color') == 'rgb(95, 184, 120)') {
+                $(e).removeAttr('style');
+                if ($(e).next('a').length > 0) {
+                    $(e).next().css('background-color', 'rgb(95, 184, 120)');
+                    isThis = true;
+                }
+                return false;
+            }
+        });
+        if (!isThis) {
+            $('.suggest a:first').css('background-color', 'rgb(95, 184, 120)');
+        }
+        return;
+    }
+
+    if (event.keyCode == 13) { // 回车
+        var isThis = false;
+        $.each($('.suggest a'), function (i, e) {
+            if ($(e).css('background-color') == 'rgb(95, 184, 120)') {
+                $('.form input').val($(e).html());
+                isThis = true;
+                return false;
+            }
+        });
+        if (!isThis) {
+            // 搜索
+            $('.form button').click();
+        }
+        $('.suggest').empty().hide();
+    }
+
+});
 
 
 function getIndex() {
@@ -54,10 +205,11 @@ function setIndexInfo(result) {
     $.each(result, function (i, v) {
         $('#copy a').attr('href', v.menuUrl);
         $('#copy img').attr('src', v.menuImgUrl);
-        $('#copy p:eq(1)').html(v.menuName);
+        $('#copy span').html(v.menuName);
         $('.boxs').append($('#copy').html());
     });
 }
+
 
 function getConfig() {
     var param = {
@@ -85,21 +237,11 @@ function getConfig() {
                         var geolocation = new AMap.Geolocation({
                             enableHighAccuracy: true,//是否使用高精度定位，默认:true
                             timeout: 10000,          //超过10秒后停止定位，默认：5s
-                            // buttonPosition: 'RB',    //定位按钮的停靠位置
-                            // buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-                            // zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
                         });
                         geolocation.getCurrentPosition(function (status, result) {
                             if (status == 'complete') {
                                 setWeather(result.addressComponent.city);
                             } else {
-                                // alert('自动精准定位失败(建议在设置页面填写所在城市)\r\n' +
-                                //     'ps:其他解决方法\r\n' +
-                                //     '1.请确认浏览器已打开允许访问位置信息；\r\n' +
-                                //     '2.请使用https访问该页面(https://106.13.46.83/)；\r\n' +
-                                //     '3.如果1和2都已确认无误仍出错，请尝试在设置页面填写所在城市；\r\n' +
-                                //     '4.如果发现在手机端(via等)浏览器中使用https链接访问获取天气很慢，建议在设置页面填写所在城市');
-
                                 AMap.plugin('AMap.CitySearch', function () {
                                     var citySearch = new AMap.CitySearch()
                                     citySearch.getLocalCity(function (status, result) {
@@ -115,8 +257,6 @@ function getConfig() {
 
 
                 }
-                // $('.weather').append('<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake"' +
-                //     'frameborder="0" width="200" height="24" allowtransparency="true"></iframe>');
             }
 
             var searchInputShow = config.searchInputShow;
@@ -130,23 +270,21 @@ function getConfig() {
                         console.log(result);
                         if (result && result.status == 'success') {
                             var content = result.data.content.split('，')[0];
-                            $('.search').attr('placeholder', '✎...  ' + content + '～');
+                            $('.form input').attr('placeholder', '✎...  ' + content + '～');
                             // document.title = content;
                         }
                     }
                 });
             } else {
-                $('.search').attr('placeholder', '');
+                $('.form input').attr('placeholder', '');
             }
 
             var logoShow = config.logoShow;
             if (logoShow) {
-                // $('.logo').attr('href', 'https://www.google.com');
-                // $(".smaller").attr('src', 'img/google.gif');
                 var logoImgUrl = config.logoImgUrl;
                 if (logoImgUrl) {
-                    logoImgUrl = imgurl + 'img/' + logoImgUrl.split("/")[5];
-                    $(".smaller").attr('src', logoImgUrl);
+                    logoImgUrl = imgurl + 'imgproxy/' + logoImgUrl.split("/")[5];
+                    $(".logoimg img").attr('src', logoImgUrl);
                 }
             }
 
@@ -156,10 +294,14 @@ function getConfig() {
             if (backgroundImgShow) {
                 var backgroundImgUrl = config.backgroundImgUrl;
                 if (backgroundImgUrl) {
-                    backgroundImgUrl = imgurl + 'img/' + backgroundImgUrl.split("/")[5];
+                    backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
                     $('body').css("background-image", "url('" + backgroundImgUrl + "')");
                 }
             }
+
+
+            suggestSwitch = config.suggestSwitch;
+            historySwitch = config.historySwitch;
         }
     });
 }
@@ -177,81 +319,18 @@ function setWeather(weatherCity) {
                 var city = data.city;
                 var c = data.forecasts[0].nightTemp + '℃ ~ ' + data.forecasts[0].dayTemp + '℃';
                 var dayWeather = data.forecasts[0].dayWeather;
-                var html = '<span>' + city + ' ' + dayWeather + ' ' + c + '</span>';
-                $('.weather').append(html);
+                var html = city + ' ' + dayWeather + ' ' + c;
+                $('.weather span').append(html);
             }
         });
     });
 }
 
-$('#search_input').on('input', function () {
-    return;
-    var $input = $(this);
-    var ulTag = $('<ul name="suggest"></ul>');
-    $('ul[name=suggest]').remove();
-    $('.search_part').append(ulTag);
-    // $input.parents('span').after(ulTag);
-    $.ajax({
-        url: 'http://suggestion.baidu.com/su?wd=' + $input.val(),
-        dataType: 'jsonp',
-        jsonp: 'cb', //回调函数的参数名(键值)key
-        // jsonpCallback: 'fun', //回调函数名(值) value
-        // beforeSend: function () {
-        //     $('#word').append('<div>正在加载。。。</div>');
-        // },
-        success: function (data) {
-            ulTag.empty();
-            $.each(data.s, function (i, v) {
-                if (i == 4) {
-                    return false;
-                }
-                ulTag.append('<li><a class="sugurl" href="javascript:void(0);" name="suga">' + v + '</a></li>');
-            });
-        },
-        error: function () {
-        }
-    });
-});
-
-$('.search_part').on('click', 'a[name=suga]', function () {
-    $('#search_input').val($(this).html());
-    $('ul[name=suggest]').remove();
-});
 
 $(function () {
+    $('.suggest').width($('.form').width());
     if (userInfo) {
         getIndex();
         getConfig();
     }
-
-    //获取用户所在城市信息
-    // AMap.plugin('AMap.CitySearch', function () {
-    //     var citySearch = new AMap.CitySearch()
-    //     citySearch.getLocalCity(function (status, result) {
-    //         alert(status);
-    //         if (status === 'complete' && result.info === 'OK') {
-    //             // 查询成功，result即为当前所在城市信息
-    //             console.log(result.city);
-    //             alert(result.city);
-    //         }
-    //     })
-    // });
-
-    // if (navigator.geolocation && navigator.geolocation.getCurrentPosition) {
-    //     navigator.geolocation.getCurrentPosition(function (position) {
-    //         alert(1);
-    //         console.log("Latitude: " + position.coords.latitude);
-    //         console.log("Longitude: " + position.coords.longitude);
-    //     }, function (error) {
-    //         alert(error.message);
-    //         console.log(error);
-    //     }, {
-    //         enableHighAccuracy: false,
-    //         maximumAge: 30000,
-    //         timeout: 20000
-    //     });
-    // } else {
-    //     alert('当前浏览器不支持获取位置信息');
-    // }
-
 });

@@ -47,7 +47,7 @@
     <ul class="layui-tab-title">
         <li class="layui-this">新增导航</li>
         <li>修改导航</li>
-        <li>全局配置</li>
+        <li>导航配置</li>
         <li>登陆/注册</li>
     </ul>
 
@@ -107,8 +107,7 @@
                     3：服务器购买不易，欢迎 推广 和 <a style="color: #009688;" id="donate" href="javascript:void(0);">给我捐赠</a>
                     哦<br>
                     4：© 2019 <a id="readme" style="color: #009688;" href="javascript:void(0);">点下看看</a><br>
-                    5：域名和https访问（建议使用最新地址访问哦） <a style="color: #009688;" href="https://www.myindex.top">主页</a>&nbsp;
-                    &nbsp;&nbsp;<a style="color: #009688;" href="https://www.myindex.top/new.html">新版主页</a><br>
+                    5：域名和https访问（建议使用最新地址访问哦） <a style="color: #009688;" href="https://www.myindex.top">主页</a>
                 </blockquote>
             </div>
         </div>
@@ -178,7 +177,7 @@
         </div>
 
         <div class="layui-tab-item layui-anim layui-anim-upbit">
-            <!--全局配置-->
+            <!--导航配置-->
             <div class="layui-form" lay-filter="config">
                 <div class="layui-form-item">
                     <label class="layui-form-label">搜索引擎</label>
@@ -187,11 +186,13 @@
                             <option value="https://www.baidu.com/s?wd=">百度</option>
                             <option value="https://www.google.com/search?q=">Google</option>
                             <option value="http://www.bing.com/search?q=">必应</option>
-                            <option value="http://www.so.com/s?q=">360搜索</option>
-                            <option value="http://www.sogou.com/sogou?query=">搜狗搜索</option>
-                            <option value="https://quark.sm.cn/s?q=">夸克AI搜索</option>
+                            <option value="http://www.so.com/s?q=">360</option>
+                            <option value="http://www.sogou.com/sogou?query=">搜狗</option>
+                            <option value="https://quark.sm.cn/s?q=">夸克AI</option>
                             <option value="http://www.miguyu.com/Link/so/">咪咕鱼</option>
                             <option value="https://www.qwant.com/?q=">Qwant</option>
+                            <option value="https://www.gugeji.com/search?q=">咕咯鸡</option>
+                            <option value="https://m.mijisou.com/search?q=">秘迹</option>
                         </select>
                     </div>
                 </div>
@@ -213,6 +214,20 @@
                             <i class="layui-icon">&#xe67c;</i>上传/修改图片
                         </button>
                         <!--                        <img id="logoimgurl" style="width: 50px;height: 50px;" realpath=""/>-->
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">搜索建议</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="suggestswitch" lay-skin="switch" lay-text="开启|关闭"
+                               lay-filter="suggestswitch-filter">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">搜索历史</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="historyswitch" lay-skin="switch" lay-text="开启|关闭"
+                               lay-filter="historyswitch-filter">
                     </div>
                 </div>
                 <div class="layui-form-item">

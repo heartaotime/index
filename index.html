@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <!--优先使用 IE 最新版本和 Chrome-->
@@ -9,102 +9,325 @@
     <!--百度禁止转码-->
     <!--<meta http-equiv="Cache-Control" content="no-siteapp" />-->
     <!--页面关键词 keywords-->
-    <meta name="keywords" content="主页 搜索">
+    <meta name="keywords" content="主页">
     <!--关闭chrome浏览器下翻译插件-->
     <meta name="google" value="notranslate"/>
     <!--为移动设备添加 viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 浏览网站时的小图标 -->
     <link rel="shortcut icon" type="image/x-icon" href="img/search.png" media="screen"/>
-
-
     <title>主页</title>
 
-    <!--Android Lollipop 中的 Chrome 39 增加 theme-color meta 标签，用来控制选项卡颜色-->
-    <!--<meta name="theme-color" content="#0DE18A">-->
-    <!--<meta name="theme-color" content="green">-->
 
-    <!-- 删除默认的苹果工具栏和菜单栏 -->
-    <!--<meta name="apple-mobile-web-app-capable" content="yes">-->
-    <!-- 在web app应用下状态条（屏幕顶部条）的颜色 -->
-    <!-- 设置状态栏的背景颜色，只有在 `"apple-mobile-web-app-capable" content="yes"` 时生效 -->
-    <!--<meta name="apple-mobile-web-app-status-bar-style" content="green"/>-->
-    <!-- 添加至主屏时的图片 -->
-    <!--<link rel="apple-touch-icon-precomposed" href="img/search-desk.png">-->
-    <link href="css/index.css" rel="stylesheet">
-    <script src="js/util.js"></script>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
 
+        body {
+            /*background-color: #ffffff;*/
+            background-size: 100%;
+        }
+
+        .top {
+            display: -webkit-flex; /* Safari */
+            display: flex;
+            flex-direction: row; /**主轴为水平方向，起点在左端*/
+            justify-content: space-between; /**项目在主轴上的对齐方式*/
+            padding: 5px;
+        }
+
+        .weather {
+            font-size: 13px;
+        }
+
+        .login img {
+            width: 30px;
+            height: 30px;
+        }
+
+
+        .logoimg {
+            -webkit-animation: fadeInDown 0.2s;
+            animation: fadeInDown 0.2s;
+            text-align: center;
+            height: 112px;
+        }
+
+
+        .logoimg img {
+            height: 108px;
+            max-width: 250px;
+        }
+
+        .container {
+            margin: 10px auto;
+            max-width: 500px;
+            text-align: center;
+            padding: 15px;
+        }
+
+
+        .form {
+            height: 38px;
+            /*border: 1px solid darkgray;*/
+            border-radius: 50px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+        }
+
+        .form input {
+            float: left;
+            font-size: 18px;
+            background-color: transparent;
+            outline: none;
+            /*border: 1px solid darkgray;*/
+            border: none;
+            padding: 0px 20px;
+            height: 38px;
+            width: 70%;
+        }
+
+        .form button {
+            float: right;
+            background-color: transparent;
+            outline: none;
+            /*border: 1px solid darkgray;*/
+            border: none;
+            cursor: pointer;
+            margin-right: 15px;
+            font-size: 15px;
+            max-width: 30px;
+            height: 38px;
+            margin-right: 15px;
+            width: 30%;
+        }
+
+        .suggest {
+            -webkit-animation: fadeInDown 0.2s;
+            animation: fadeInDown 0.2s;
+            display: none;
+            position: absolute;
+            text-align: left;
+            /*border: 1px solid darkgrey;*/
+            border-radius: 10px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+            border-top: none;
+            /*background-color: rgba(70, 70, 40, .255);*/
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 100%;
+            /*max-width: 420px;*/
+        }
+
+        .suggest a {
+            display: inherit;
+            /*background-color: darkgray;*/
+            margin-top: 1px;
+            line-height: 35px;
+            padding: 0px 20px;
+            border-radius: 10px;
+        }
+
+        .suggest a:hover {
+            background-color: rgb(95, 184, 120);
+        }
+
+        .boxs {
+            margin: 30px auto;
+            display: -webkit-flex; /* Safari */
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            border: none;
+        }
+
+        .url {
+            font-size: 13px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .box {
+            -webkit-animation: fadeInDown 1s;
+            animation: fadeInDown 1s;
+        }
+
+        .suggest span {
+            border-radius: 10px;
+            /*line-height: 35px;*/
+            text-align: center;
+            display: inherit;
+            cursor: pointer;
+            color: darkgray;
+        }
+
+        .suggest span:hover {
+            /*background-color: rgb(95, 184, 120);*/
+        }
+
+        /**
+         * 下方为动画样式，不懂的不要修改
+         */
+        @-webkit-keyframes flipInX {
+            0% {
+                -webkit-transform: perspective(400px) rotateX(90deg);
+                transform: perspective(400px) rotateX(90deg);
+                opacity: 0
+            }
+
+            40% {
+                -webkit-transform: perspective(400px) rotateX(-10deg);
+                transform: perspective(400px) rotateX(-10deg)
+            }
+
+            70% {
+                -webkit-transform: perspective(400px) rotateX(10deg);
+                transform: perspective(400px) rotateX(10deg)
+            }
+
+            100% {
+                -webkit-transform: perspective(400px) rotateX(0);
+                transform: perspective(400px) rotateX(0);
+                opacity: 1
+            }
+        }
+
+        @keyframes flipInX {
+            0% {
+                -webkit-transform: perspective(400px) rotateX(90deg);
+                -ms-transform: perspective(400px) rotateX(90deg);
+                transform: perspective(400px) rotateX(90deg);
+                opacity: 0
+            }
+
+            40% {
+                -webkit-transform: perspective(400px) rotateX(-10deg);
+                -ms-transform: perspective(400px) rotateX(-10deg);
+                transform: perspective(400px) rotateX(-10deg)
+            }
+
+            70% {
+                -webkit-transform: perspective(400px) rotateX(10deg);
+                -ms-transform: perspective(400px) rotateX(10deg);
+                transform: perspective(400px) rotateX(10deg)
+            }
+
+            100% {
+                -webkit-transform: perspective(400px) rotateX(0);
+                -ms-transform: perspective(400px) rotateX(0);
+                transform: perspective(400px) rotateX(0);
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateY(-20px);
+                transform: translateY(-20px)
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateY(-20px);
+                -ms-transform: translateY(-20px);
+                transform: translateY(-20px)
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                -ms-transform: translateY(0);
+                transform: translateY(0)
+            }
+        }
+
+    </style>
+
+    <script>
+    </script>
 </head>
-
 <body>
-<div>
-    <div class="weather">
-        <!--<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=te&skin=cake" frameborder="0" width="200"-->
-        <!--height="24" allowtransparency="true"></iframe>-->
-    </div>
 
+<div class="top">
+    <div class="weather">
+        <span></span>
+    </div>
     <div class="login">
-        <a href="./set.html" target="_blank">
+        <a href="set.html" target="_blank" style="display: inline-block;">
             <img src="img/login.png">
         </a>
     </div>
 </div>
 
-
-<div id="content">
-    <div class="search_part">
-        <a class="logo" target="_blank" href="set.html">
-            <img class="smaller"></img>
-        </a>
-        <br/>
-        <form onsubmit="return search()" class="search_bar">
-            <!--            <input type="submit" id="search_submit" value="搜索">-->
-            <img onclick="search()" id="search_submit" src="img/search.png">
-
-            <span><input class="search" type="text" value="" autocomplete="off" id="search_input" placeholder=""></span>
-        </form>
+<div class="logoimg">
+    <a href="set.html" target="_blank" style="display: inline-block;">
+        <img src=""/>
+    </a>
+</div>
+<div class="container">
+    <div class="form">
+        <input type="text">
+        <button>搜索</button>
     </div>
-    <br/>
+    <div class="suggest">
+    </div>
 
     <div class="boxs">
-
-        <!--<div class="box">-->
-        <!--<a href="http://106.13.46.83:1000/" target="_blank"></a>-->
-        <!--<p><img class="icon" src="img/douyu.png"></p>-->
-        <!--<p class="url">Douyu</p>-->
-        <!--</div>-->
-
-
     </div>
-
-    <div style="display: none;" id="copy">
-        <div class="box">
-            <a href="" target="_blank"></a>
-            <p><img class="icon" src=""></p>
-            <p class="url"></p>
-        </div>
-    </div>
-
-
-    <!--
-    如若要添加可复制一段
-    <div class="box">
-    <a href="地址"></a>
-    <p><img class="icon" src="img/icon6.png" ></p>
-    <p class="url">书签名称</p>
-    </div>
-    其中链接在href中如href="地址"建议填写folder://自己创建的文件夹地址，这样创建一次不必再修改
-    图标文件放置在img文件夹中定义如src="img/icon6.png"
-    显示的标题在<p class="url">书签名称</p>之间定义如<p class="url">酷安</p>
-    下方window.location.href =主页搜索引擎地址，目前为自用Pc版百度内部搜索，加上浏览器的顶部搜索即为双搜索，使用更方便
-
-    -->
-
 </div>
 
+<div style="display: none;" id="copy">
+    <div style="width: 60px;padding: 10px;" class="box">
+        <a target="_blank" style="display: inline-block;" href="">
+            <div>
+                <img class="icon" src="">
+                <span class="url"></span>
+            </div>
+        </a>
+    </div>
+</div>
+
+</body>
 <!-- 加载地图JSAPI脚本 -->
 <script src="https://webapi.amap.com/maps?v=1.4.12&key=6d12e65f78519a51b052b15208a5da2f"></script>
-
-<script src="js/index.js"></script>
-</body>
+<script src="./js/util.js"></script>
+<script src="./js/index.js"></script>
 </html>
