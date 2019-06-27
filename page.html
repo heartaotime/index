@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--优先使用 IE 最新版本和 Chrome-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!--360 使用Google Chrome Frame-->
+    <meta name="renderer" content="webkit">
+    <!--百度禁止转码-->
+    <!--<meta http-equiv="Cache-Control" content="no-siteapp" />-->
+    <!--页面关键词 keywords-->
+    <meta name="keywords" content="跳转">
+    <!--关闭chrome浏览器下翻译插件-->
+    <meta name="google" value="notranslate"/>
+    <!--为移动设备添加 viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 浏览网站时的小图标 -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/readme.png" media="screen"/>
+    <title>跳转</title>
+
+    <link rel="stylesheet" href="./module/layui/css/layui.css"/>
+    <script src="./module/layui/layui.js"></script>
+
+    <script src="./js/util.js"></script>
+
+    <style>
+        .layui-container {
+            margin-top: 10px;
+        }
+
+        .layui-row {
+            text-align: center;
+        }
+
+        .logo {
+            width: 300px;
+            padding: 5px;
+        }
+
+        .bg {
+            width: 300px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-container">
+    <blockquote class="layui-elem-quote">
+        1.域名终于申请下来了，域名和https访问 <a style="color: #009688;" href="https://www.myindex.top">主页</a>，
+        需要重新保存书签哦<br>
+        2.又新加了一个功能，支持联想查询和搜索历史记录，当然也是有开关控制的，需要打开哈<br>
+        3.每次有新功能更新，都需要清理下浏览器缓存哈<br>
+        4.最近比较忙，很少更新这个，后面时间多了，我会继续增加功能，让自定义更丰富，使用更顺手<br>
+        4.欢迎 推广 和 <a style="color: #009688;" id="donate" href="javascript:void(0);">给我捐赠</a><br>
+    </blockquote>
+
+</div>
+
+</body>
+
+<script>
+    var layer;
+    layui.use(['layer'], function () {
+        layer = layui.layer;
+    });
+    $('#donate').on('click', function () {
+        layer.open({
+            title: '扫一扫',
+            offset: '100px',
+            // area: '280px',
+            content: '<span style="margin-left: 30px;">支付宝</span><span style="margin-left: 80px">微信</span><br/>' +
+                '<image src="./img/zfb.png" width="109px"/>' +
+                '<image src="./img/wx.png" width="109px" style="margin-left: 2px;"/><br/><br/>' +
+                '或复制支付宝账号：<br/>heartaotime@foxmail.com<br/>',
+            // '目前已收到总计 7 笔，共 31.18 元',
+            closeBtn: 0, // 不显示关闭按钮
+            btn: ['关闭'],
+            btnAlign: 'c',
+            // yes: function (index, layero) {
+            //     // layer.close(index); //如果设定了yes回调，需进行手工关闭
+            //     // layer.title('打开微信扫一扫', index);
+            //     return false;// 开启该代码可禁止点击该按钮关闭
+            // }
+        });
+    });
+</script>
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+<!--<script>-->
+<!--    (adsbygoogle = window.adsbygoogle || []).push({-->
+<!--        google_ad_client: "ca-pub-7931049853974318",-->
+<!--        enable_page_level_ads: true-->
+<!--    });-->
+<!--</script>-->
+</html>

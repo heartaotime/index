@@ -13,7 +13,7 @@ $('.form button').on('click', function () {
     }
     var searchKey = $('.form input').val();
     window.open(searchEngines + searchKey);
-    $(".form input").val("");
+    $(".form input").val("").blur();
 
     // 记录下搜索历史 只最新的3个
     if (localStorage) {
@@ -116,6 +116,11 @@ $('.suggest').on('click', 'a', function () {
         localStorage.removeItem("searchHistorys");
     }
     $('.suggest').empty().hide();
+}).on('mouseover', 'a', function () {
+    $('.suggest a').css('background-color', '');
+    $(this).css('background-color', 'rgb(95, 184, 120)');
+}).on('mouseout', 'a', function () {
+    $('.suggest a').css('background-color', '');
 });
 
 
