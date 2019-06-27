@@ -148,7 +148,12 @@
         }
 
         .url {
+            margin-top: 5px;
             font-size: 13px;
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         a {
@@ -159,6 +164,11 @@
         .box {
             -webkit-animation: fadeInDown 1s;
             animation: fadeInDown 1s;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column; /*主轴为垂直方向，起点在上沿*/
         }
 
         .suggest span {
@@ -317,7 +327,7 @@
 <div style="display: none;" id="copy">
     <div style="width: 60px;padding: 10px;" class="box">
         <a target="_blank" style="display: inline-block;" href="">
-            <div>
+            <div class="item">
                 <img class="icon" src="">
                 <span class="url"></span>
             </div>
