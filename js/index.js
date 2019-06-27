@@ -15,7 +15,7 @@ $('.form button').on('click', function () {
     window.open(searchEngines + searchKey);
     $(".form input").val("").blur();
 
-    // 记录下搜索历史 只最新的3个
+    // 记录下搜索历史 只最新的5个
     if (localStorage) {
         var searchHistorys = localStorage.getItem("searchHistorys");
         if (!searchHistorys) {
