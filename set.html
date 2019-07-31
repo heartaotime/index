@@ -198,13 +198,13 @@
                         </select>
                     </div>
                 </div>
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">搜索框</label>-->
-<!--                    <div class="layui-input-inline">-->
-<!--                        <input type="text" name="searchinputshow" placeholder="请输入" autocomplete="off"-->
-<!--                               class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="layui-form-item">-->
+                <!--                    <label class="layui-form-label">搜索框</label>-->
+                <!--                    <div class="layui-input-inline">-->
+                <!--                        <input type="text" name="searchinputshow" placeholder="请输入" autocomplete="off"-->
+                <!--                               class="layui-input">-->
+                <!--                    </div>-->
+                <!--                </div>-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">展示Logo</label>
                     <div class="layui-input-block">
@@ -251,16 +251,28 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">展示背景图</label>
+                    <label class="layui-form-label">展示手机背景图</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="backgroundimgshow" lay-skin="switch" lay-text="开启|关闭"
                                lay-filter="backgroundimg-filter">
                     </div>
                     <div class="layui-input-block" id="backgroundimgurldiv">
                         <button type="button" class="layui-btn layui-btn-sm" id="backgroundimgupload">
-                            <i class="layui-icon">&#xe67c;</i>上传/修改图片
+                            <i class="layui-icon">&#xe67c;</i>上传/修改背景
                         </button>
-                        <!--                        <img id="backgroundimgurl" style="width: 50px;height: 50px;" realpath=""/>-->
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">展示PC背景图</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="backgroundimgpcshow" lay-skin="switch" lay-text="开启|关闭"
+                               lay-filter="backgroundimgpc-filter">
+                    </div>
+                    <div class="layui-input-block" id="backgroundimgurlpcdiv">
+                        <button style="margin-top: 10px;" type="button" class="layui-btn layui-btn-sm"
+                                id="backgroundimguploadpc">
+                            <i class="layui-icon">&#xe67c;</i>上传/修改背景
+                        </button>
                     </div>
                 </div>
                 <div class="layui-form-item">

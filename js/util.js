@@ -198,6 +198,28 @@ window.Util = (function () {
         $('#tips').modal('show');
     }
 
+    var getCurSystem = function () {
+        //平台、设备和操作系统
+        var system = {
+            win: false,
+            mac: false,
+            xll: false,
+            ipad: false
+        };
+        //检测平台
+        var p = navigator.platform;
+        system.win = p.indexOf("Win") == 0;
+        system.mac = p.indexOf("Mac") == 0;
+        system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+        system.ipad = (navigator.userAgent.match(/iPad/i) != null) ? true : false;
+        return system;
+        // if (system.win || system.mac || system.xll || system.ipad) {
+        //
+        // } else {
+        //     window.location.href = "http://www.jdpatro.com/3g/";
+        // }
+    }
+
 
     return {
         postJson: postJson,
@@ -207,6 +229,7 @@ window.Util = (function () {
         browser: browser,
         getUserIP: getUserIP,
         statistics: statistics,
-        tips: tips
+        tips: tips,
+        getCurSystem: getCurSystem
     }
 })();

@@ -199,6 +199,10 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             layer.msg("如果开关打开，请选择一张图片上传哦");
             return;
         }
+        if (field.backgroundimgpcshow == 'on' && ($('#backgroundimgurlpc').attr('realpath') == undefined || $('#backgroundimgurlpc').attr('realpath') == '')) {
+            layer.msg("如果开关打开，请选择一张图片上传哦");
+            return;
+        }
         var param = {
             userid: userInfo.id,
             weatherSwitch: field.weatherswitch == 'on' ? true : false,
@@ -210,7 +214,9 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             historySwitch: field.historyswitch == 'on' ? true : false,
             logoImgUrl: $('#logoimgurl').attr('realpath') == undefined ? "" : $('#logoimgurl').attr('realpath'),
             backgroundImgShow: field.backgroundimgshow == 'on' ? true : false,
-            backgroundImgUrl: $('#backgroundimgurl').attr('realpath') == undefined ? "" : $('#backgroundimgurl').attr('realpath')
+            backgroundImgUrl: $('#backgroundimgurl').attr('realpath') == undefined ? "" : $('#backgroundimgurl').attr('realpath'),
+            backgroundImgPcShow: field.backgroundimgpcshow == 'on' ? true : false,
+            backgroundImgUrlPc: $('#backgroundimgurlpc').attr('realpath') == undefined ? "" : $('#backgroundimgurlpc').attr('realpath')
         }
 
         Util.postJson("./common-server/user/api/v1/editConfig", param, function (response) {
@@ -240,6 +246,15 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
                     $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
                     $('#backgroundimgupload').after($img);
                     $('#backgroundimgurldiv').show();
+                }
+
+                $('#backgroundimgurlpc').remove();
+                if (field.backgroundimgpcshow == 'on') {
+                    var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
+                    $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
+                    $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
+                    $('#backgroundimguploadpc').after($img);
+                    $('#backgroundimgurlpcdiv').show();
                 }
                 layer.msg("保存成功，返回到导航页刷新页面即可看到效果哦");
             }
@@ -274,6 +289,21 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             $('#backgroundimgurldiv').show();
         } else {
             $('#backgroundimgurldiv').hide();
+        }
+    });
+
+    form.on('switch(backgroundimgpc-filter)', function (data) {
+        if (data.elem.checked) {
+            if (!userInfo) {
+                layer.msg("请先 登陆/注册");
+                form.val("config", {
+                    "backgroundimgpcshow": false
+                });
+                return;
+            }
+            $('#backgroundimgurlpcdiv').show();
+        } else {
+            $('#backgroundimgurlpcdiv').hide();
         }
     });
 
@@ -387,6 +417,34 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         error: function () {
             //请求异常回调
             layer.close(backgroundimgupload);
+        }
+    });
+    var backgroundimguploadpc;
+    upload.render({
+        elem: '#backgroundimguploadpc', //绑定元素
+        url: './common-server/user/api/v1/upload/', //上传接口
+        acceptMime: 'image/*',
+        data: {
+            name: 'bgimgpc',
+            userid: userInfo ? userInfo.id : "-1"
+        },
+        size: 20480, // 设置文件最大可允许上传的大小，单位 KB。不支持ie8/9
+        before: function () {
+            backgroundimguploadpc = layer.load(1);
+        },
+        done: function (res) {
+            layer.close(backgroundimguploadpc);
+            //上传完毕回调
+            console.log(res);
+            $('#backgroundimgurlpc').remove();
+            var backgroundImgUrlPc = imgurl + 'imgtempproxy/' + res.path.split("/")[5];
+            $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
+            $img.attr('src', backgroundImgUrlPc).attr("realpath", res.path);
+            $('#backgroundimguploadpc').after($img);
+        },
+        error: function () {
+            //请求异常回调
+            layer.close(backgroundimguploadpc);
         }
     });
 });
@@ -601,6 +659,7 @@ $('#readme').on('click', function () {
 function getConfig() {
     $('#logoimgurldiv').hide();
     $('#backgroundimgurldiv').hide();
+    $('#backgroundimgurlpcdiv').hide();
     $('#weathercitydiv').hide();
 
     if (!userInfo) {
@@ -630,7 +689,8 @@ function getConfig() {
                 "suggestswitch": config.suggestSwitch,
                 "historyswitch": config.historySwitch,
                 "searchinputshow": config.searchInputShow,
-                "backgroundimgshow": config.backgroundImgShow
+                "backgroundimgshow": config.backgroundImgShow,
+                "backgroundimgpcshow": config.backgroundImgPcShow
             }
             form.val("config", res);
 
@@ -644,12 +704,23 @@ function getConfig() {
             }
 
             if (config.backgroundImgShow) {
+                // 手机端背景
                 $('#backgroundimgurl').remove();
                 var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
                 $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
                 $('#backgroundimgupload').after($img);
                 $('#backgroundimgurldiv').show();
+            }
+
+            if (config.backgroundImgPcShow) {
+                // PC端背景
+                $('#backgroundimgurlpc').remove();
+                var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
+                $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
+                $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
+                $('#backgroundimguploadpc').after($img);
+                $('#backgroundimgurlpcdiv').show();
             }
 
             if (config.weatherSwitch) {

@@ -295,16 +295,26 @@ function getConfig() {
 
             searchEngines = config.searchEngines;
 
-            var backgroundImgShow = config.backgroundImgShow;
-            if (backgroundImgShow) {
-                var backgroundImgUrl = config.backgroundImgUrl;
-                if (backgroundImgUrl) {
-                    backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
-                    $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+            var curSystem = Util.getCurSystem();
+            if (curSystem.win || curSystem.mac || curSystem.xll || curSystem.ipad) {
+                var backgroundImgPcShow = config.backgroundImgPcShow;
+                if (backgroundImgPcShow) {
+                    var backgroundImgUrlPc = config.backgroundImgUrlPc;
+                    if (backgroundImgUrlPc) {
+                        backgroundImgUrlPc = imgurl + 'imgproxy/' + backgroundImgUrlPc.split("/")[5];
+                        $('body').css("background-image", "url('" + backgroundImgUrlPc + "')");
+                    }
+                }
+            } else {
+                var backgroundImgShow = config.backgroundImgShow;
+                if (backgroundImgShow) {
+                    var backgroundImgUrl = config.backgroundImgUrl;
+                    if (backgroundImgUrl) {
+                        backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
+                        $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                    }
                 }
             }
-
-
             suggestSwitch = config.suggestSwitch;
             historySwitch = config.historySwitch;
         }
