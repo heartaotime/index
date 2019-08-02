@@ -22,7 +22,16 @@ $('.form button').on('click', function () {
             searchHistorys = JSON.stringify([]);
         }
         searchHistorys = JSON.parse(searchHistorys);
-        searchHistorys.push(searchKey);
+        var needAdd = true;
+        $.each(searchHistorys, function (i, v) {
+            if (searchKey == v) {
+                needAdd = false;
+                return false;
+            }
+        })
+        if (needAdd) {
+            searchHistorys.push(searchKey);
+        }
         if (searchHistorys.length > 5) {
             searchHistorys.splice(-6, 1);
         }
