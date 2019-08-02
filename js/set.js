@@ -48,7 +48,9 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         if (index == 3) { // 登陆
             if (userInfo) {
                 $(this).html(userInfo.userName);
-                $('[name=username]').val(userInfo.userName);
+                form.val('login', {
+                    'username': userInfo.userName
+                });
             }
         }
     });
@@ -124,6 +126,43 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
         return false;
     });
 
+    form.on('submit(submit-modifyUser)', function (data) {
+        var field = data.field;
+        var param = {
+            username: field.username,
+            password: field.password,
+            usernameNew: field.usernameNew,
+            passwordNew: field.passwordNew
+        };
+        Util.postJson("./common-server/user/api/v1/modifyUser", param, function (response) {
+            if (response.code != 0) {
+                layer.msg(response.message);
+                form.val('modifyUser', {
+                    // 'username': '',
+                    'password': '',
+                    'usernameNew': '',
+                    'passwordNew': ''
+                });
+                return;
+            }
+            userInfo = response.userInfo;
+            if (localStorage) {
+                localStorage.clear();
+            }
+            Util.setUserInfo(response.userInfo);
+            var msg = '新账号：' + response.userInfo.userName + '<br>新密码：' + response.userInfo.passWord;
+            layer.alert(msg, {
+                title: '修改成功',
+                closeBtn: 0
+            }, function (index) {
+                window.location.reload();
+            });
+
+
+        });
+        return false;
+    });
+
     form.on('select(select-index)', function (data) {
         rowid = data.value;
         getIndexInfo(function (res) {
@@ -181,6 +220,83 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
                 });
             });
 
+        });
+        return false;
+    });
+
+    form.on('submit(submit-config)', function (data) {
+        if (!userInfo) {
+            layer.msg("请先 登陆/注册");
+            return;
+        }
+        var field = data.field;
+        if (field.logoshow == 'on' && ($('#logoimgurl').attr('realpath') == undefined || $('#logoimgurl').attr('realpath') == '')) {
+            layer.msg("如果开关打开，请选择一张图片上传哦");
+            return;
+        }
+        if (field.backgroundimgshow == 'on' && ($('#backgroundimgurl').attr('realpath') == undefined || $('#backgroundimgurl').attr('realpath') == '')) {
+            layer.msg("如果开关打开，请选择一张图片上传哦");
+            return;
+        }
+        if (field.backgroundimgpcshow == 'on' && ($('#backgroundimgurlpc').attr('realpath') == undefined || $('#backgroundimgurlpc').attr('realpath') == '')) {
+            layer.msg("如果开关打开，请选择一张图片上传哦");
+            return;
+        }
+        var param = {
+            userid: userInfo.id,
+            weatherSwitch: field.weatherswitch == 'on' ? true : false,
+            weatherCity: field.weathercity,
+            searchInputShow: field.searchinputshow == 'on' ? true : false,
+            searchEngines: field.searchengines,
+            logoShow: field.logoshow == 'on' ? true : false,
+            suggestSwitch: field.suggestswitch == 'on' ? true : false,
+            historySwitch: field.historyswitch == 'on' ? true : false,
+            logoImgUrl: $('#logoimgurl').attr('realpath') == undefined ? "" : $('#logoimgurl').attr('realpath'),
+            backgroundImgShow: field.backgroundimgshow == 'on' ? true : false,
+            backgroundImgUrl: $('#backgroundimgurl').attr('realpath') == undefined ? "" : $('#backgroundimgurl').attr('realpath'),
+            backgroundImgPcShow: field.backgroundimgpcshow == 'on' ? true : false,
+            backgroundImgUrlPc: $('#backgroundimgurlpc').attr('realpath') == undefined ? "" : $('#backgroundimgurlpc').attr('realpath')
+        }
+
+        Util.postJson("./common-server/user/api/v1/editConfig", param, function (response) {
+            if (response.code != 0) {
+                layer.msg(response.message);
+                return;
+            }
+
+            var result = response.result;
+            if (result.length > 0) {
+                var config = result[0].config;
+                config = JSON.parse(config);
+
+                $('#logoimgurl').remove();
+                if (field.logoshow == 'on') {
+                    var logoImgUrl = imgurl + 'imgproxy/' + config.logoImgUrl.split("/")[5];
+                    $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
+                    $img.attr('src', logoImgUrl).attr('realpath', config.logoImgUrl);
+                    $('#logoimgupload').after($img);
+                    $('#logoimgurldiv').show();
+                }
+
+                $('#backgroundimgurl').remove();
+                if (field.backgroundimgshow == 'on') {
+                    var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
+                    $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
+                    $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
+                    $('#backgroundimgupload').after($img);
+                    $('#backgroundimgurldiv').show();
+                }
+
+                $('#backgroundimgurlpc').remove();
+                if (field.backgroundimgpcshow == 'on') {
+                    var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
+                    $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
+                    $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
+                    $('#backgroundimguploadpc').after($img);
+                    $('#backgroundimgurlpcdiv').show();
+                }
+                layer.msg("保存成功，返回到导航页刷新页面即可看到效果哦");
+            }
         });
         return false;
     });
@@ -357,7 +473,6 @@ layui.use(['layer', 'element', 'form', 'upload'], function () {
             }
         }
     });
-
 
 
     var logoimgupload;
@@ -652,6 +767,34 @@ $('#readme').on('click', function () {
             btn: ['关闭'],
             btnAlign: 'c',
         });
+    });
+});
+
+$('#modifyUser').on('click', function () {
+    if (!userInfo) {
+        layer.msg('请先 登陆/注册');
+        return
+    }
+
+    form.val('modifyUser', {
+        'username': userInfo.userName,
+        'usernameNew': userInfo.userName
+    });
+
+    layer.open({
+        title: '<i class="layui-icon layui-icon-face-smile-b" style="font-size: 20px; color: #009688;"></i>&nbsp;&nbsp;' + userInfo.userName + ' 你好',
+        offset: '100px',
+        type: 1,
+        content: $('#modifyUserPage'),
+        closeBtn: 0, // 不显示关闭按钮
+        btnAlign: 'c',
+        btn: ['确认', '关闭'],
+        yes: function (index, layero) {
+            $('[lay-filter=submit-modifyUser]').click();
+        },
+        btn1: function (index, layero) {
+
+        }
     });
 });
 

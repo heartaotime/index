@@ -109,7 +109,7 @@
                     4：服务器购买不易，欢迎 推广 和 <a style="color: #009688;" id="donate" href="javascript:void(0);">给我捐赠</a>
                     哦<br>
                     5：© 2019 <a id="readme" style="color: #009688;" href="javascript:void(0);">点下看看</a><br>
-                    6：域名和https访问（建议使用最新地址访问哦） <a style="color: #009688;" href="https://www.myindex.top">主页</a>
+                    <!--                    6：域名和https访问（建议使用最新地址访问哦） <a style="color: #009688;" href="https://www.myindex.top">主页</a>-->
                 </blockquote>
             </div>
         </div>
@@ -206,7 +206,7 @@
                 <!--                    </div>-->
                 <!--                </div>-->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">展示Logo</label>
+                    <label class="layui-form-label">Logo</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="logoshow" lay-skin="switch" lay-text="开启|关闭"
                                lay-filter="logoshow-filter">
@@ -233,7 +233,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">展示天气</label>
+                    <label class="layui-form-label">天气</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="weatherswitch" lay-skin="switch" lay-text="开启|关闭"
                                lay-filter="weatherswitch-filter">
@@ -244,14 +244,14 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">展示古诗词</label>
+                    <label class="layui-form-label">古诗词</label>
                     <div class="layui-input-inline">
                         <input type="checkbox" name="searchinputshow" lay-skin="switch" lay-text="开启|关闭"
                                lay-filter="searchinput-filter">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">展示手机背景图</label>
+                    <label class="layui-form-label">手机背景</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="backgroundimgshow" lay-skin="switch" lay-text="开启|关闭"
                                lay-filter="backgroundimg-filter">
@@ -263,7 +263,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">展示PC背景图</label>
+                    <label class="layui-form-label">PC背景</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="backgroundimgpcshow" lay-skin="switch" lay-text="开启|关闭"
                                lay-filter="backgroundimgpc-filter">
@@ -293,10 +293,10 @@
             <!--登陆-->
             <div class="layui-form" lay-filter="login">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">用户名</label>
+                    <label class="layui-form-label">账号</label>
                     <div class="layui-input-inline">
                         <input type="text" name="username" lay-verify="required" lay-verType="tips"
-                               placeholder="请输入登录名"
+                               placeholder="请输入账号"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -318,7 +318,8 @@
                     1：账号不存在会自动注册<br>
                     2：部分信息是缓存在浏览器本地的哦，比如登陆信息等，建议允许缓存<br>
                     3：如遇部分问题，可以试着清除浏览器缓存或者重新登陆下看看哦<br>
-                    4：如果你有任何问题或者建议，发送至 heartaotime@foxmail.com 或者酷安 @皮皮狗子<br>
+                    4：账号/密码 增加复杂度校验，建议 <a style="color: #009688;" href="javascript:void(0);" id="modifyUser">修改账号/密码</a><br>
+                    5：如果你有任何问题或者建议，发送至 heartaotime@foxmail.com 或者酷安 @皮皮狗子<br>
                 </blockquote>
             </div>
         </div>
@@ -334,4 +335,45 @@
 <!--    document.write(returnCitySN["cip"] + ',' + returnCitySN["cname"])-->
 <!--</script>-->
 </body>
+
+
+<div id="modifyUserPage" style="display: none;margin: 10px;">
+    <div class="layui-form" lay-filter="modifyUser">
+        <div class="layui-form-item">
+            <label class="layui-form-label">原账号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="required" lay-verType="tips"
+                       placeholder="请输入账号"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">原密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" lay-verify="required" lay-verType="tips"
+                       placeholder="请输入密码"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新账号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="usernameNew" lay-verify="required" lay-verType="tips"
+                       placeholder="请输入新账号"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="passwordNew" lay-verify="required" lay-verType="tips"
+                       placeholder="请输入新密码"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <button class="layui-btn layui-hide" lay-submit lay-filter="submit-modifyUser">修改用户信息</button>
+    </div>
+</div>
+
 </html>
