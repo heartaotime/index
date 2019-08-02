@@ -88,6 +88,26 @@ window.Util = (function () {
     }
 
     var getUserInfo = function () {
+        // https://www.myindex.top?u=heartaotime&p=123
+        var userName = getReqParam('u');
+        var password = getReqParam('p');
+        if (userName != '' && password != '') {
+            var param = {
+                username: userName,
+                password: password
+            };
+            Util.postJson("./common-server/user/api/v1/login", param, function (response) {
+                if (response.code != 0) {
+                    // alert('账号/密码错误');
+                    return;
+                }
+                if (localStorage) {
+                    localStorage.clear();
+                }
+                Util.setUserInfo(response.userInfo);
+            }, false);
+        }
+
         if (localStorage && localStorage.getItem("userInfo")) {
             console.log('get userinfo from localStorage is exist');
             return JSON.parse(localStorage.getItem("userInfo"));
@@ -220,6 +240,13 @@ window.Util = (function () {
         // }
     }
 
+    var getReqParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
 
     return {
         postJson: postJson,
@@ -230,6 +257,7 @@ window.Util = (function () {
         getUserIP: getUserIP,
         statistics: statistics,
         tips: tips,
-        getCurSystem: getCurSystem
+        getCurSystem: getCurSystem,
+        getReqParam: getReqParam
     }
 })();
