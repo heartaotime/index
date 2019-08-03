@@ -91,7 +91,7 @@ window.Util = (function () {
         // https://www.myindex.top?u=heartaotime&p=123
         var userName = getReqParam('u');
         var password = getReqParam('p');
-        if (userName != '' && password != '') {
+        if (userName != null && userName != '' && password != null && password != '') {
             var param = {
                 username: userName,
                 password: password
