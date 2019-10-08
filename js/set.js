@@ -34,6 +34,12 @@ $(function () {
                     layer.msg('请先 登陆/注册');
                     return;
                 }
+
+                if(userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
+                    return;
+                }
+
             }
 
             if (index == 1) { // 修改导航
@@ -62,6 +68,12 @@ $(function () {
                 layer.msg("请先 登陆/注册");
                 return;
             }
+            
+            if(userInfo.userName == '访客') {
+                layer.msg("请先 登陆/注册，访客用户不可操作");
+                return;
+            }
+            
             var field = data.field;
             var param = {
                 menuname: field.menuname,
@@ -192,6 +204,11 @@ $(function () {
                 return;
             }
 
+            if(userInfo.userName == '访客') {
+                layer.msg("请先 登陆/注册，访客用户不可操作");
+                return;
+            }
+
             if (!rowid) {
                 layer.msg("请先选择要修改的导航");
                 return;
@@ -231,6 +248,12 @@ $(function () {
                 layer.msg("请先 登陆/注册");
                 return;
             }
+
+            if(userInfo.userName == '访客') {
+                layer.msg("请先 登陆/注册，访客用户不可操作");
+                return;
+            }
+
             var field = data.field;
             if (field.logoshow == 'on' && ($('#logoimgurl').attr('realpath') == undefined || $('#logoimgurl').attr('realpath') == '')) {
                 layer.msg("如果开关打开，请选择一张图片上传哦");
@@ -308,6 +331,12 @@ $(function () {
                 layer.msg("请先 登陆/注册");
                 return;
             }
+
+            if(userInfo.userName == '访客') {
+                layer.msg("请先 登陆/注册，访客用户不可操作");
+                return;
+            }
+
             var field = data.field;
             if (field.logoshow == 'on' && ($('#logoimgurl').attr('realpath') == undefined || $('#logoimgurl').attr('realpath') == '')) {
                 layer.msg("如果开关打开，请选择一张图片上传哦");
@@ -389,6 +418,12 @@ $(function () {
                     });
                     return;
                 }
+
+                if(userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
+                    return;
+                }
+
                 $('#logoimgurldiv').show();
             } else {
                 $('#logoimgurldiv').hide();
@@ -404,6 +439,12 @@ $(function () {
                     });
                     return;
                 }
+
+                if(userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
+                    return;
+                }
+
                 $('#backgroundimgurldiv').show();
             } else {
                 $('#backgroundimgurldiv').hide();
@@ -417,6 +458,10 @@ $(function () {
                     form.val("config", {
                         "backgroundimgpcshow": false
                     });
+                    return;
+                }
+                if(userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
                 $('#backgroundimgurlpcdiv').show();
@@ -434,6 +479,10 @@ $(function () {
                     });
                     return;
                 }
+                if(userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
+                    return;
+                }
                 $('#weathercitydiv').show();
             } else {
                 $('#weathercitydiv').hide();
@@ -449,6 +498,10 @@ $(function () {
                     });
                     return;
                 }
+                if(userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
+                    return;
+                }
             }
         });
 
@@ -461,6 +514,10 @@ $(function () {
                     });
                     return;
                 }
+                if(userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
+                    return;
+                }
             }
         });
 
@@ -471,6 +528,10 @@ $(function () {
                     form.val("config", {
                         "historyswitch": false
                     });
+                    return;
+                }
+                if(userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
             }
@@ -577,6 +638,11 @@ $('#del').on('click', function () {
         return;
     }
 
+    if(userInfo.userName == '访客') {
+        layer.msg("请先 登陆/注册，访客用户不可操作");
+        return;
+    }
+
     if (!rowid) {
         layer.msg("请先选择要删除的导航");
         return;
@@ -631,6 +697,12 @@ $('#logout').on('click', function () {
         layer.msg('请先 登陆/注册');
         return;
     }
+
+    if(userInfo.userName == '访客') {
+        layer.msg("请先 登陆/注册，访客用户不可操作");
+        return;
+    }
+
     var html = '确认退出[<span style="color: #FFB800;"> ' + userInfo.userName + ' </span>]吗?';
     layer.confirm(html, {icon: 3, title: '提示'}, function (index) {
         if (localStorage) {
@@ -663,6 +735,7 @@ function getIndexInfo(callback) {
         layer.msg('请先 登陆/注册');
         return;
     }
+
     var param = {
         userid: userInfo.id
     };
@@ -777,6 +850,11 @@ $('#modifyUser').on('click', function () {
     if (!userInfo) {
         layer.msg('请先 登陆/注册');
         return
+    }
+
+    if(userInfo.userName == '访客') {
+        layer.msg("请先 登陆/注册，访客用户不可操作");
+        return;
     }
 
     form.val('modifyUser', {
