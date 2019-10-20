@@ -110,24 +110,25 @@ window.Util = (function () {
 
         if (localStorage && localStorage.getItem("userInfo")) {
             console.log('get userinfo from localStorage is exist');
+            return JSON.parse(localStorage.getItem("userInfo"));
         } else {
-            var param = {
-                username: '访客',
-                password: '1'
-            };
-            Util.postJson("./common-server/user/api/v1/login", param, function (response) {
-                if (response.code != 0) {
-                    // alert('账号/密码错误');
-                    return;
-                }
-                if (localStorage) {
-                    localStorage.clear();
-                }
-                Util.setUserInfo(response.userInfo);
-            }, false);
+            // var param = {
+            //     username: '访客',
+            //     password: '1'
+            // };
+            // Util.postJson("./common-server/user/api/v1/login", param, function (response) {
+            //     if (response.code != 0) {
+            //         // alert('账号/密码错误');
+            //         return;
+            //     }
+            //     if (localStorage) {
+            //         localStorage.clear();
+            //     }
+            //     Util.setUserInfo(response.userInfo);
+            // }, false);
         }
 
-        return JSON.parse(localStorage.getItem("userInfo"));
+        return;
     }
 
     var removeUserInfo = function () {
