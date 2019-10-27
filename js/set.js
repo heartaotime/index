@@ -35,7 +35,7 @@ $(function () {
                     return;
                 }
 
-                if(userInfo.userName == '访客') {
+                if (userInfo.userName == '访客') {
                     layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
@@ -68,12 +68,12 @@ $(function () {
                 layer.msg("请先 登陆/注册");
                 return;
             }
-            
-            if(userInfo.userName == '访客') {
+
+            if (userInfo.userName == '访客') {
                 layer.msg("请先 登陆/注册，访客用户不可操作");
                 return;
             }
-            
+
             var field = data.field;
             var param = {
                 menuname: field.menuname,
@@ -204,7 +204,7 @@ $(function () {
                 return;
             }
 
-            if(userInfo.userName == '访客') {
+            if (userInfo.userName == '访客') {
                 layer.msg("请先 登陆/注册，访客用户不可操作");
                 return;
             }
@@ -249,7 +249,7 @@ $(function () {
                 return;
             }
 
-            if(userInfo.userName == '访客') {
+            if (userInfo.userName == '访客') {
                 layer.msg("请先 登陆/注册，访客用户不可操作");
                 return;
             }
@@ -332,7 +332,7 @@ $(function () {
                 return;
             }
 
-            if(userInfo.userName == '访客') {
+            if (userInfo.userName == '访客') {
                 layer.msg("请先 登陆/注册，访客用户不可操作");
                 return;
             }
@@ -419,7 +419,7 @@ $(function () {
                     return;
                 }
 
-                if(userInfo.userName == '访客') {
+                if (userInfo.userName == '访客') {
                     layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
@@ -440,7 +440,7 @@ $(function () {
                     return;
                 }
 
-                if(userInfo.userName == '访客') {
+                if (userInfo.userName == '访客') {
                     layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
@@ -460,7 +460,7 @@ $(function () {
                     });
                     return;
                 }
-                if(userInfo.userName == '访客') {
+                if (userInfo.userName == '访客') {
                     layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
@@ -479,7 +479,7 @@ $(function () {
                     });
                     return;
                 }
-                if(userInfo.userName == '访客') {
+                if (userInfo.userName == '访客') {
                     layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
@@ -498,7 +498,7 @@ $(function () {
                     });
                     return;
                 }
-                if(userInfo.userName == '访客') {
+                if (userInfo.userName == '访客') {
                     layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
@@ -514,7 +514,7 @@ $(function () {
                     });
                     return;
                 }
-                if(userInfo.userName == '访客') {
+                if (userInfo.userName == '访客') {
                     layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
@@ -530,7 +530,7 @@ $(function () {
                     });
                     return;
                 }
-                if(userInfo.userName == '访客') {
+                if (userInfo.userName == '访客') {
                     layer.msg("请先 登陆/注册，访客用户不可操作");
                     return;
                 }
@@ -638,7 +638,7 @@ $('#del').on('click', function () {
         return;
     }
 
-    if(userInfo.userName == '访客') {
+    if (userInfo.userName == '访客') {
         layer.msg("请先 登陆/注册，访客用户不可操作");
         return;
     }
@@ -698,13 +698,13 @@ $('#logout').on('click', function () {
         return;
     }
 
-    if(userInfo.userName == '访客') {
+    if (userInfo.userName == '访客') {
         layer.msg("请先 登陆/注册，访客用户不可操作");
         return;
     }
 
     var html = '确认退出[<span style="color: #FFB800;"> ' + userInfo.userName + ' </span>]吗?';
-    layer.confirm(html, {icon: 3, title: '提示'}, function (index) {
+    layer.confirm(html, { icon: 3, title: '提示' }, function (index) {
         if (localStorage) {
             localStorage.clear();
         }
@@ -821,7 +821,11 @@ $('#readme').on('click', function () {
     if (userInfo) {
         userName = userInfo.userName;
         num = userInfo.id;
-        createTimeStr = userInfo.createTimeStr;
+        // createTimeStr = userInfo.createTimeStr;
+        // 2018-12-14 14:12:09
+        var createTime = new Date(userInfo.createTime);
+        createTimeStr = createTime.getFullYear() + '年' + (createTime.getMonth() + 1) + '月' + createTime.getDate() + '日'
+
     }
     Util.postJson("./common-server/user/api/v1/getCount", {}, function (response) {
         layer.open({
@@ -837,7 +841,8 @@ $('#readme').on('click', function () {
                 '        今日注册人数 ' + response.userDayCountAll + '<br>\n' +
                 '        总访问主页次数 ' + response.accessCountAll + '<br>\n' +
                 '        今日访问主页次数 ' + response.accessDayCountAll + '<br>\n' +
-                '        友情链接 <a style="color: #009688;" target="_blank" href="http://igeeka.tk/">极咖网</a><br>\n' +
+                '        接毕设哈哈 <br>\n' +
+                // '        友情链接 <a style="color: #009688;" target="_blank" href="http://igeeka.tk/">极咖网</a><br>\n' +
                 '    </blockquote>',
             closeBtn: 0, // 不显示关闭按钮
             btn: ['关闭'],
@@ -852,7 +857,7 @@ $('#modifyUser').on('click', function () {
         return
     }
 
-    if(userInfo.userName == '访客') {
+    if (userInfo.userName == '访客') {
         layer.msg("请先 登陆/注册，访客用户不可操作");
         return;
     }
