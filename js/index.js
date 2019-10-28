@@ -5,14 +5,15 @@ var url = document.location.toString();
 var splitUrl = url.split('/');
 var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
 
-var searchEngines, suggestSwitch, historySwitch;
+var searchEngineList, suggestSwitch, historySwitch;
 
-$('.form button').on('click', function () {
-    if (!searchEngines) {
-        searchEngines = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
+$('.form .formright').on('click', function () {
+    var searchEngine = $('.formleft span').attr('url');
+    if (!searchEngine) {
+        searchEngine = 'https://www.baidu.com/s?wd='; // 默认搜索引擎设置为baidu
     }
     var searchKey = $('.form input').val();
-    window.open(searchEngines + searchKey);
+    window.open(searchEngine + searchKey);
     $(".form input").val("").blur();
 
     // 记录下搜索历史 只最新的5个
@@ -70,6 +71,7 @@ $(window).resize(function () {
 });
 
 $('.form input').on('focus', function () {
+    $('.searchEngines').hide();
     // console.log('focus');
     var $input = $(this);
     if ($input.val() == '') {
@@ -132,6 +134,21 @@ $('.suggest').on('click', 'a', function () {
     $('.suggest a').css('background-color', '');
 });
 
+$('.searchEngines').on('click', 'a', function () {
+    $('.formleft span').attr('url', $(this).attr('url')).html($(this).html());
+    $('.searchEngines').hide();
+}).on('mouseover', 'a', function () {
+    $('.searchEngines a').css('background-color', '');
+    $(this).css('background-color', 'rgb(95, 184, 120)');
+}).on('mouseout', 'a', function () {
+    $('.searchEngines a').css('background-color', '');
+});
+
+$('.formleft').on('click', function () {
+    $('.suggest').empty().hide();
+    $('.searchEngines').show();
+});
+
 
 $(document).keydown(function (event) {
     // console.log(event.keyCode);
@@ -181,7 +198,7 @@ $(document).keydown(function (event) {
         });
         if (!isThis) {
             // 搜索
-            $('.form button').click();
+            $('.form .formright').click();
         }
         $('.suggest').empty().hide();
     }
@@ -302,7 +319,15 @@ function getConfig() {
                 }
             }
 
-            searchEngines = config.searchEngines;
+            var searchEngineC = config.searchEngines;
+            if (searchEngineC && searchEngineC != '') {
+                for (var i = 0; i < searchEngineList.length; i++) {
+                    var re = searchEngineList[i];
+                    if (re.codeValue == searchEngineC) {
+                        $('.formleft span').attr('url', re.codeValue).html(re.codeName);
+                    }
+                }
+            }
 
             var curSystem = Util.getCurSystem();
             if (curSystem.win || curSystem.mac || curSystem.xll || curSystem.ipad) {
@@ -353,6 +378,18 @@ function setWeather(weatherCity) {
 
 $(function () {
     $('.suggest').width($('.form').width());
+
+    searchEngineList = Util.getStaticData('SEARCH_ENGINES');
+
+    for (var i = 0; i < searchEngineList.length; i++) {
+        var re = searchEngineList[i];
+        var html = '<a url="' + re.codeValue + '">' + re.codeName + '</a>';
+        $('.searchEngines').append(html);
+        if (i == 0) {
+            $('.formleft span').attr('url', re.codeValue).html(re.codeName);
+        }
+    }
+
     if (userInfo) {
         getIndex();
         getConfig();

@@ -1,4 +1,4 @@
-var layer, element, form, upload, userInfo, rowid;
+var layer, element, form, upload, userInfo, rowid, searchEngineList;
 
 var url = document.location.toString();
 // var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
@@ -11,10 +11,19 @@ $(function () {
     if (userInfo) {
         $('.layui-tab-title li:eq(3)').html(userInfo.userName);
     }
+
+
 });
 
 function init() {
     Util.statistics('setting');
+    searchEngineList = Util.getStaticData('SEARCH_ENGINES');
+    for (var i = 0; i < searchEngineList.length; i++) {
+        var re = searchEngineList[i];
+        var html = '<option value="' + re.codeValue + '">' + re.codeName + '</option>';
+        $('select[name=searchengines]').append(html);
+    }
+    form.render('select', 'config'); //刷新select选择框渲染
 }
 
 $(function () {
@@ -704,7 +713,7 @@ $('#logout').on('click', function () {
     }
 
     var html = '确认退出[<span style="color: #FFB800;"> ' + userInfo.userName + ' </span>]吗?';
-    layer.confirm(html, { icon: 3, title: '提示' }, function (index) {
+    layer.confirm(html, {icon: 3, title: '提示'}, function (index) {
         if (localStorage) {
             localStorage.clear();
         }
@@ -890,6 +899,7 @@ function getConfig() {
     $('#backgroundimgurldiv').hide();
     $('#backgroundimgurlpcdiv').hide();
     $('#weathercitydiv').hide();
+
 
     if (!userInfo) {
         layer.msg('请先 登陆/注册');

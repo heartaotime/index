@@ -263,6 +263,21 @@ window.Util = (function () {
         return null;
     }
 
+    var getStaticData = function (codeType) {
+        var param = {
+            'codeType': codeType
+        };
+        var result = [];
+        Util.postJson("./common-server/user/api/v1/getStaticData", param, function (response) {
+            if (response.code != 0) {
+                alert(response.message);
+                return;
+            }
+            result = response.result;
+        }, false);
+        return result;
+    }
+
 
     return {
         postJson: postJson,
@@ -274,6 +289,7 @@ window.Util = (function () {
         statistics: statistics,
         tips: tips,
         getCurSystem: getCurSystem,
-        getReqParam: getReqParam
+        getReqParam: getReqParam,
+        getStaticData: getStaticData
     }
 })();
