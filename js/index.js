@@ -375,26 +375,11 @@ function setWeather(weatherCity) {
     });
 }
 
-
-$(function () {
-    $('.suggest').width($('.form').width());
-
-    searchEngineList = Util.getStaticData('SEARCH_ENGINES');
-
-    for (var i = 0; i < searchEngineList.length; i++) {
-        var re = searchEngineList[i];
-        var html = '<a url="' + re.codeValue + '">' + re.codeName + '</a>';
-        $('.searchEngines').append(html);
-        if (i == 0) {
-            $('.formleft span').attr('url', re.codeValue).html(re.codeName);
-        }
-    }
-
-    if (userInfo) {
-        getIndex();
-        getConfig();
-    } else {
-        // 该用户 未注册，展示默认背景
+function defaultSet() {
+    // 该用户 未注册，展示默认背景
+    // 1.获取开关
+    var defaultSwitch = Util.getStaticData('DEFAULT_SWITCH');
+    if (defaultSwitch && defaultSwitch.length > 0 && defaultSwitch[0].codeValue == '1') {
         var defaultBgImgList = Util.getStaticData('DEFAULT_BG_IMG');
         var backgroundImgUrl = '';
         var backgroundImgUrlPc = '';
@@ -423,5 +408,28 @@ $(function () {
                 $('body').css("background-image", "url('" + backgroundImgUrl + "')");
             }
         }
+    }
+}
+
+
+$(function () {
+    $('.suggest').width($('.form').width());
+
+    searchEngineList = Util.getStaticData('SEARCH_ENGINES');
+
+    for (var i = 0; i < searchEngineList.length; i++) {
+        var re = searchEngineList[i];
+        var html = '<a url="' + re.codeValue + '">' + re.codeName + '</a>';
+        $('.searchEngines').append(html);
+        if (i == 0) {
+            $('.formleft span').attr('url', re.codeValue).html(re.codeName);
+        }
+    }
+
+    if (userInfo) {
+        getIndex();
+        getConfig();
+    } else {
+        defaultSet();
     }
 });
