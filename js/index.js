@@ -393,5 +393,35 @@ $(function () {
     if (userInfo) {
         getIndex();
         getConfig();
+    } else {
+        // 该用户 未注册，展示默认背景
+        var defaultBgImgList = Util.getStaticData('DEFAULT_BG_IMG');
+        var backgroundImgUrl = '';
+        var backgroundImgUrlPc = '';
+        if (defaultBgImgList && defaultBgImgList.length > 0) {
+            for (var i = 0; i < defaultBgImgList.length; i++) {
+                var ext1 = defaultBgImgList[i].ext1;
+                var codeValue = defaultBgImgList[i].codeValue;
+                if ('PHONE' == ext1) {
+                    backgroundImgUrl = codeValue;
+                }
+                if ('PC' == ext1) {
+                    backgroundImgUrlPc = codeValue;
+                }
+            }
+        }
+
+        var curSystem = Util.getCurSystem();
+        if (curSystem.win || curSystem.mac || curSystem.xll || curSystem.ipad) {
+            if (backgroundImgUrlPc != '') {
+                backgroundImgUrlPc = imgurl + 'imgproxy/' + backgroundImgUrlPc.split("/")[5];
+                $('body').css("background-image", "url('" + backgroundImgUrlPc + "')");
+            }
+        } else {
+            if (backgroundImgUrl != '') {
+                backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
+                $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+            }
+        }
     }
 });
