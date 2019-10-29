@@ -69,6 +69,9 @@ $(function () {
                     });
                 }
             }
+            if (index == 4) { // 登陆
+                window.location.href = imgurl;
+            }
         });
 
 

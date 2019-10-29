@@ -49,8 +49,8 @@
 
 
         .logoimg {
-            -webkit-animation: fadeInDown 0.2s;
-            animation: fadeInDown 0.2s;
+            -webkit-animation: fadeInDown 1s;
+            animation: fadeInDown 1s;
             text-align: center;
             height: 112px;
         }
@@ -74,6 +74,7 @@
             border-radius: 50px;
             box-shadow: 0 0 18px rgba(70, 70, 40, .255);
 
+            background-color: #eeeeee5c;
             display: -webkit-flex;
             display: flex;
             flex-direction: row;
@@ -103,7 +104,8 @@
 
         .formcenter input {
             font-size: 18px;
-            background-color: transparent;
+            /*background-color: transparent;*/
+            background-color: #eeeeee00;
             outline: none;
             border: none;
             height: 38px;
@@ -156,12 +158,13 @@
         /*}*/
 
         .boxs {
-            margin: 30px auto;
             display: -webkit-flex; /* Safari */
             display: flex;
+            margin: 30px auto;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
         }
 
         .icon {
@@ -190,8 +193,11 @@
         }
 
         .item {
+            display: -webkit-flex;
             display: flex;
             flex-direction: column; /*主轴为垂直方向，起点在上沿*/
+            justify-content: center;
+            align-items: center;
         }
 
         .suggest span {

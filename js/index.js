@@ -380,6 +380,28 @@ function defaultSet() {
     // 1.获取开关
     var defaultSwitch = Util.getStaticData('DEFAULT_SWITCH');
     if (defaultSwitch && defaultSwitch.length > 0 && defaultSwitch[0].codeValue == '1') {
+        // 1. 设置默认的Logo
+        var defaultLogoImg = Util.getStaticData('DEFAULT_LOGO_IMG');
+        if (defaultLogoImg && defaultLogoImg.length > 0) {
+            var logoImgUrlDe = defaultLogoImg[0].codeValue;
+            logoImgUrlDe = imgurl + 'imgproxy/' + logoImgUrlDe.split("/")[5];
+            $(".logoimg img").attr('src', logoImgUrlDe);
+        }
+        // 2. 设置默认展示的导航
+        var defaultIndex = Util.getStaticData('DEFAULT_INDEX');
+        var deReselt = [];
+        if (defaultIndex && defaultIndex.length > 0) {
+            for (var i = 0; i < defaultIndex.length; i++) {
+                var deIndex = defaultIndex[i];
+                deReselt.push({
+                    "menuUrl": deIndex.codeValue,
+                    "menuImgUrl": deIndex.bigData,
+                    "menuName": deIndex.codeName,
+                })
+            }
+            setIndexInfo(deReselt);
+        }
+        // 3.设置默认的背景图
         var defaultBgImgList = Util.getStaticData('DEFAULT_BG_IMG');
         var backgroundImgUrl = '';
         var backgroundImgUrlPc = '';
