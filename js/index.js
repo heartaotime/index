@@ -146,7 +146,12 @@ $('.searchEngines').on('click', 'a', function () {
 
 $('.formleft').on('click', function () {
     $('.suggest').empty().hide();
-    $('.searchEngines').show();
+    if ($('.searchEngines').css('display') == 'none') {
+        $('.searchEngines').show();
+    } else {
+        $('.searchEngines').hide();
+    }
+
 });
 
 
@@ -448,10 +453,13 @@ $(function () {
         }
     }
 
-    if (userInfo) {
-        getIndex();
-        getConfig();
-    } else {
-        defaultSet();
+    if (userInfo == undefined) {
+        userInfo = {
+            id: -1
+        }
     }
+
+    getIndex();
+    getConfig();
+
 });
