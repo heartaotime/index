@@ -275,14 +275,14 @@ $(function () {
                 layer.msg("如果开关打开，请选择一张图片上传哦");
                 return;
             }
-            if (field.backgroundimgshow == 'on' && ($('#backgroundimgurl').attr('realpath') == undefined || $('#backgroundimgurl').attr('realpath') == '')) {
+            if (field.autochangebgimgshow != 'on' && field.backgroundimgshow == 'on' && ($('#backgroundimgurl').attr('realpath') == undefined || $('#backgroundimgurl').attr('realpath') == '')) {
                 layer.msg("如果开关打开，请选择一张图片上传哦");
                 return;
             }
-            if (field.backgroundimgpcshow == 'on' && ($('#backgroundimgurlpc').attr('realpath') == undefined || $('#backgroundimgurlpc').attr('realpath') == '')) {
-                layer.msg("如果开关打开，请选择一张图片上传哦");
-                return;
-            }
+            // if (field.backgroundimgpcshow == 'on' && ($('#backgroundimgurlpc').attr('realpath') == undefined || $('#backgroundimgurlpc').attr('realpath') == '')) {
+            //     layer.msg("如果开关打开，请选择一张图片上传哦");
+            //     return;
+            // }
             var param = {
                 userid: userInfo.id,
                 weatherSwitch: field.weatherswitch == 'on' ? true : false,
@@ -937,29 +937,30 @@ function getConfig() {
                 $('#logoimgurldiv').show();
             }
 
+            if (config.backgroundImgShow) {
+                // 手机端背景
+                $('#backgroundimgurl').remove();
+                var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
+                $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
+                $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
+                $('#backgroundimgupload').after($img);
+                $('#backgroundimgurldiv').show();
+            }
+
+            if (config.backgroundImgPcShow) {
+                // PC端背景
+                $('#backgroundimgurlpc').remove();
+                var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
+                $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
+                $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
+                $('#backgroundimguploadpc').after($img);
+                $('#backgroundimgurlpcdiv').show();
+            }
+
             if (config.autoChangeBgImgShow) {
                 $('#changeBg').hide();
             } else {
                 $('#changeBg').show();
-                if (config.backgroundImgShow) {
-                    // 手机端背景
-                    $('#backgroundimgurl').remove();
-                    var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
-                    $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
-                    $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
-                    $('#backgroundimgupload').after($img);
-                    $('#backgroundimgurldiv').show();
-                }
-
-                if (config.backgroundImgPcShow) {
-                    // PC端背景
-                    $('#backgroundimgurlpc').remove();
-                    var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
-                    $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
-                    $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
-                    $('#backgroundimguploadpc').after($img);
-                    $('#backgroundimgurlpcdiv').show();
-                }
             }
 
 
