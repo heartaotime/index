@@ -753,7 +753,8 @@ $('[name=getIcon]').on('click', function () {
     }
     $('#' + ele).attr('src', Util.getDefaultImg());
     var urlTmp = $('[name=menuurl]:eq(' + index + ')').val();
-    if (urlTmp == '') {
+    if (urlTmp == '' || urlTmp.indexOf('http') < 0) {
+        layer.msg('请填写正确的网址后再获取图标');
         return;
     }
     var splitUrlTmp = urlTmp.split('/');
