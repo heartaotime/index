@@ -346,7 +346,7 @@ function getConfig() {
                             && result.images.length > 0 && result.images[0]) {
                             var imageUrl = result.images[0].url;
                             // $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
-                            $('body').css("background", "url('https://cn.bing.com/" + imageUrl + "') no-repeat fixed center");
+                            $('body').css("background", "url('https://cn.bing.com/" + imageUrl + "') center no-repeat fixed");
                         }
                     }
                 });
@@ -357,7 +357,7 @@ function getConfig() {
                     if (backgroundImgUrl) {
                         backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
                         // $('body').css("background-image", "url('" + backgroundImgUrl + "')");
-                        $('body').css("background", "url('" + backgroundImgUrl + "') no-repeat fixed center");
+                        $('body').css("background", "url('" + backgroundImgUrl + "') center no-repeat fixed");
                     }
                 }
                 // var curSystem = Util.getCurSystem();
@@ -468,6 +468,32 @@ function defaultSet() {
     }
 }
 
+$('.set a').on('click', function () {
+    var index = $('.set a').index(this);
+    if (index == 0) {
+        window.location.href = 'set.html';
+        return;
+    }
+    if (index == 1) {
+        if ($($('.set a:eq(2)')).css('display') == 'none') {
+            $('.set a:gt(1)').show();
+        } else {
+            $('.set a:gt(1)').hide();
+        }
+        return;
+    }
+    var code = '';
+    if (index == 2) {
+        code = 'login';
+    }
+    if (index == 3) {
+        code = 'add';
+    }
+    if (index == 4) {
+        code = 'modify';
+    }
+    window.location.href = 'set.html?code=' + code;
+});
 
 $(function () {
     $('.suggest').width($('.form').width());

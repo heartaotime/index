@@ -27,8 +27,10 @@
 
         body {
             /*background-color: #ffffff;*/
-            background-size: 100%;
+            /*background-size: 100%;*/
+            background-size: cover;
         }
+
 
         .top {
             display: -webkit-flex; /* Safari */
@@ -38,8 +40,15 @@
             padding: 5px;
         }
 
+
         .weather {
             font-size: 13px;
+        }
+
+        .login {
+            position: fixed;
+            right: 8px;
+            top: 8px;
         }
 
         .login img {
@@ -47,6 +56,36 @@
             height: 28px;
             background-color: #eeeeee5c;
             border-radius: 5px;
+        }
+
+        .set {
+            font-size: 20px;
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: repeat(2, 1fr) repeat(3, 1.5fr);
+            place-content: center;
+            place-items: center;
+            /*grid-row-gap: 2px;*/
+        }
+
+        .set a {
+            cursor: pointer;
+            /*background-color: #eeeeee5c;*/
+            /*border-radius: 5px;*/
+        }
+
+        /*i {*/
+        /*    color: lightgrey;*/
+        /*}*/
+
+        /*span {*/
+        /*    color: #eeeeee;*/
+        /*}*/
+
+        .logoimg a:hover {
+            -webkit-animation: fadeInS 0.8s;
+            animation: fadeInS 0.8s;
+            margin-top: -5px;
         }
 
 
@@ -83,6 +122,10 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .form :hover {
+
         }
 
         .formleft, .formcenter, .formright {
@@ -156,10 +199,6 @@
             border-radius: 10px;
         }
 
-        /*.suggest a:hover {*/
-        /*    background-color: rgb(95, 184, 120);*/
-        /*}*/
-
         .boxs {
             display: -webkit-flex; /* Safari */
             display: flex;
@@ -183,7 +222,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            background-color: #eeeeee5c;
+            background-color: #eeeeee30;
             border-radius: 5px;
         }
 
@@ -191,6 +230,13 @@
             text-decoration: none;
             color: #333;
         }
+
+        .boxs a:hover {
+            -webkit-animation: fadeInS 0.8s;
+            animation: fadeInS 0.8s;
+            margin-top: -5px;
+        }
+
 
         .box {
             -webkit-animation: fadeInDown 1s;
@@ -312,11 +358,37 @@
             0% {
                 opacity: 0
             }
+            100% {
+                opacity: 1
+            }
+        }
+
+        @-webkit-keyframes fadeInS {
+            0% {
+                opacity: 0.8
+            }
+
+            50% {
+                opacity: 0.9
+            }
 
             100% {
                 opacity: 1
             }
         }
+
+        @keyframes fadeInS {
+            0% {
+                opacity: 0.8
+            }
+            50% {
+                opacity: 0.9
+            }
+            100% {
+                opacity: 1
+            }
+        }
+
 
         @-webkit-keyframes fadeInDown {
             0% {
@@ -360,9 +432,20 @@
         <span></span>
     </div>
     <div class="login">
-        <a href="set.html" target="_self" style="display: inline-block;">
-            <img src="img/login.png">
-        </a>
+        <!--        <a href="set.html" target="_self" style="display: inline-block;">-->
+
+        <!--            &lt;!&ndash;            <i class="fa fa-cog" aria-hidden="true"></i>&ndash;&gt;-->
+        <!--        </a>-->
+
+        <div class="set">
+            <!--                <img src="img/login.png">-->
+            <a title="设置"><i class="fa fa-cog" aria-hidden="true"></i></a>
+            <a title="设置"><i class="fa fa-angle-down"></i></a>
+            <a title="登陆/注册" style="display: none"><i class="fa fa-user" aria-hidden="true"></i></a>
+            <a title="添加导航" style="display: none"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a title="删除导航" style="display: none"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        </div>
+
     </div>
 </div>
 

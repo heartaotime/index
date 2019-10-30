@@ -26,6 +26,13 @@ function init() {
         $('select[name=searchengines]').append(html);
     }
     form.render('select', 'config'); //刷新select选择框渲染
+
+    // 默认选择标签
+    var code = Util.getReqParam('code');
+    if (code && code != null && code != '') {
+        element.tabChange('tab', code);
+    }
+
 }
 
 $(function () {
@@ -36,6 +43,7 @@ $(function () {
         upload = layui.upload;
 
         init();
+
 
         element.on('tab(tab)', function (data) {
             var index = data.index;
