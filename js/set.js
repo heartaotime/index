@@ -12,6 +12,8 @@ $(function () {
         $('.layui-tab-title li:eq(3)').html(userInfo.userName);
     }
 
+    $('#menuimgurl-add').attr('src', Util.getDefaultImg());
+    $('#menuimgurl-edit').attr('src', Util.getDefaultImg());
 
 });
 
@@ -112,8 +114,7 @@ $(function () {
                     "menuurl": "",
                     "sort": ""
                 });
-                $('#menuimgurl-add').attr('src', 'data:image/png;base64,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');
-
+                $('#menuimgurl-add').attr('src', Util.getDefaultImg());
             });
             return false;
         });
@@ -145,17 +146,6 @@ $(function () {
                     window.history.go(0);
                 }, 500)
 
-
-                // 更新修改导航页面
-                // rowid = undefined;
-                // form.val("index-edit", {
-                //     "index": rowid,
-                //     "menuname": "",
-                //     "menuurl": "",
-                //     "sort": ""
-                // });
-                // $('#menuimgurl-edit').attr('src', 'data:image/png;base64,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');
-                // $('[name^=btn-]').attr('disabled', true).addClass('layui-btn-disabled');
             });
             return false;
         });
@@ -268,88 +258,6 @@ $(function () {
             return false;
         });
 
-        form.on('submit(submit-config)', function (data) {
-            if (!userInfo) {
-                layer.msg("请先 登陆/注册");
-                return;
-            }
-
-            if (userInfo.userName == '访客') {
-                layer.msg("请先 登陆/注册，访客用户不可操作");
-                return;
-            }
-
-            var field = data.field;
-            if (field.logoshow == 'on' && ($('#logoimgurl').attr('realpath') == undefined || $('#logoimgurl').attr('realpath') == '')) {
-                layer.msg("如果开关打开，请选择一张图片上传哦");
-                return;
-            }
-            if (field.backgroundimgshow == 'on' && ($('#backgroundimgurl').attr('realpath') == undefined || $('#backgroundimgurl').attr('realpath') == '')) {
-                layer.msg("如果开关打开，请选择一张图片上传哦");
-                return;
-            }
-            if (field.backgroundimgpcshow == 'on' && ($('#backgroundimgurlpc').attr('realpath') == undefined || $('#backgroundimgurlpc').attr('realpath') == '')) {
-                layer.msg("如果开关打开，请选择一张图片上传哦");
-                return;
-            }
-            var param = {
-                userid: userInfo.id,
-                weatherSwitch: field.weatherswitch == 'on' ? true : false,
-                weatherCity: field.weathercity,
-                searchInputShow: field.searchinputshow == 'on' ? true : false,
-                searchEngines: field.searchengines,
-                logoShow: field.logoshow == 'on' ? true : false,
-                suggestSwitch: field.suggestswitch == 'on' ? true : false,
-                historySwitch: field.historyswitch == 'on' ? true : false,
-                logoImgUrl: $('#logoimgurl').attr('realpath') == undefined ? "" : $('#logoimgurl').attr('realpath'),
-                backgroundImgShow: field.backgroundimgshow == 'on' ? true : false,
-                backgroundImgUrl: $('#backgroundimgurl').attr('realpath') == undefined ? "" : $('#backgroundimgurl').attr('realpath'),
-                backgroundImgPcShow: field.backgroundimgpcshow == 'on' ? true : false,
-                backgroundImgUrlPc: $('#backgroundimgurlpc').attr('realpath') == undefined ? "" : $('#backgroundimgurlpc').attr('realpath')
-            }
-
-            Util.postJson("./common-server/user/api/v1/editConfig", param, function (response) {
-                if (response.code != 0) {
-                    layer.msg(response.message);
-                    return;
-                }
-
-                var result = response.result;
-                if (result.length > 0) {
-                    var config = result[0].config;
-                    config = JSON.parse(config);
-
-                    $('#logoimgurl').remove();
-                    if (field.logoshow == 'on') {
-                        var logoImgUrl = imgurl + 'imgproxy/' + config.logoImgUrl.split("/")[5];
-                        $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
-                        $img.attr('src', logoImgUrl).attr('realpath', config.logoImgUrl);
-                        $('#logoimgupload').after($img);
-                        $('#logoimgurldiv').show();
-                    }
-
-                    $('#backgroundimgurl').remove();
-                    if (field.backgroundimgshow == 'on') {
-                        var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
-                        $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
-                        $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
-                        $('#backgroundimgupload').after($img);
-                        $('#backgroundimgurldiv').show();
-                    }
-
-                    $('#backgroundimgurlpc').remove();
-                    if (field.backgroundimgpcshow == 'on') {
-                        var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
-                        $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
-                        $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
-                        $('#backgroundimguploadpc').after($img);
-                        $('#backgroundimgurlpcdiv').show();
-                    }
-                    layer.msg("保存成功，返回到导航页刷新页面即可看到效果哦");
-                }
-            });
-            return false;
-        });
 
         form.on('submit(submit-config)', function (data) {
             if (!userInfo) {
@@ -385,6 +293,7 @@ $(function () {
                 suggestSwitch: field.suggestswitch == 'on' ? true : false,
                 historySwitch: field.historyswitch == 'on' ? true : false,
                 logoImgUrl: $('#logoimgurl').attr('realpath') == undefined ? "" : $('#logoimgurl').attr('realpath'),
+                autoChangeBgImgShow: field.autochangebgimgshow == 'on' ? true : false,
                 backgroundImgShow: field.backgroundimgshow == 'on' ? true : false,
                 backgroundImgUrl: $('#backgroundimgurl').attr('realpath') == undefined ? "" : $('#backgroundimgurl').attr('realpath'),
                 backgroundImgPcShow: field.backgroundimgpcshow == 'on' ? true : false,
@@ -452,6 +361,27 @@ $(function () {
                 $('#logoimgurldiv').show();
             } else {
                 $('#logoimgurldiv').hide();
+            }
+        });
+
+        form.on('switch(autochangebgimgshow-filter)', function (data) {
+            if (data.elem.checked) {
+                if (!userInfo) {
+                    layer.msg("请先 登陆/注册");
+                    form.val("config", {
+                        "autochangebgimgshow": false
+                    });
+                    return;
+                }
+
+                if (userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
+                    return;
+                }
+
+                $('#changeBg').hide();
+            } else {
+                $('#changeBg').show();
             }
         });
 
@@ -654,7 +584,8 @@ $(function () {
 });
 
 $('img').on('error', function () {
-    alert(1);
+    $(this).attr('src', Util.getDefaultImg());
+    layer.msg('获取网站图标失败');
 });
 
 $('#del').on('click', function () {
@@ -710,7 +641,7 @@ $('#del').on('click', function () {
                     "menuurl": "",
                     "sort": ""
                 });
-                $('#menuimgurl-edit').attr('src', 'data:image/png;base64,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');
+                $('#menuimgurl-edit').attr('src', Util.getDefaultImg());
                 $('[name^=btn-]').attr('disabled', true).addClass('layui-btn-disabled');
             })
         });
@@ -785,6 +716,51 @@ function getIndexInfo(callback) {
 
 }
 
+function getBase64(url, callback, type) {
+    //通过构造函数来创建的 img 实例，在赋予 src 值后就会立刻下载图片，
+    // 相比 createElement() 创建 <img> 省去了 append()，也就避免了文档冗余和污染
+    var Img = new Image(),
+        dataURL = '';
+    Img.src = url + '?v=' + Math.random();
+    // Img.crossOrigin = '*';
+    Img.crossOrigin = 'Anonymous';  // 这个也可以
+    Img.onload = function () { //要先确保图片完整获取到，这是个异步事件
+        try {
+            var canvas = document.createElement("canvas"), //创建canvas元素
+                width = Img.width, //确保canvas的尺寸和图片一样
+                height = Img.height;
+            canvas.width = width;
+            canvas.height = height;
+            canvas.getContext("2d").drawImage(Img, 0, 0, width, height); //将图片绘制到canvas中
+            // dataURL = canvas.toDataURL(type || 'image/jpeg'); //转换图片为dataURL
+            dataURL = canvas.toDataURL(type || 'image/x-icon'); //转换图片为dataURL
+        } catch (e) {
+            console.error('获取网站 icon 失败');
+        } finally {
+            callback ? callback(dataURL) : null; //调用回调函数
+        }
+    };
+
+}
+
+$('[name=getIcon]').on('click', function () {
+    var ele = '';
+    var index = $('[name=getIcon]').index(this);
+    if (index == 0) {
+        ele = 'menuimgurl-add';
+    } else {
+        ele = 'menuimgurl-edit';
+    }
+    $('#' + ele).attr('src', Util.getDefaultImg());
+    var urlTmp = $('[name=menuurl]:eq(' + index + ')').val();
+    if (urlTmp == '') {
+        return;
+    }
+    var splitUrlTmp = urlTmp.split('/');
+    var iconUrl = splitUrlTmp[0] + "//" + splitUrlTmp[2].split(':')[0] + '/' + 'favicon.ico';
+    console.log(iconUrl);
+    $('#' + ele).attr('src', iconUrl);
+});
 
 $('#menuimg-add').on('change', function () {
     var reader = new FileReader();
@@ -944,10 +920,12 @@ function getConfig() {
                 "suggestswitch": config.suggestSwitch,
                 "historyswitch": config.historySwitch,
                 "searchinputshow": config.searchInputShow,
+                "autochangebgimgshow": config.autoChangeBgImgShow,
                 "backgroundimgshow": config.backgroundImgShow,
                 "backgroundimgpcshow": config.backgroundImgPcShow
             }
             form.val("config", res);
+
 
             if (config.logoShow) {
                 $('#logoimgurl').remove();
@@ -958,25 +936,31 @@ function getConfig() {
                 $('#logoimgurldiv').show();
             }
 
-            if (config.backgroundImgShow) {
-                // 手机端背景
-                $('#backgroundimgurl').remove();
-                var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
-                $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
-                $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
-                $('#backgroundimgupload').after($img);
-                $('#backgroundimgurldiv').show();
+            if (config.autoChangeBgImgShow) {
+                $('#changeBg').hide();
+            } else {
+                $('#changeBg').show();
+                if (config.backgroundImgShow) {
+                    // 手机端背景
+                    $('#backgroundimgurl').remove();
+                    var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
+                    $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
+                    $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
+                    $('#backgroundimgupload').after($img);
+                    $('#backgroundimgurldiv').show();
+                }
+
+                if (config.backgroundImgPcShow) {
+                    // PC端背景
+                    $('#backgroundimgurlpc').remove();
+                    var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
+                    $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
+                    $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
+                    $('#backgroundimguploadpc').after($img);
+                    $('#backgroundimgurlpcdiv').show();
+                }
             }
 
-            if (config.backgroundImgPcShow) {
-                // PC端背景
-                $('#backgroundimgurlpc').remove();
-                var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
-                $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
-                $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
-                $('#backgroundimguploadpc').after($img);
-                $('#backgroundimgurlpcdiv').show();
-            }
 
             if (config.weatherSwitch) {
                 $('#weathercitydiv').show();

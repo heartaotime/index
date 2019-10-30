@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--为移动设备添加 viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f5f7;
+        }
+
+        .el-header {
+            /*background-color: #B3C0D1;*/
+            /*color: #333;*/
+            line-height: 10px;
+        }
+
+        /*.el-aside {*/
+        /*    color: #333;*/
+        /*}*/
+
+        .el-main {
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .allitem {
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            /*align-content: flex-start;*/
+            /*margin: 10px;*/
+        }
+
+        .allitem img {
+            width: 40px;
+        }
+
+        .allitem a {
+            display: inline-block;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            margin: 10px;
+        }
+
+        .allitem a:hover {
+            border-radius: 10px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+        }
+
+        .item {
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            /*justify-content: center;*/
+            align-items: center;
+            width: 280px;
+            height: 50px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            /*margin: 10px;*/
+        }
+
+
+        .itemleft {
+            margin-right: 10px;
+        }
+
+        .itemright {
+            width: 230px;
+        }
+
+        .itemtitle {
+
+        }
+
+        .itemtitle span {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .itemdesc {
+            margin-top: 3px;
+        }
+
+        .itemdesc span {
+
+            display: inherit;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            color: darkgrey;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <el-container style="height: 500px; border: 1px solid #eee">
+        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+            <el-menu :default-openeds="['1']">
+                <el-submenu index="1">
+                    <template slot="title">导航</template>
+                    <el-menu-item-group>
+                        <el-menu-item index="1-1"><i class="el-icon-right"></i>热点榜单</el-menu-item>
+                        <el-menu-item index="1-2"><i class="el-icon-right"></i>行业资讯</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+            </el-menu>
+        </el-aside>
+
+        <el-container>
+<!--            <el-header>-->
+<!--            </el-header>-->
+
+            <el-main>
+                <el-link type="primary">主要链接</el-link>
+                <div class="allitem">
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="item">
+                            <div class="itemleft">
+                                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png">
+                            </div>
+                            <div class="itemright">
+                                <div class="itemtitle"><span>百度搜索风云榜</span></div>
+                                <div class="itemdesc"><span>以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础以数亿网民的搜索行为作为数据基础</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <!--                <el-row :gutter="20">-->
+                <!--                    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>-->
+                <!--                    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>-->
+                <!--                    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>-->
+                <!--                    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>-->
+                <!--                </el-row>-->
+                <!--                <el-row>-->
+                <!--                    <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">-->
+                <!--                        <el-card :body-style="{ padding: '0px' }">-->
+                <!--                            <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
+                <!--                            <div style="padding: 14px;">-->
+                <!--                                <span>好吃的汉堡</span>-->
+                <!--                                <div class="bottom clearfix">-->
+                <!--                                    <time class="time">{{ currentDate }}</time>-->
+                <!--                                    <el-button type="text" class="button">操作按钮</el-button>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </el-card>-->
+                <!--                    </el-col>-->
+                <!--                </el-row>-->
+            </el-main>
+        </el-container>
+    </el-container>
+
+
+</div>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                'meaasge': 'hello'
+            }
+        },
+        methods: {
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>

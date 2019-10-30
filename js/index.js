@@ -334,26 +334,56 @@ function getConfig() {
                 }
             }
 
-            var curSystem = Util.getCurSystem();
-            if (curSystem.win || curSystem.mac || curSystem.xll || curSystem.ipad) {
-                var backgroundImgPcShow = config.backgroundImgPcShow;
-                if (backgroundImgPcShow) {
-                    var backgroundImgUrlPc = config.backgroundImgUrlPc;
-                    if (backgroundImgUrlPc) {
-                        backgroundImgUrlPc = imgurl + 'imgproxy/' + backgroundImgUrlPc.split("/")[5];
-                        $('body').css("background-image", "url('" + backgroundImgUrlPc + "')");
+            var autoChangeBgImgShow = config.autoChangeBgImgShow;
+            if (autoChangeBgImgShow) {
+                // 获取必应每日精选壁纸
+                $.ajax({
+                    url: './bingBgImg?format=js&idx=0&n=1&mkt=zh-CN',
+                    type: "GET",
+                    success: function (result, status) {
+                        console.log(result);
+                        if (result && result.images
+                            && result.images.length > 0 && result.images[0]) {
+                            var imageUrl = result.images[0].url;
+                            // $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
+                            $('body').css("background", "url('https://cn.bing.com/" + imageUrl + "') no-repeat fixed center");
+                        }
                     }
-                }
+                });
             } else {
                 var backgroundImgShow = config.backgroundImgShow;
                 if (backgroundImgShow) {
                     var backgroundImgUrl = config.backgroundImgUrl;
                     if (backgroundImgUrl) {
                         backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
-                        $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                        // $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                        $('body').css("background", "url('" + backgroundImgUrl + "') no-repeat fixed center");
                     }
                 }
+                // var curSystem = Util.getCurSystem();
+                // var clientWidth = document.body.clientWidth; // 网页可见区域宽
+                // // if (curSystem.win || curSystem.mac || curSystem.xll || curSystem.ipad) {
+                // if (clientWidth > 700) {
+                //     var backgroundImgPcShow = config.backgroundImgPcShow;
+                //     if (backgroundImgPcShow) {
+                //         var backgroundImgUrlPc = config.backgroundImgUrlPc;
+                //         if (backgroundImgUrlPc) {
+                //             backgroundImgUrlPc = imgurl + 'imgproxy/' + backgroundImgUrlPc.split("/")[5];
+                //             $('body').css("background-image", "url('" + backgroundImgUrlPc + "')");
+                //         }
+                //     }
+                // } else {
+                //     var backgroundImgShow = config.backgroundImgShow;
+                //     if (backgroundImgShow) {
+                //         var backgroundImgUrl = config.backgroundImgUrl;
+                //         if (backgroundImgUrl) {
+                //             backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
+                //             $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                //         }
+                //     }
+                // }
             }
+
             suggestSwitch = config.suggestSwitch;
             historySwitch = config.historySwitch;
         }
