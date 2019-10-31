@@ -116,15 +116,13 @@
 
         .form {
             display: grid;
-            grid-template-columns: 2fr 7fr 1fr;
-            height: 40px;
+            grid-template-columns: 3fr 10fr 2fr;
+            grid-template-rows: 40px;
+            place-content: center;
+            align-items: center;
             border-radius: 50px;
             box-shadow: 0 0 18px rgba(70, 70, 40, .255);
             background-color: #eeeeee5c;
-        }
-
-        .form a, input {
-            line-height: 40px;
         }
 
         .form input {
@@ -278,11 +276,12 @@
             border-radius: 10px;
 
             display: grid;
-            grid-template-columns: 260px 25px;
+            grid-template-columns: 3fr 1fr;
             /*grid-template-rows: 60px;*/
             place-content: space-between;
             justify-items: end;
             padding: 3px;
+            font-size: 10px;
         }
 
         a {

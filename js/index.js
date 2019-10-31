@@ -568,8 +568,14 @@ $('.tips a').on('click', function () {
     }
 });
 
+
 $(function () {
     $('.suggest').width($('.form').width());
+    // grid-template-columns: 3fr 10fr 2fr;
+    if (clientWidth < 700) {
+        $('.form').css('grid-template-columns', '30% 50% 20%');
+        // $('.form').css('grid-template-columns', '3fr 4fr 2f');
+    }
 
     searchEngineList = Util.getStaticData('SEARCH_ENGINES');
 
