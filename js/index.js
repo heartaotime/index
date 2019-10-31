@@ -15,7 +15,10 @@ $('.form .formright').on('click', function () {
     }
     var searchKey = $('.form input').val();
     window.open(searchEngine + searchKey);
-    $(".form input").val("").blur();
+    setTimeout(function () {
+        $(".form input").val("").blur();
+    }, 1000);
+
 
     // 记录下搜索历史 只最新的5个
     if (localStorage) {
@@ -72,7 +75,7 @@ $(window).resize(function () {
 });
 
 $('.form input').on('focus', function () {
-    $('.searchEngines').hide();
+    $('.searchEngines').fadeOut(500);
     // console.log('focus');
     var $input = $(this);
     if ($input.val() == '') {
@@ -113,7 +116,7 @@ $('.form input').on('focus', function () {
                 }
                 $('.suggest').append('<a href="javascript:void(0);">' + v + '</a>');
             });
-            $('.suggest').show();
+            $('.suggest').fadeIn(500);
         },
         error: function () {
         }
@@ -122,12 +125,12 @@ $('.form input').on('focus', function () {
 
 $('.suggest').on('click', 'a', function () {
     $('.form input').val($(this).html());
-    $('.suggest').empty().hide();
+    $('.suggest').empty().fadeOut(500);
 }).on('click', 'span', function () {
     if (localStorage) {
         localStorage.removeItem("searchHistorys");
     }
-    $('.suggest').empty().hide();
+    $('.suggest').empty().fadeOut(500);
 }).on('mouseover', 'a', function () {
     $('.suggest a').css('background-color', '');
     $(this).css('background-color', 'rgb(95, 184, 120)');
@@ -146,11 +149,11 @@ $('.searchEngines').on('click', 'a', function () {
 });
 
 $('.formleft').on('click', function () {
-    $('.suggest').empty().hide();
+    $('.suggest').empty().fadeOut(500);
     if ($('.searchEngines').css('display') == 'none') {
-        $('.searchEngines').show();
+        $('.searchEngines').fadeIn(500);
     } else {
-        $('.searchEngines').hide();
+        $('.searchEngines').fadeOut(500);
     }
 
 });
@@ -239,12 +242,17 @@ function getIndex() {
 }
 
 function setIndexInfo(result) {
+    var html = '';
     $.each(result, function (i, v) {
         $('#copy a').attr('href', v.menuUrl);
         $('#copy img').attr('src', v.menuImgUrl);
         $('#copy span').html(v.menuName);
-        $('.boxs').append($('#copy').html());
+        html += $('#copy').html();
+        // $('.boxs').append($('#copy').html());
     });
+
+    $('.boxs').append(html).hide().fadeIn(1000);
+    // .animate({'margin-top': '30px'}, 'slow');
 }
 
 
@@ -321,7 +329,7 @@ function getConfig() {
                 var logoImgUrl = config.logoImgUrl;
                 if (logoImgUrl) {
                     logoImgUrl = imgurl + 'imgproxy/' + logoImgUrl.split("/")[5];
-                    $(".logoimg img").attr('src', logoImgUrl);
+                    $(".logoimg img").attr('src', logoImgUrl).hide().fadeIn(1000);
                 }
             }
 
@@ -364,7 +372,7 @@ function getConfig() {
                     type: "GET",
                     success: function (result, status) {
                         console.log(result);
-                        if (result && result.images && result.images.length > 0 && result.images[0]) {
+                        if (result && result.images && result.images.length > 0) {
                             // 是否存在视频文件
                             // var vid = result.images[0].vid;
                             // if (vid && vid != '') {
@@ -379,7 +387,7 @@ function getConfig() {
                             var imageUrl = result.images[0].url;
                             // $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
                             // center no-repeat fixed
-                            $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
+                            $('body').css("background", "url('https://cn.bing.com/" + imageUrl + "') center no-repeat fixed");
                         }
                     }
                 });
@@ -391,7 +399,7 @@ function getConfig() {
                         backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
                         // $('body').css("background-image", "url('" + backgroundImgUrl + "')");
                         //
-                        $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                        $('body').css("background", "url('" + backgroundImgUrl + "') center no-repeat fixed");
                     }
                 }
                 // var curSystem = Util.getCurSystem();
@@ -507,42 +515,34 @@ function defaultSet() {
     }
 }
 
-$('.set a').on('click', function () {
-    var index = $('.set a').index(this);
-    if (index == 0) {
-        window.location.href = 'set.html';
-        return;
-    }
-    if (index == 1) {
-        if ($($('.set a:eq(2)')).css('display') == 'none') {
-            $('.set a:gt(1)').show();
-        } else {
-            $('.set a:gt(1)').hide();
-        }
-        return;
-    }
-    var code = '';
-    if (index == 2) {
-        code = 'login';
-    }
-    if (index == 3) {
-        code = 'add';
-    }
-    if (index == 4) {
-        code = 'modify';
-    }
-    window.location.href = 'set.html?code=' + code;
-});
 
-$('.sets a').on('click', function () {
+$('.sets').on('mouseleave', function () {
+    $('.sets a:eq(3)').children('i').attr('class', 'fa fa-angle-up');
+    $('.sets a:lt(3)').fadeOut(500);
+})
+// mouseover与 mouseenter
+// 不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件。
+// 只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。
+// mouseout与 mouseleave
+// 不论鼠标指针离开被选元素还是任何子元素，都会触发 mouseout 事件。
+// 只有在鼠标指针离开被选元素时，才会触发 mouseleave 事件。
+$('.sets a').on('mouseenter', function () {
+    // $('.sets').stop(true);
+    var index = $('.sets a').index(this);
+    if (index == 3) {
+        $('.sets a:lt(3)').fadeIn(500);
+        $(this).children('i').attr('class', 'fa fa-angle-down');
+    }
+}).on('click', function () {
     var index = $('.sets a').index(this);
     if (index == 3) {
         if ($(this).children('i').attr('class') == 'fa fa-angle-up') {
-            $('.sets .setting:lt(3)').show();
+            // $('.sets .setting:lt(3)').show();
+            $('.sets .setting:lt(3)').fadeIn(500);
             $(this).children('i').attr('class', 'fa fa-angle-down');
         } else {
             $(this).children('i').attr('class', 'fa fa-angle-up');
-            $('.sets .setting:lt(3)').hide();
+            $('.sets .setting:lt(3)').fadeOut(500);
         }
         return;
     }
@@ -561,7 +561,7 @@ $('.sets a').on('click', function () {
 
 
 $('.tips a').on('click', function () {
-    $('.tips').parent('div').hide();
+    $('.tips').parent('div').fadeOut(500);
     // 记录本次点击的时间 下次在1天后出现，保证一天只能出现一次
     if (localStorage) {
         localStorage.setItem("tipstime", new Date().getTime());
@@ -588,10 +588,10 @@ $(function () {
             if (date && date != '') {
                 var now = new Date();
                 if (now.getTime() - date > 24 * 60 * 60 * 1000) { // 1天
-                    $('.tips').parent('div').show();
+                    $('.tips').parent('div').fadeIn(500);
                 }
             } else {
-                $('.tips').parent('div').show();
+                $('.tips').parent('div').fadeIn(500);
             }
         }
 

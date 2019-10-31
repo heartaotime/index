@@ -29,12 +29,12 @@
         body {
             /*background-color: #ffffff;*/
             /*background-size: 100%;*/
-            background-size: cover;
+            /*background-size: cover;*/
             /*background-size: 100% 100%;*/
-            background-repeat: no-repeat;
-            background-position: center;
+            /*background-repeat: no-repeat;*/
+            /*background-position: center;*/
             /*background-origin: content-box;*/
-            background-attachment: fixed;
+            /*background-attachment: fixed;*/
 
         }
 
@@ -84,26 +84,6 @@
             /*grid-row-gap: 2px;*/
         }
 
-        .set a {
-            cursor: pointer;
-            /*background-color: #eeeeee5c;*/
-            /*border-radius: 5px;*/
-        }
-
-        /*i {*/
-        /*    color: lightgrey;*/
-        /*}*/
-
-        /*span {*/
-        /*    color: #eeeeee;*/
-        /*}*/
-
-        .logoimg a:hover {
-            -webkit-animation: fadeInS 0.8s;
-            animation: fadeInS 0.8s;
-            margin-top: -5px;
-        }
-
 
         .logoimg {
             -webkit-animation: fadeInDown 1s;
@@ -112,6 +92,12 @@
             height: 112px;
             margin-top: 5%;
             /*margin-top: 50px;*/
+        }
+
+        .logoimg a:hover {
+            -webkit-animation: fadeInS 0.8s;
+            animation: fadeInS 0.8s;
+            margin-top: -5px;
         }
 
 
@@ -129,68 +115,24 @@
 
 
         .form {
-            height: 38px;
+            display: grid;
+            grid-template-columns: 2fr 7fr 1fr;
+            height: 40px;
             border-radius: 50px;
             box-shadow: 0 0 18px rgba(70, 70, 40, .255);
-
             background-color: #eeeeee5c;
-            display: -webkit-flex;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        .form :hover {
-
+        .form a, input {
+            line-height: 40px;
         }
 
-        .formleft, .formcenter, .formright {
-            line-height: 38px;
-        }
-
-        .formleft {
-            border: none;
-            cursor: pointer;
-            margin-left: 10px;
-            margin-right: 5px;
-            width: 80px;
-        }
-
-        .formleft span {
-            font-size: 15px;
-        }
-
-        .formcenter {
-            width: 75%;
-        }
-
-        .formcenter input {
+        .form input {
             font-size: 18px;
-            /*background-color: transparent;*/
-            background-color: #eeeeee00;
-            outline: none;
-            border: none;
-            height: 38px;
-            width: 100%;
-        }
-
-        .formright {
-            margin-right: 15px;
-            margin-left: 5px;
-            cursor: pointer;
-        }
-
-        .form button {
-            float: right;
             background-color: transparent;
+            /*background-color: inherit;*/
             outline: none;
             border: none;
-            cursor: pointer;
-            font-size: 15px;
-            height: 38px;
-            margin-right: 5px;
-            width: 40px;
         }
 
 
@@ -219,7 +161,7 @@
         .boxs {
             display: -webkit-flex; /* Safari */
             display: flex;
-            margin: 30px auto;
+            margin: 40px auto;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
@@ -243,22 +185,13 @@
             border-radius: 5px;
         }
 
-        a {
-            text-decoration: none;
-            color: #333;
-        }
 
         .boxs a:hover {
-            -webkit-animation: fadeInS 0.8s;
-            animation: fadeInS 0.8s;
+            -webkit-animation: fadeInS 2s;
+            animation: fadeInS 2s;
             margin-top: -5px;
         }
 
-
-        .box {
-            -webkit-animation: fadeInDown 1s;
-            animation: fadeInDown 1s;
-        }
 
         .item {
             display: -webkit-flex;
@@ -275,10 +208,6 @@
             display: inherit;
             cursor: pointer;
             color: darkgray;
-        }
-
-        .suggest span:hover {
-            /*background-color: rgb(95, 184, 120);*/
         }
 
         .searchEngines {
@@ -325,16 +254,13 @@
         .setting {
             /*border: 1px solid white;*/
             border-radius: 50px;
-            font-size: 30px;
-            width: 50px;
-            height: 50px;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
             text-align: center;
+            line-height: 40px;
             background-color: rgba(255, 255, 255, 0.7);
             /*box-shadow: 0 0 18px rgba(70, 70, 40, .300);*/
-        }
-
-        .setting a {
-            line-height: 50px;
         }
 
         .setting:hover {
@@ -343,20 +269,16 @@
             box-shadow: 0 0 18px rgba(70, 70, 40, .300);
         }
 
-        .setting i {
-            /*color: lightgrey;*/
-        }
 
         .tips {
-
             position: fixed;
             right: 70px;
-            bottom: 15px;
+            bottom: 10px;
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 10px;
 
             display: grid;
-            grid-template-columns: 220px 25px;
+            grid-template-columns: 260px 25px;
             /*grid-template-rows: 60px;*/
             place-content: space-between;
             justify-items: end;
@@ -364,6 +286,8 @@
         }
 
         a {
+            text-decoration: none;
+            color: #333;
             cursor: pointer;
         }
 
@@ -374,25 +298,25 @@
 <body>
 
 <div class="sets">
-    <div class="setting" style="display: none">
-        <a title="删除导航"><i class="fa fa-trash" aria-hidden="true"></i></a>
-    </div>
-    <div class="setting" style="display: none">
-        <a title="添加导航"><i class="fa fa-plus" aria-hidden="true"></i></a>
-    </div>
-    <div class="setting" style="display: none">
-        <a title="登陆/注册"><i class="fa fa-user" aria-hidden="true"></i></a>
-    </div>
-    <div class="setting">
-        <a title="设置"><i class="fa fa-angle-up"></i></a>
-    </div>
+    <a class="setting" title="删除导航" style="display: none">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+    </a>
+    <a class="setting" title="添加导航" style="display: none">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </a>
+    <a class="setting" title="登陆/注册" style="display: none">
+        <i class="fa fa-user" aria-hidden="true"></i>
+    </a>
+    <a class="setting" title="设置">
+        <i class="fa fa-angle-up"></i>
+    </a>
 </div>
 <div style="display: none;">
     <div class="tips">
     <span>
-        点击此处登陆后可自定义导航~
+        点击右侧按钮登陆后可自定义导航~
     </span>
-        <a><i class="fa fa-times" aria-hidden="true"></i></a>
+        <a title="一天内不再提醒"><i class="fa fa-times" aria-hidden="true"></i></a>
     </div>
 </div>
 
@@ -400,22 +324,6 @@
     <div class="weather">
         <span></span>
     </div>
-    <!--    <div class="login">-->
-    <!--        &lt;!&ndash;        <a href="set.html" target="_self" style="display: inline-block;">&ndash;&gt;-->
-
-    <!--        &lt;!&ndash;            &lt;!&ndash;            <i class="fa fa-cog" aria-hidden="true"></i>&ndash;&gt;&ndash;&gt;-->
-    <!--        &lt;!&ndash;        </a>&ndash;&gt;-->
-
-    <!--        &lt;!&ndash;        <div class="set">&ndash;&gt;-->
-    <!--        &lt;!&ndash;            &lt;!&ndash;                <img src="img/login.png">&ndash;&gt;&ndash;&gt;-->
-    <!--        &lt;!&ndash;            <a title="设置"><i class="fa fa-cog" aria-hidden="true"></i></a>&ndash;&gt;-->
-    <!--        &lt;!&ndash;            <a title="更多"><i class="fa fa-angle-down"></i></a>&ndash;&gt;-->
-    <!--        &lt;!&ndash;            <a title="登陆/注册" style="display: none"><i class="fa fa-user" aria-hidden="true"></i></a>&ndash;&gt;-->
-    <!--        &lt;!&ndash;            <a title="添加导航" style="display: none"><i class="fa fa-plus" aria-hidden="true"></i></a>&ndash;&gt;-->
-    <!--        &lt;!&ndash;            <a title="删除导航" style="display: none"><i class="fa fa-trash" aria-hidden="true"></i></a>&ndash;&gt;-->
-    <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
-
-    <!--    </div>-->
 </div>
 
 <div class="logoimg">
@@ -426,16 +334,14 @@
 <div class="container">
 
     <div class="form">
-        <div class="formleft">
+        <a class="formleft">
             <span url="https://www.baidu.com/s?wd=">百度</span>
             <i class="fa fa-angle-down"></i>
-        </div>
-        <div class="formcenter">
-            <input type="text">
-        </div>
-        <div class="formright">
+        </a>
+        <input type="text">
+        <a class="formright">
             <i class="fa fa-search"></i>
-        </div>
+        </a>
         <!--        <button>搜索</button>-->
     </div>
     <div class="searchEngines">
