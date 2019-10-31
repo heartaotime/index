@@ -6,6 +6,7 @@ var splitUrl = url.split('/');
 var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
 
 var searchEngineList, suggestSwitch, historySwitch;
+var clientWidth = document.body.clientWidth; // 网页可见区域宽
 
 $('.form .formright').on('click', function () {
     var searchEngine = $('.formleft span').attr('url');
@@ -336,6 +337,26 @@ function getConfig() {
 
             var autoChangeBgImgShow = config.autoChangeBgImgShow;
             if (autoChangeBgImgShow) {
+                // 获取随机壁纸
+                // var imageUrl = 'https://api.btstu.cn/sjbz/api.php?lx=fengjing';
+                // var clientWidth = document.body.clientWidth; // 网页可见区域宽
+                // if (clientWidth > 700) {
+                //     imageUrl += '&method=pc';
+                // } else {
+                //     imageUrl += '&method=mobile';
+                // }
+                // var imageUrl = 'https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture';
+                // var imageUrl = 'https://bing.ioliu.cn/v1/rand?';
+                // if (clientWidth > 700) {
+                //     imageUrl += '&w=1920&h=1080';
+                // } else {
+                //     imageUrl += '&w=1080&h=2340';
+                // }
+                // // center no-repeat fixed
+                var imageUrl = 'https://api.imo6.cn/nice/api.php?type=pola';
+                $('body').css("background", "url('" + imageUrl + "') center no-repeat fixed ");
+                return;
+
                 // 获取必应每日精选壁纸
                 $.ajax({
                     // https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc=1572487353393&pid=hp&video=0
@@ -369,6 +390,7 @@ function getConfig() {
                     if (backgroundImgUrl) {
                         backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
                         // $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                        //
                         $('body').css("background", "url('" + backgroundImgUrl + "') center no-repeat fixed");
                     }
                 }
@@ -416,6 +438,11 @@ function setWeather(weatherCity) {
                 var c = data.forecasts[0].nightTemp + '℃ ~ ' + data.forecasts[0].dayTemp + '℃';
                 var dayWeather = data.forecasts[0].dayWeather;
                 var html = city + ' ' + dayWeather + ' ' + c;
+                if (clientWidth > 700) {
+                    var date = new Date();
+                    var time = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日 ';
+                    html = time + html;
+                }
                 $('.weather span').append(html);
             }
         });
@@ -532,6 +559,15 @@ $('.sets a').on('click', function () {
     window.location.href = 'set.html?code=' + code;
 });
 
+
+$('.tips a').on('click', function () {
+    $('.tips').parent('div').hide();
+    // 记录本次点击的时间 下次在1天后出现，保证一天只能出现一次
+    if (localStorage) {
+        localStorage.setItem("tipstime", new Date().getTime());
+    }
+});
+
 $(function () {
     $('.suggest').width($('.form').width());
 
@@ -547,6 +583,18 @@ $(function () {
     }
 
     if (userInfo == undefined) {
+        if (localStorage) {
+            var date = localStorage.getItem("tipstime");
+            if (date && date != '') {
+                var now = new Date();
+                if (now.getTime() - date > 24 * 60 * 60 * 1000) { // 1天
+                    $('.tips').parent('div').show();
+                }
+            } else {
+                $('.tips').parent('div').show();
+            }
+        }
+
         userInfo = {
             id: -1
         }

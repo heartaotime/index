@@ -317,7 +317,7 @@
         }
 
         .setting {
-            border: 1px solid white;
+            /*border: 1px solid white;*/
             border-radius: 50px;
             font-size: 30px;
             width: 50px;
@@ -341,6 +341,26 @@
             /*color: lightgrey;*/
         }
 
+        .tips {
+
+            position: fixed;
+            right: 70px;
+            bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+
+            display: grid;
+            grid-template-columns: 220px 25px;
+            /*grid-template-rows: 60px;*/
+            place-content: space-between;
+            justify-items: end;
+            padding: 3px;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
 
     </style>
 
@@ -361,7 +381,14 @@
         <a title="设置"><i class="fa fa-angle-up"></i></a>
     </div>
 </div>
-
+<div style="display: none;">
+    <div class="tips">
+    <span>
+        点击此处登陆后可自定义导航~
+    </span>
+        <a><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+</div>
 
 <div class="top">
     <div class="weather">
