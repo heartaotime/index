@@ -378,7 +378,8 @@ function getConfig() {
                             // }
                             var imageUrl = result.images[0].url;
                             // $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
-                            $('body').css("background", "url('https://cn.bing.com/" + imageUrl + "') center no-repeat fixed");
+                            // center no-repeat fixed
+                            $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
                         }
                     }
                 });
@@ -390,7 +391,7 @@ function getConfig() {
                         backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
                         // $('body').css("background-image", "url('" + backgroundImgUrl + "')");
                         //
-                        $('body').css("background", "url('" + backgroundImgUrl + "') center no-repeat fixed");
+                        $('body').css("background-image", "url('" + backgroundImgUrl + "')");
                     }
                 }
                 // var curSystem = Util.getCurSystem();
