@@ -353,9 +353,9 @@ function getConfig() {
                 //     imageUrl += '&w=1080&h=2340';
                 // }
                 // // center no-repeat fixed
-                var imageUrl = 'https://api.imo6.cn/nice/api.php?type=pola';
-                $('body').css("background", "url('" + imageUrl + "') center no-repeat fixed ");
-                return;
+                // var imageUrl = 'https://api.imo6.cn/nice/api.php?type=pola';
+                // $('body').css("background", "url('" + imageUrl + "') center no-repeat fixed ");
+                // return;
 
                 // 获取必应每日精选壁纸
                 $.ajax({
@@ -364,8 +364,7 @@ function getConfig() {
                     type: "GET",
                     success: function (result, status) {
                         console.log(result);
-                        if (result && result.images
-                            && result.images.length > 0 && result.images[0]) {
+                        if (result && result.images && result.images.length > 0 && result.images[0]) {
                             // 是否存在视频文件
                             // var vid = result.images[0].vid;
                             // if (vid && vid != '') {
