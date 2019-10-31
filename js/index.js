@@ -338,12 +338,24 @@ function getConfig() {
             if (autoChangeBgImgShow) {
                 // 获取必应每日精选壁纸
                 $.ajax({
-                    url: './bingBgImg?format=js&idx=0&n=1&mkt=zh-CN',
+                    // https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc=1572487353393&pid=hp&video=0
+                    url: './bingBgImg?format=js&idx=0&n=1&nc=' + new Date().getTime() + '&pid=hp&video=0',
                     type: "GET",
                     success: function (result, status) {
                         console.log(result);
                         if (result && result.images
                             && result.images.length > 0 && result.images[0]) {
+                            // 是否存在视频文件
+                            // var vid = result.images[0].vid;
+                            // if (vid && vid != '') {
+                            //     // <video id="vid" onended="_w.VM &amp;&amp; VM.play();"
+                            //     //     muted="muted" loop="loop" autobuffer="autobuffer"
+                            //     //     preload="auto" oncontextmenu="return false" data-hasaudio="1"
+                            //     //     src="//az29176.vo.msecnd.net/videocontent/VampireCastle_HP_FULL_1920x1080_HD_ZH-CN.mp4"
+                            //     //     style="width: 1519px; height: 855px; top: -128px; left: 0px; opacity: 1; visibility: visible;"></video>
+                            //     var html = '<video src="https://cn.bing.com//az29176.vo.msecnd.net/videocontent/VampireCastle_HP_FULL_1920x1080_HD_ZH-CN.mp4"></video>';
+                            //     $('body').append(html);
+                            // }
                             var imageUrl = result.images[0].url;
                             // $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
                             $('body').css("background", "url('https://cn.bing.com/" + imageUrl + "') center no-repeat fixed");
@@ -491,6 +503,31 @@ $('.set a').on('click', function () {
     }
     if (index == 4) {
         code = 'modify';
+    }
+    window.location.href = 'set.html?code=' + code;
+});
+
+$('.sets a').on('click', function () {
+    var index = $('.sets a').index(this);
+    if (index == 3) {
+        if ($(this).children('i').attr('class') == 'fa fa-angle-up') {
+            $('.sets .setting:lt(3)').show();
+            $(this).children('i').attr('class', 'fa fa-angle-down');
+        } else {
+            $(this).children('i').attr('class', 'fa fa-angle-up');
+            $('.sets .setting:lt(3)').hide();
+        }
+        return;
+    }
+    var code = '';
+    if (index == 0) {
+        code = 'modify';
+    }
+    if (index == 1) {
+        code = 'add';
+    }
+    if (index == 2) {
+        code = 'login';
     }
     window.location.href = 'set.html?code=' + code;
 });

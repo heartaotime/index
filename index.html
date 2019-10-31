@@ -19,6 +19,7 @@
     <title>主页</title>
 
     <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <link href="css/fade.css">
     <style>
         * {
             padding: 0px;
@@ -32,17 +33,26 @@
         }
 
 
+        /*.top {*/
+        /*    display: -webkit-flex; !* Safari *!*/
+        /*    display: flex;*/
+        /*    flex-direction: row; !**主轴为水平方向，起点在左端*!*/
+        /*    justify-content: space-between; !**项目在主轴上的对齐方式*!*/
+        /*    padding: 5px;*/
+        /*}*/
+
         .top {
-            display: -webkit-flex; /* Safari */
-            display: flex;
-            flex-direction: row; /**主轴为水平方向，起点在左端*/
-            justify-content: space-between; /**项目在主轴上的对齐方式*/
-            padding: 5px;
+            height: 20px;
         }
 
 
         .weather {
             font-size: 13px;
+            margin-left: 5px;
+        }
+
+        .weather span {
+            line-height: 20px;
         }
 
         .login {
@@ -94,8 +104,8 @@
             animation: fadeInDown 1s;
             text-align: center;
             height: 112px;
-            /*margin-top: 5%;*/
-            margin-top: 80px;
+            margin-top: 5%;
+            /*margin-top: 50px;*/
         }
 
 
@@ -289,165 +299,90 @@
             font-size: 15px;
         }
 
+        .sets {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            /*border: 1px solid white;*/
+            /*border-radius: 50px;*/
+            font-size: 30px;
+            /*width: 50px;*/
+            /*height: 50px;*/
 
-        /**
-         * 下方为动画样式，不懂的不要修改
-         */
-        @-webkit-keyframes flipInX {
-            0% {
-                -webkit-transform: perspective(400px) rotateX(90deg);
-                transform: perspective(400px) rotateX(90deg);
-                opacity: 0
-            }
-
-            40% {
-                -webkit-transform: perspective(400px) rotateX(-10deg);
-                transform: perspective(400px) rotateX(-10deg)
-            }
-
-            70% {
-                -webkit-transform: perspective(400px) rotateX(10deg);
-                transform: perspective(400px) rotateX(10deg)
-            }
-
-            100% {
-                -webkit-transform: perspective(400px) rotateX(0);
-                transform: perspective(400px) rotateX(0);
-                opacity: 1
-            }
+            display: grid;
+            grid-template-columns: 50px;
+            place-content: center;
+            place-items: center;
+            grid-gap: 3px;
         }
 
-        @keyframes flipInX {
-            0% {
-                -webkit-transform: perspective(400px) rotateX(90deg);
-                -ms-transform: perspective(400px) rotateX(90deg);
-                transform: perspective(400px) rotateX(90deg);
-                opacity: 0
-            }
-
-            40% {
-                -webkit-transform: perspective(400px) rotateX(-10deg);
-                -ms-transform: perspective(400px) rotateX(-10deg);
-                transform: perspective(400px) rotateX(-10deg)
-            }
-
-            70% {
-                -webkit-transform: perspective(400px) rotateX(10deg);
-                -ms-transform: perspective(400px) rotateX(10deg);
-                transform: perspective(400px) rotateX(10deg)
-            }
-
-            100% {
-                -webkit-transform: perspective(400px) rotateX(0);
-                -ms-transform: perspective(400px) rotateX(0);
-                transform: perspective(400px) rotateX(0);
-                opacity: 1
-            }
+        .setting {
+            border: 1px solid white;
+            border-radius: 50px;
+            font-size: 30px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            /*box-shadow: 0 0 18px rgba(70, 70, 40, .300);*/
         }
 
-        @-webkit-keyframes fadeIn {
-            0% {
-                opacity: 0
-            }
-
-            100% {
-                opacity: 1
-            }
+        .setting a {
+            line-height: 50px;
         }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0
-            }
-            100% {
-                opacity: 1
-            }
+        .setting:hover {
+            -webkit-animation: fadeInS 0.8s;
+            animation: fadeInS 0.8s;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .300);
         }
 
-        @-webkit-keyframes fadeInS {
-            0% {
-                opacity: 0.8
-            }
-
-            50% {
-                opacity: 0.9
-            }
-
-            100% {
-                opacity: 1
-            }
+        .setting i {
+            /*color: lightgrey;*/
         }
 
-        @keyframes fadeInS {
-            0% {
-                opacity: 0.8
-            }
-            50% {
-                opacity: 0.9
-            }
-            100% {
-                opacity: 1
-            }
-        }
-
-
-        @-webkit-keyframes fadeInDown {
-            0% {
-                opacity: 0;
-                -webkit-transform: translateY(-20px);
-                transform: translateY(-20px)
-            }
-
-            100% {
-                opacity: 1;
-                -webkit-transform: translateY(0);
-                transform: translateY(0)
-            }
-        }
-
-        @keyframes fadeInDown {
-            0% {
-                opacity: 0;
-                -webkit-transform: translateY(-20px);
-                -ms-transform: translateY(-20px);
-                transform: translateY(-20px)
-            }
-
-            100% {
-                opacity: 1;
-                -webkit-transform: translateY(0);
-                -ms-transform: translateY(0);
-                transform: translateY(0)
-            }
-        }
 
     </style>
 
-    <script>
-    </script>
 </head>
 <body>
+
+<div class="sets">
+    <div class="setting" style="display: none">
+        <a title="删除导航"><i class="fa fa-trash" aria-hidden="true"></i></a>
+    </div>
+    <div class="setting" style="display: none">
+        <a title="添加导航"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    </div>
+    <div class="setting" style="display: none">
+        <a title="登陆/注册"><i class="fa fa-user" aria-hidden="true"></i></a>
+    </div>
+    <div class="setting">
+        <a title="设置"><i class="fa fa-angle-up"></i></a>
+    </div>
+</div>
+
 
 <div class="top">
     <div class="weather">
         <span></span>
     </div>
-    <div class="login">
-        <!--        <a href="set.html" target="_self" style="display: inline-block;">-->
+    <!--    <div class="login">-->
+    <!--        &lt;!&ndash;        <a href="set.html" target="_self" style="display: inline-block;">&ndash;&gt;-->
 
-        <!--            &lt;!&ndash;            <i class="fa fa-cog" aria-hidden="true"></i>&ndash;&gt;-->
-        <!--        </a>-->
+    <!--        &lt;!&ndash;            &lt;!&ndash;            <i class="fa fa-cog" aria-hidden="true"></i>&ndash;&gt;&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </a>&ndash;&gt;-->
 
-        <div class="set">
-            <!--                <img src="img/login.png">-->
-            <a title="设置"><i class="fa fa-cog" aria-hidden="true"></i></a>
-            <a title="更多"><i class="fa fa-angle-down"></i></a>
-            <a title="登陆/注册" style="display: none"><i class="fa fa-user" aria-hidden="true"></i></a>
-            <a title="添加导航" style="display: none"><i class="fa fa-plus" aria-hidden="true"></i></a>
-            <a title="删除导航" style="display: none"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        </div>
+    <!--        &lt;!&ndash;        <div class="set">&ndash;&gt;-->
+    <!--        &lt;!&ndash;            &lt;!&ndash;                <img src="img/login.png">&ndash;&gt;&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <a title="设置"><i class="fa fa-cog" aria-hidden="true"></i></a>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <a title="更多"><i class="fa fa-angle-down"></i></a>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <a title="登陆/注册" style="display: none"><i class="fa fa-user" aria-hidden="true"></i></a>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <a title="添加导航" style="display: none"><i class="fa fa-plus" aria-hidden="true"></i></a>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <a title="删除导航" style="display: none"><i class="fa fa-trash" aria-hidden="true"></i></a>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
 
-    </div>
+    <!--    </div>-->
 </div>
 
 <div class="logoimg">
