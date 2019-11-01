@@ -575,10 +575,10 @@ $('.sets a').on('mouseenter', function () {
         code = 'add';
     }
     if (index == 2) {
-        code = 'login';
-    }
-    if (index == 2) {
         code = 'set';
+    }
+    if (index == 3) {
+        code = 'login';
     }
     window.location.href = 'set.html?code=' + code;
 });
