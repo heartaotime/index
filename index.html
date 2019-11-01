@@ -19,12 +19,18 @@
     <title>主页</title>
 
     <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
-<!--    <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>-->
+    <!--    <script src="https://cdn.bootcss.com/font-awesome/5.11.2/js/all.min.js"></script>-->
     <link href="css/fade.css">
     <style>
         * {
             padding: 0px;
             margin: 0px;
+        }
+
+        html, body {
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*align-items: center;*/
         }
 
 
@@ -69,36 +75,13 @@
             line-height: 20px;
         }
 
-        .login {
-            position: fixed;
-            right: 8px;
-            top: 8px;
-        }
-
-        .login img {
-            width: 28px;
-            height: 28px;
-            background-color: #eeeeee5c;
-            border-radius: 5px;
-        }
-
-        .set {
-            font-size: 20px;
-            display: grid;
-            grid-template-columns: 100%;
-            grid-template-rows: repeat(2, 1fr) repeat(3, 1.5fr);
-            place-content: center;
-            place-items: center;
-            /*grid-row-gap: 2px;*/
-        }
-
 
         .logoimg {
             -webkit-animation: fadeInDown 1s;
             animation: fadeInDown 1s;
             text-align: center;
             height: 112px;
-            margin-top: 5%;
+            margin-bottom: 15px;
             /*margin-top: 50px;*/
         }
 
@@ -114,23 +97,30 @@
             max-width: 250px;
         }
 
-        .container {
-            margin: 10px auto;
+        .main {
+            margin: calc(13vh) auto;
             max-width: 500px;
             text-align: center;
-            padding: 15px;
+            padding: 5px;
+
+            /*position: fixed;*/
+            /*left: 50%;*/
+            /*top: 50%;*/
+            /*margin: -100px 0 0 -150px;*/
         }
 
 
         .form {
-            display: grid;
-            grid-template-columns: 3fr 10fr 2fr;
-            grid-template-rows: 40px;
-            place-content: center;
+            display: -webkit-flex;
+            display: flex;
+            justify-content: space-around;
             align-items: center;
+
             border-radius: 50px;
             box-shadow: 0 0 18px rgba(70, 70, 40, .255);
             background-color: #eeeeee5c;
+            /*background-color: white;*/
+            height: 40px;
         }
 
 
@@ -138,14 +128,28 @@
             line-height: 40px;
         }
 
+        .formleft {
+            width: 20%;
+        }
+
+        .formright {
+            width: 10%;
+        }
+
         .form input {
+            width: 70%;
+            /*flex-grow: 1;*/
             font-size: 18px;
             background-color: transparent;
             /*background-color: inherit;*/
+            /*background-color: #eeeeee00;*/
             outline: none;
             border: none;
         }
 
+        .form input::-webkit-input-placeholder {
+            color: #333;
+        }
 
         .suggest {
             -webkit-animation: fadeInDown 0.2s;
@@ -192,8 +196,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            background-color: #eeeeee30;
+            /*background-color: #eeeeee30;*/
+            background-color: #eeeeeea8;
             border-radius: 5px;
+            padding: 0 2px;
         }
 
 
@@ -247,23 +253,20 @@
 
         .sets {
             position: fixed;
-            bottom: 10px;
-            right: 10px;
-            /*border: 1px solid white;*/
-            /*border-radius: 50px;*/
+            bottom: 5px;
+            right: 5px;
             font-size: 30px;
             /*width: 50px;*/
             /*height: 50px;*/
 
-            display: grid;
-            grid-template-columns: 50px;
-            place-content: center;
-            place-items: center;
-            grid-gap: 3px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
         }
 
         .setting {
             /*border: 1px solid white;*/
+            margin: 2px;
             border-radius: 50px;
             font-size: 20px;
             width: 40px;
@@ -286,12 +289,9 @@
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 10px;
 
-            display: grid;
-            /*grid-template-columns: 3fr 1fr;*/
-            grid-template-columns: 97% 3%;
-            /*grid-template-rows: 60px;*/
-            place-content: space-between;
-            justify-items: end;
+            display: -webkit-flex;
+            display: flex;
+
             padding: 3px;
             font-size: 10px;
         }
@@ -303,8 +303,20 @@
         }
 
         @media screen and (max-width: 700px) {
-            .form {
-                grid-template-columns: 30% 50% 20%;
+            .main {
+                margin: 10% auto;
+            }
+
+            .formleft {
+                width: 30%;
+            }
+
+            .form input {
+                width: 55%;
+            }
+
+            .formright {
+                width: 15%;
             }
         }
 
@@ -349,30 +361,31 @@
     </div>
 </div>
 
-<div class="logoimg">
-    <a href="set.html" target="_self" style="display: inline-block;">
-        <img src=""/>
-    </a>
-</div>
-<div class="container">
-
-    <div class="form">
-        <a class="formleft">
-            <span url="https://www.baidu.com/s?wd=">百度</span>
-            <i class="fa fa-angle-down"></i>
+<div class="main">
+    <div class="logoimg">
+        <a href="set.html" target="_self" style="display: inline-block;">
+            <img src=""/>
         </a>
-        <input type="text">
-        <a class="formright">
-            <i class="fa fa-search"></i>
-        </a>
-        <!--        <button>搜索</button>-->
     </div>
-    <div class="searchEngines">
-    </div>
-    <div class="suggest">
-    </div>
+    <div class="container">
+        <div class="form">
+            <a class="formleft">
+                <span url="https://www.baidu.com/s?wd=">百度</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            <input type="text">
+            <a class="formright">
+                <i class="fa fa-search"></i>
+            </a>
+            <!--        <button>搜索</button>-->
+        </div>
+        <div class="searchEngines">
+        </div>
+        <div class="suggest">
+        </div>
 
-    <div class="boxs">
+        <div class="boxs">
+        </div>
     </div>
 </div>
 

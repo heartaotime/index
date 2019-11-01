@@ -6,7 +6,9 @@ var url = document.location.toString();
 var splitUrl = url.split('/');
 var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
 
-$(function () {
+
+function init() {
+    Util.statistics('setting');
     userInfo = Util.getUserInfo();
     if (userInfo) {
         $('.layui-tab-title li:eq(3)').html(userInfo.userName);
@@ -15,10 +17,6 @@ $(function () {
     $('#menuimgurl-add').attr('src', Util.getDefaultImg());
     $('#menuimgurl-edit').attr('src', Util.getDefaultImg());
 
-});
-
-function init() {
-    Util.statistics('setting');
     searchEngineList = Util.getStaticData('SEARCH_ENGINES');
     for (var i = 0; i < searchEngineList.length; i++) {
         var re = searchEngineList[i];
@@ -41,9 +39,6 @@ $(function () {
         element = layui.element;
         form = layui.form;
         upload = layui.upload;
-
-        init();
-
 
         element.on('tab(tab)', function (data) {
             var index = data.index;
@@ -84,6 +79,7 @@ $(function () {
             }
         });
 
+        init();
 
         form.on('submit(submit-add)', function (data) {
             if (!userInfo) {

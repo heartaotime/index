@@ -315,7 +315,9 @@ function getConfig() {
                         console.log(result);
                         if (result && result.status == 'success') {
                             var content = result.data.content.split('，')[0];
-                            $('.form input').attr('placeholder', '✎...  ' + content + '～');
+                            $('title').html('主页-' + content);
+                            // $(document).attr("title",'主页-' + content);
+                            // $('.form input').attr('placeholder', '✎...  ' + content + '～');
                             // document.title = content;
                         }
                     }
@@ -592,8 +594,17 @@ $('.tips a').on('click', function () {
     }
 });
 
+// $(window).resize(function () {
+//     $(".main").css({
+//         position: "fixed",
+//         left: ($(window).width() - $(".main").outerWidth()) / 2,
+//         top: ($(window).height() - $(".main").outerHeight()) / 2 - 110
+//     });
+// });
+// $(window).resize();
 
 $(function () {
+
     $('.suggest').width($('.form').width());
     // grid-template-columns: 3fr 10fr 2fr;
     if (clientWidth < 700) {
