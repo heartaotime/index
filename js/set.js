@@ -287,10 +287,10 @@ $(function () {
                 layer.msg("如果开关打开，请选择一张图片上传哦");
                 return;
             }
-            // if (field.backgroundimgpcshow == 'on' && ($('#backgroundimgurlpc').attr('realpath') == undefined || $('#backgroundimgurlpc').attr('realpath') == '')) {
-            //     layer.msg("如果开关打开，请选择一张图片上传哦");
-            //     return;
-            // }
+            if (field.backgroundimgpcshow == 'on' && ($('#backgroundimgurlpc').attr('realpath') == undefined || $('#backgroundimgurlpc').attr('realpath') == '')) {
+                layer.msg("如果开关打开，请选择一张图片上传哦");
+                return;
+            }
             var param = {
                 userid: userInfo.id,
                 weatherSwitch: field.weatherswitch == 'on' ? true : false,

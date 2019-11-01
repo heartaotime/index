@@ -392,36 +392,51 @@ function getConfig() {
                     }
                 });
             } else {
-                var backgroundImgShow = config.backgroundImgShow;
-                if (backgroundImgShow) {
-                    var backgroundImgUrl = config.backgroundImgUrl;
-                    if (backgroundImgUrl) {
-                        backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
-                        // $('body').css("background-image", "url('" + backgroundImgUrl + "')");
-                        //
-                        $('body').css("background", "url('" + backgroundImgUrl + "') center no-repeat fixed");
+                // var curSystem = Util.getCurSystem();
+                var clientWidth = document.body.clientWidth; // 网页可见区域宽
+                // if (curSystem.win || curSystem.mac || curSystem.xll || curSystem.ipad) {
+                if (clientWidth > 700) {
+                    var backgroundImgPcShow = config.backgroundImgPcShow;
+                    if (backgroundImgPcShow) {
+                        var backgroundImgUrlPc = config.backgroundImgUrlPc;
+                        if (backgroundImgUrlPc) {
+                            backgroundImgUrlPc = imgurl + 'imgproxy/' + backgroundImgUrlPc.split("/")[5];
+                            $('body').css("background-image", "url('" + backgroundImgUrlPc + "')");
+                        }
+                    }
+                } else {
+                    var backgroundImgShow = config.backgroundImgShow;
+                    if (backgroundImgShow) {
+                        var backgroundImgUrl = config.backgroundImgUrl;
+                        if (backgroundImgUrl) {
+                            backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
+                            $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                        }
                     }
                 }
-                // var curSystem = Util.getCurSystem();
-                // var clientWidth = document.body.clientWidth; // 网页可见区域宽
-                // // if (curSystem.win || curSystem.mac || curSystem.xll || curSystem.ipad) {
-                // if (clientWidth > 700) {
-                //     var backgroundImgPcShow = config.backgroundImgPcShow;
-                //     if (backgroundImgPcShow) {
-                //         var backgroundImgUrlPc = config.backgroundImgUrlPc;
-                //         if (backgroundImgUrlPc) {
-                //             backgroundImgUrlPc = imgurl + 'imgproxy/' + backgroundImgUrlPc.split("/")[5];
-                //             $('body').css("background-image", "url('" + backgroundImgUrlPc + "')");
-                //         }
-                //     }
-                // } else {
-                //     var backgroundImgShow = config.backgroundImgShow;
-                //     if (backgroundImgShow) {
-                //         var backgroundImgUrl = config.backgroundImgUrl;
-                //         if (backgroundImgUrl) {
-                //             backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
-                //             $('body').css("background-image", "url('" + backgroundImgUrl + "')");
-                //         }
+                // var backgroundImgShow = config.backgroundImgShow;
+                // if (backgroundImgShow) {
+                //     var backgroundImgUrl = config.backgroundImgUrl;
+                //     if (backgroundImgUrl) {
+                //         backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
+                //         // $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                //         //
+                //         // $('body').css("background", "url('" + backgroundImgUrl + "') center no-repeat fixed");
+                //         // if (clientWidth > 700) {
+                //         //     $('body').css("background", "url('" + backgroundImgUrl + "') center no-repeat fixed");
+                //         // } else {
+                //         //     // $('body').css("background-repeat", "no-repeat");
+                //         //     // $('body').css("background-position", "center");
+                //         //     // $('body').css("background-attachment", "fixed");
+                //         //     $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                //         // }
+                //         // $('body').css("background", "url('" + backgroundImgUrl + "') cover no-repeat fixed");
+                //         $('body').css("background-image", "url('" + backgroundImgUrl + "')");
+                //         // $('body').css("background-size", "cover");
+                //         // $('body').css("background-repeat", "no-repeat");
+                //         // $('body').css("background-attachment", "fixed");
+                //         // $('body').css("background-position", "center");
+                //
                 //     }
                 // }
             }
@@ -517,6 +532,9 @@ function defaultSet() {
 
 
 $('.sets').on('mouseleave', function () {
+    if (clientWidth < 700) {
+        return;
+    }
     $('.sets a:eq(3)').children('i').attr('class', 'fa fa-angle-up');
     $('.sets a:lt(3)').fadeOut(500);
 })
@@ -527,6 +545,9 @@ $('.sets').on('mouseleave', function () {
 // 不论鼠标指针离开被选元素还是任何子元素，都会触发 mouseout 事件。
 // 只有在鼠标指针离开被选元素时，才会触发 mouseleave 事件。
 $('.sets a').on('mouseenter', function () {
+    if (clientWidth < 700) {
+        return;
+    }
     // $('.sets').stop(true);
     var index = $('.sets a').index(this);
     if (index == 3) {
@@ -573,7 +594,7 @@ $(function () {
     $('.suggest').width($('.form').width());
     // grid-template-columns: 3fr 10fr 2fr;
     if (clientWidth < 700) {
-        $('.form').css('grid-template-columns', '30% 50% 20%');
+        // $('.form').css('grid-template-columns', '30% 50% 20%');
         // $('.form').css('grid-template-columns', '3fr 4fr 2f');
     }
 

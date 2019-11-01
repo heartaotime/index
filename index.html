@@ -26,7 +26,9 @@
             margin: 0px;
         }
 
+
         body {
+
             /*background-color: #ffffff;*/
             /*background-size: 100%;*/
             /*background-size: cover;*/
@@ -34,6 +36,11 @@
             /*background-repeat: no-repeat;*/
             /*background-position: center;*/
             /*background-origin: content-box;*/
+            /*background-attachment: fixed;*/
+
+            background-size: cover;
+            /*background-repeat: no-repeat;*/
+            /*!*background-position: center;*!*/
             /*background-attachment: fixed;*/
 
         }
@@ -123,6 +130,11 @@
             border-radius: 50px;
             box-shadow: 0 0 18px rgba(70, 70, 40, .255);
             background-color: #eeeeee5c;
+        }
+
+
+        .form > * {
+            line-height: 40px;
         }
 
         .form input {
@@ -288,6 +300,12 @@
             text-decoration: none;
             color: #333;
             cursor: pointer;
+        }
+
+        @media screen and (max-width: 700px) {
+            .form {
+                grid-template-columns: 30% 50% 20%;
+            }
         }
 
 
