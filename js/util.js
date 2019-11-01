@@ -1,7 +1,7 @@
 window.Util = (function () {
 
     // 引入jquery
-    document.write('<script src = "https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>');
+    document.write('<script src = "https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>');
     // document.write('<script src = "http://pv.sohu.com/cityjson?ie=utf-8"></script>');
     // document.write('<script src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>');
     // document.write('<script src = "https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>');
