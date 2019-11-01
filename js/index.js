@@ -233,7 +233,7 @@ function getIndex() {
             }
             result = response.result;
             setIndexInfo(result);
-            if (localStorage) {
+            if (localStorage && userInfo.id != -1) {
                 localStorage.setItem(key, JSON.stringify(result));
             }
         });
@@ -531,39 +531,39 @@ function defaultSet() {
 }
 
 
-$('.sets').on('mouseleave', function () {
-    if (clientWidth < 700) {
-        return;
-    }
-    $('.sets a:eq(3)').children('i').attr('class', 'fa fa-angle-up');
-    $('.sets a:lt(3)').fadeOut(500);
-})
 // mouseover与 mouseenter
 // 不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件。
 // 只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。
 // mouseout与 mouseleave
 // 不论鼠标指针离开被选元素还是任何子元素，都会触发 mouseout 事件。
 // 只有在鼠标指针离开被选元素时，才会触发 mouseleave 事件。
+$('.sets').on('mouseleave', function () {
+    if (clientWidth < 700) {
+        return;
+    }
+    $('.sets a:eq(4)').children('i').attr('class', 'fa fa-angle-up');
+    $('.sets a:lt(4)').fadeOut(500);
+});
 $('.sets a').on('mouseenter', function () {
     if (clientWidth < 700) {
         return;
     }
     // $('.sets').stop(true);
     var index = $('.sets a').index(this);
-    if (index == 3) {
-        $('.sets a:lt(3)').fadeIn(500);
+    if (index == 4) {
+        $('.sets a:lt(4)').fadeIn(500);
         $(this).children('i').attr('class', 'fa fa-angle-down');
     }
 }).on('click', function () {
     var index = $('.sets a').index(this);
-    if (index == 3) {
+    if (index == 4) {
         if ($(this).children('i').attr('class') == 'fa fa-angle-up') {
             // $('.sets .setting:lt(3)').show();
-            $('.sets .setting:lt(3)').fadeIn(500);
+            $('.sets .setting:lt(4)').fadeIn(500);
             $(this).children('i').attr('class', 'fa fa-angle-down');
         } else {
             $(this).children('i').attr('class', 'fa fa-angle-up');
-            $('.sets .setting:lt(3)').fadeOut(500);
+            $('.sets .setting:lt(4)').fadeOut(500);
         }
         return;
     }
@@ -576,6 +576,9 @@ $('.sets a').on('mouseenter', function () {
     }
     if (index == 2) {
         code = 'login';
+    }
+    if (index == 2) {
+        code = 'set';
     }
     window.location.href = 'set.html?code=' + code;
 });

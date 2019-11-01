@@ -274,8 +274,6 @@
         }
 
         .setting:hover {
-            -webkit-animation: fadeInS 0.8s;
-            animation: fadeInS 0.8s;
             box-shadow: 0 0 18px rgba(70, 70, 40, .300);
         }
 
@@ -288,7 +286,8 @@
             border-radius: 10px;
 
             display: grid;
-            grid-template-columns: 3fr 1fr;
+            /*grid-template-columns: 3fr 1fr;*/
+            grid-template-columns: 97% 3%;
             /*grid-template-rows: 60px;*/
             place-content: space-between;
             justify-items: end;
@@ -321,6 +320,9 @@
     <a class="setting" title="添加导航" style="display: none">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </a>
+    <a class="setting" title="导航设置" style="display: none">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+    </a>
     <a class="setting" title="登陆/注册" style="display: none">
         <i class="fa fa-user" aria-hidden="true"></i>
     </a>
@@ -331,7 +333,10 @@
 <div style="display: none;">
     <div class="tips">
     <span>
-        点击右侧按钮登陆后可自定义导航~
+        你好~<br>
+        你能看到这条提示消息是因为你未登陆哦，<br>
+        点击右侧按钮登陆后可自定义导航，<br>
+        点击x可使这条提示一天内不再展示~
     </span>
         <a title="一天内不再提醒"><i class="fa fa-times" aria-hidden="true"></i></a>
     </div>
