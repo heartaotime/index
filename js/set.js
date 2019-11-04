@@ -292,6 +292,7 @@ $(function () {
                 weatherSwitch: field.weatherswitch == 'on' ? true : false,
                 weatherCity: field.weathercity,
                 searchInputShow: field.searchinputshow == 'on' ? true : false,
+                menuNameShow: field.menunameshow == 'on' ? true : false,
                 searchEngines: field.searchengines,
                 logoShow: field.logoshow == 'on' ? true : false,
                 suggestSwitch: field.suggestswitch == 'on' ? true : false,
@@ -454,6 +455,22 @@ $(function () {
                     layer.msg("请先 登陆/注册");
                     form.val("config", {
                         "searchinputshow": false
+                    });
+                    return;
+                }
+                if (userInfo.userName == '访客') {
+                    layer.msg("请先 登陆/注册，访客用户不可操作");
+                    return;
+                }
+            }
+        });
+
+        form.on('switch(menunameshow-filter)', function (data) {
+            if (data.elem.checked) {
+                if (!userInfo) {
+                    layer.msg("请先 登陆/注册");
+                    form.val("config", {
+                        "menunameshow": false
                     });
                     return;
                 }
@@ -925,6 +942,7 @@ function getConfig() {
                 "suggestswitch": config.suggestSwitch,
                 "historyswitch": config.historySwitch,
                 "searchinputshow": config.searchInputShow,
+                "menunameshow": config.menuNameShow,
                 "autochangebgimgshow": config.autoChangeBgImgShow,
                 "backgroundimgshow": config.backgroundImgShow,
                 "backgroundimgpcshow": config.backgroundImgPcShow

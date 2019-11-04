@@ -5,7 +5,7 @@ var url = document.location.toString();
 var splitUrl = url.split('/');
 var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
 
-var searchEngineList, suggestSwitch, historySwitch;
+var searchEngineList, suggestSwitch, historySwitch, menuNameShow;
 var clientWidth = document.body.clientWidth; // 网页可见区域宽
 
 $('.form .formright').on('click', function () {
@@ -246,7 +246,9 @@ function setIndexInfo(result) {
     $.each(result, function (i, v) {
         $('#copy a').attr('href', v.menuUrl);
         $('#copy img').attr('src', v.menuImgUrl);
-        $('#copy span').html(v.menuName);
+        if (menuNameShow == undefined || menuNameShow == true) {
+            $('#copy span').html(v.menuName);
+        }
         html += $('#copy').html();
         // $('.boxs').append($('#copy').html());
     });
@@ -315,7 +317,7 @@ function getConfig() {
                         console.log(result);
                         if (result && result.status == 'success') {
                             var content = result.data.content.split('，')[0];
-                            $('title').html('主页-' + content);
+                            $('title').html('主页-' + content + '～');
                             // $(document).attr("title",'主页-' + content);
                             // $('.form input').attr('placeholder', '✎...  ' + content + '～');
                             // document.title = content;
@@ -325,6 +327,9 @@ function getConfig() {
             } else {
                 $('.form input').attr('placeholder', '');
             }
+
+            menuNameShow = config.menuNameShow;
+
 
             var logoShow = config.logoShow;
             if (logoShow) {
@@ -446,7 +451,7 @@ function getConfig() {
             suggestSwitch = config.suggestSwitch;
             historySwitch = config.historySwitch;
         }
-    });
+    }, false);
 }
 
 
@@ -641,7 +646,7 @@ $(function () {
         }
     }
 
-    getIndex();
     getConfig();
+    getIndex();
 
 });
