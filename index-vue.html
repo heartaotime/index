@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--优先使用 IE 最新版本和 Chrome-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!--360 使用Google Chrome Frame-->
+    <meta name="renderer" content="webkit">
+    <!--百度禁止转码-->
+    <!--<meta http-equiv="Cache-Control" content="no-siteapp" />-->
+    <!--页面关键词 keywords-->
+    <meta name="keywords" content="主页">
+    <!--关闭chrome浏览器下翻译插件-->
+    <meta name="google" value="notranslate"/>
+    <!--为移动设备添加 viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 浏览网站时的小图标 -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" media="screen"/>
+    <title>主页</title>
+
+    <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+    <!--    <link href="css/fade.css">-->
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            /*background-size: cover;*/
+            /*background-color: #F2F2F2;*/
+            /*background-repeat: no-repeat;*/
+            /*background-position: center;*/
+            /*background-attachment: fixed;*/
+        }
+
+        .top {
+            height: 20px;
+        }
+
+
+        .weather {
+            font-size: 13px;
+            margin-left: 5px;
+        }
+
+        .weather span {
+            line-height: 20px;
+            border-radius: 5px;
+            padding: 0 2px;
+        }
+
+
+        .logoimg {
+            text-align: center;
+            height: 112px;
+            margin-bottom: 15px;
+        }
+
+        .logoimg a:hover {
+            margin-top: -5px;
+        }
+
+
+        .logoimg img {
+            height: 108px;
+            max-width: 250px;
+        }
+
+        .main {
+            margin: calc(13vh) auto;
+            max-width: 500px;
+            text-align: center;
+            padding: 5px;
+        }
+
+
+        .form {
+            display: -webkit-flex;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            border-radius: 50px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+            background-color: rgba(255, 255, 255, 0.4);
+            height: 40px;
+        }
+
+
+        .form > * {
+            line-height: 40px;
+        }
+
+        .formleft {
+            width: 20%;
+        }
+
+        .formright {
+            width: 10%;
+        }
+
+        .form input {
+            width: 70%;
+            /*flex-grow: 1;*/
+            font-size: 18px;
+            background-color: transparent;
+            /*background-color: inherit;*/
+            /*background-color: #eeeeee00;*/
+            outline: none;
+            border: none;
+        }
+
+        .form input::-webkit-input-placeholder {
+            color: #333;
+        }
+
+        .suggest {
+            -webkit-animation: fadeInDown 0.2s;
+            animation: fadeInDown 0.2s;
+            display: none;
+            position: absolute;
+            text-align: left;
+            border-radius: 10px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+            border-top: none;
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 100%;
+        }
+
+        .suggest a {
+            display: inherit;
+            margin-top: 1px;
+            margin-bottom: 2px;
+            line-height: 35px;
+            padding: 0px 20px;
+            border-radius: 10px;
+        }
+
+        .boxs {
+            display: -webkit-flex; /* Safari */
+            display: flex;
+            margin: 40px auto;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            border: none;
+        }
+
+        .url {
+            margin-top: 5px;
+            font-size: 13px;
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+            padding: 0 2px;
+        }
+
+
+        .boxs a:hover {
+            -webkit-animation: fadeInS 2s;
+            animation: fadeInS 2s;
+            margin-top: -5px;
+        }
+
+
+        .item {
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column; /*主轴为垂直方向，起点在上沿*/
+            justify-content: center;
+            align-items: center;
+        }
+
+        .suggest span {
+            border-radius: 10px;
+            /*line-height: 35px;*/
+            text-align: center;
+            display: inherit;
+            cursor: pointer;
+            color: darkgray;
+        }
+
+        .searchEngines {
+            /*-webkit-animation: fadeInDown 2s;*/
+            /*animation: fadeInDown 2s;*/
+            display: none;
+            position: absolute;
+            text-align: left;
+            border-radius: 10px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+            border-top: none;
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 110px;
+        }
+
+        .searchEngines a {
+            cursor: pointer;
+            display: inherit;
+            margin-top: 1px;
+            margin-bottom: 2px;
+            line-height: 35px;
+            padding: 0px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .sets {
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+            font-size: 30px;
+            /*width: 50px;*/
+            /*height: 50px;*/
+
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .setting {
+            /*border: 1px solid white;*/
+            margin: 2px;
+            border-radius: 50px;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: rgba(255, 255, 255, 0.7);
+            /*box-shadow: 0 0 18px rgba(70, 70, 40, .300);*/
+        }
+
+        .setting:hover {
+            box-shadow: 0 0 18px rgba(70, 70, 40, .300);
+        }
+
+
+        .tips {
+            position: fixed;
+            right: 70px;
+            bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+
+            display: -webkit-flex;
+            display: flex;
+
+            padding: 3px;
+            font-size: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 700px) {
+            .main {
+                margin: 10% auto;
+            }
+
+            .formleft {
+                width: 30%;
+            }
+
+            .form input {
+                width: 55%;
+            }
+
+            .formright {
+                width: 15%;
+            }
+        }
+
+        .show {
+            display: unset;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        #app {
+            width: 100%;
+            height: 100%;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="sets" @mouseenter="displaySet('show')" @mouseleave="displaySet('hide')" @click="displaySet('click')">
+    <a class="setting" v-for="(item, index) in setList" :key="index" :title="item.title" :class="[item.class]"
+       :href="item.href">
+        <i :class="item.iClass" aria-hidden="true"></i>
+    </a>
+</div>
+<div style="display: none;">
+    <div class="tips">
+    <span>
+        你好~<br>
+        你能看到这条提示消息是因为你未登陆哦，<br>
+        点击右侧按钮登陆后可自定义主页，<br>
+        点击x可关闭该提示并且一天内不再展示~
+    </span>
+        <a title="一天内不再提醒"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+</div>
+
+<div id="app" :style="appStyle" v-cloak>
+    <div class="top">
+        <div class="weather">
+            <span>{{weather}}</span>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="logoimg animated fadeInDown">
+            <a href="set.html" target="_self" style="display: inline-block;">
+                <img :src="logoImgUrl"/>
+            </a>
+        </div>
+        <div class="container">
+            <div class="form">
+                <a class="formleft" @click="displaySearchEngineList">
+                    <span :url="defaultSearchEngine.url">{{defaultSearchEngine.name}}</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <input type="text" @focus="hideSearchEngineList" v-model="searchKey" @keyup.enter="search"
+                       @input="getSuggestList">
+                <a class="formright" @click="search">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
+            <div class="searchEngines animated fadeIn" v-show="searchEngineListDis">
+                <a v-for="(item, index) in searchEngineList" :key="index" :url="item.codeValue" :style="item.style"
+                   @mouseover="changeBgStyle(index)" @click="setSearchEngine(index)">{{item.codeName}}</a>
+            </div>
+            <div class="suggest">
+            </div>
+
+            <div class="boxs">
+                <div style="width: 60px;padding: 10px;" class="box" v-for="(item, index) in indexList" :key="index">
+                    <a target="_blank" style="display: inline-block;" :href="item.menuUrl">
+                        <div class="item">
+                            <img class="icon" :src="item.menuImgUrl">
+                            <span v-if="menuNameShow" class="url">{{item.menuName}}</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none;" id="copy">
+        <div style="width: 60px;padding: 10px;" class="box">
+            <a target="_blank" style="display: inline-block;" href="">
+                <div class="item">
+                    <img class="icon" src="">
+                    <span class="url"></span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 加载地图JSAPI脚本 -->
+<script src="https://webapi.amap.com/maps?v=1.4.12&key=6d12e65f78519a51b052b15208a5da2f"></script>
+<script src="js/data.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.18.1/axios.js"></script>
+<script src="js/util-vue.js"></script>
+<script src="js/index-vue.js"></script>
+</html>
