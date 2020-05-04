@@ -864,7 +864,6 @@ $('#readme').on('click', function () {
                 '        今日注册人数 ' + response.userDayCountAll + '<br>\n' +
                 '        总访问主页次数 ' + response.accessCountAll + '<br>\n' +
                 '        今日访问主页次数 ' + response.accessDayCountAll + '<br>\n' +
-                '        接毕设哈哈 <br>\n' +
                 // '        友情链接 <a style="color: #009688;" target="_blank" href="http://igeeka.tk/">极咖网</a><br>\n' +
                 '    </blockquote>',
             closeBtn: 0, // 不显示关闭按钮
