@@ -3,7 +3,7 @@ var userInfo = Util.getUserInfo();
 
 var url = document.location.toString();
 var splitUrl = url.split('/');
-var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
+// var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
 
 var searchEngineList, suggestSwitch, historySwitch, menuNameShow;
 var clientWidth = document.body.clientWidth; // 网页可见区域宽
@@ -335,7 +335,7 @@ function getConfig() {
             if (logoShow) {
                 var logoImgUrl = config.logoImgUrl;
                 if (logoImgUrl) {
-                    logoImgUrl = imgurl + 'imgproxy/' + logoImgUrl.split("/")[5];
+                    logoImgUrl = Util.imgurl + Util.getFileName(logoImgUrl);
                     $(".logoimg img").attr('src', logoImgUrl).hide().fadeIn(1000);
                 }
             }
@@ -407,7 +407,7 @@ function getConfig() {
                     if (backgroundImgPcShow) {
                         var backgroundImgUrlPc = config.backgroundImgUrlPc;
                         if (backgroundImgUrlPc) {
-                            backgroundImgUrlPc = imgurl + 'imgproxy/' + backgroundImgUrlPc.split("/")[5];
+                            backgroundImgUrlPc = Util.imgurl + Util.getFileName(backgroundImgUrlPc);
                             $('body').css("background-image", "url('" + backgroundImgUrlPc + "')");
                         }
                     }
@@ -416,7 +416,7 @@ function getConfig() {
                     if (backgroundImgShow) {
                         var backgroundImgUrl = config.backgroundImgUrl;
                         if (backgroundImgUrl) {
-                            backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
+                            backgroundImgUrl = Util.imgurl + Util.getFileName(backgroundImgUrl);
                             $('body').css("background-image", "url('" + backgroundImgUrl + "')");
                         }
                     }
@@ -488,7 +488,7 @@ function defaultSet() {
         var defaultLogoImg = Util.getStaticData('DEFAULT_LOGO_IMG');
         if (defaultLogoImg && defaultLogoImg.length > 0) {
             var logoImgUrlDe = defaultLogoImg[0].codeValue;
-            logoImgUrlDe = imgurl + 'imgproxy/' + logoImgUrlDe.split("/")[5];
+            logoImgUrlDe = Util.imgurl + Util.getFileName(logoImgUrlDe);
             $(".logoimg img").attr('src', logoImgUrlDe);
         }
         // 2. 设置默认展示的导航
@@ -525,12 +525,12 @@ function defaultSet() {
         var curSystem = Util.getCurSystem();
         if (curSystem.win || curSystem.mac || curSystem.xll || curSystem.ipad) {
             if (backgroundImgUrlPc != '') {
-                backgroundImgUrlPc = imgurl + 'imgproxy/' + backgroundImgUrlPc.split("/")[5];
+                backgroundImgUrlPc = Util.imgurl + Util.getFileName(backgroundImgUrlPc);
                 $('body').css("background-image", "url('" + backgroundImgUrlPc + "')");
             }
         } else {
             if (backgroundImgUrl != '') {
-                backgroundImgUrl = imgurl + 'imgproxy/' + backgroundImgUrl.split("/")[5];
+                backgroundImgUrl = Util.imgurl + Util.getFileName(backgroundImgUrl);
                 $('body').css("background-image", "url('" + backgroundImgUrl + "')");
             }
         }

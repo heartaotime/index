@@ -4,7 +4,9 @@ var url = document.location.toString();
 // var imgurl = "http://" + url.split('/')[2].split(':')[0] + ':2000/';
 
 var splitUrl = url.split('/');
-var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
+// var imgurl = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
+var imgurl = Util.imgurl;
+var imgtempurl = Util.imgtempurl;
 
 
 function init() {
@@ -75,7 +77,9 @@ $(function () {
                 }
             }
             if (index == 4) { // 登陆
-                window.location.href = imgurl;
+                // window.location.href = 'https://www.myindex.top/';
+                window.location.href = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';;
+
             }
         });
 
@@ -318,7 +322,7 @@ $(function () {
 
                     $('#logoimgurl').remove();
                     if (field.logoshow == 'on') {
-                        var logoImgUrl = imgurl + 'imgproxy/' + config.logoImgUrl.split("/")[5];
+                        var logoImgUrl = Util.imgurl + Util.getFileName(config.logoImgUrl);
                         $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                         $img.attr('src', logoImgUrl).attr('realpath', config.logoImgUrl);
                         $('#logoimgupload').after($img);
@@ -327,7 +331,7 @@ $(function () {
 
                     $('#backgroundimgurl').remove();
                     if (field.backgroundimgshow == 'on') {
-                        var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
+                        var backgroundImgUrl = Util.imgurl + Util.getFileName(config.backgroundImgUrl);
                         $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                         $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
                         $('#backgroundimgupload').after($img);
@@ -336,7 +340,7 @@ $(function () {
 
                     $('#backgroundimgurlpc').remove();
                     if (field.backgroundimgpcshow == 'on') {
-                        var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
+                        var backgroundImgUrlPc = Util.imgurl + Util.getFileName(config.backgroundImgUrlPc);
                         $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
                         $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
                         $('#backgroundimguploadpc').after($img);
@@ -534,7 +538,7 @@ $(function () {
                 //上传完毕回调
                 console.log(res);
                 $('#logoimgurl').remove();
-                var logoImgUrl = imgurl + 'imgtempproxy/' + res.path.split("/")[5];
+                var logoImgUrl = Util.imgtempurl + res.fileName;
                 $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', logoImgUrl).attr("realpath", res.path);
                 $('#logoimgupload').after($img);
@@ -563,7 +567,7 @@ $(function () {
                 //上传完毕回调
                 console.log(res);
                 $('#backgroundimgurl').remove();
-                var backgroundImgUrl = imgurl + 'imgtempproxy/' + res.path.split("/")[5];
+                var backgroundImgUrl = Util.imgtempurl + res.fileName;
                 $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', backgroundImgUrl).attr("realpath", res.path);
                 $('#backgroundimgupload').after($img);
@@ -591,7 +595,7 @@ $(function () {
                 //上传完毕回调
                 console.log(res);
                 $('#backgroundimgurlpc').remove();
-                var backgroundImgUrlPc = imgurl + 'imgtempproxy/' + res.path.split("/")[5];
+                var backgroundImgUrlPc = Util.imgtempurl + res.fileName;
                 $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', backgroundImgUrlPc).attr("realpath", res.path);
                 $('#backgroundimguploadpc').after($img);
@@ -603,6 +607,8 @@ $(function () {
         });
     });
 });
+
+
 
 $('img').on('error', function () {
     $(this).attr('src', Util.getDefaultImg());
@@ -951,7 +957,7 @@ function getConfig() {
 
             if (config.logoShow) {
                 $('#logoimgurl').remove();
-                var logoImgUrl = imgurl + 'imgproxy/' + config.logoImgUrl.split("/")[5];
+                var logoImgUrl = Util.imgurl + Util.getFileName(config.logoImgUrl);
                 $img = $('<img id="logoimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', logoImgUrl).attr('realpath', config.logoImgUrl);
                 $('#logoimgupload').after($img);
@@ -961,7 +967,7 @@ function getConfig() {
             if (config.backgroundImgShow) {
                 // 手机端背景
                 $('#backgroundimgurl').remove();
-                var backgroundImgUrl = imgurl + 'imgproxy/' + config.backgroundImgUrl.split("/")[5];
+                var backgroundImgUrl = Util.imgurl + Util.getFileName(config.backgroundImgUrl);
                 $img = $('<img id="backgroundimgurl" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', backgroundImgUrl).attr('realpath', config.backgroundImgUrl);
                 $('#backgroundimgupload').after($img);
@@ -971,7 +977,7 @@ function getConfig() {
             if (config.backgroundImgPcShow) {
                 // PC端背景
                 $('#backgroundimgurlpc').remove();
-                var backgroundImgUrlPc = imgurl + 'imgproxy/' + config.backgroundImgUrlPc.split("/")[5];
+                var backgroundImgUrlPc = Util.imgurl + Util.getFileName(config.backgroundImgUrlPc);
                 $img = $('<img id="backgroundimgurlpc" style="width: 50px;height: 50px;margin-left: 5px;">');
                 $img.attr('src', backgroundImgUrlPc).attr('realpath', config.backgroundImgUrlPc);
                 $('#backgroundimguploadpc').after($img);
