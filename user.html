@@ -228,11 +228,11 @@
                     eMail: eMail
                 }
             };
-            Util.postJson("./common-server/user/api/v1/checkUserExist", param, function (response) {
-                if (response.code != 0) {
-                    layer.msg(response.message);
-                    return;
-                }
+
+
+            var userInfo = Util.getUserInfo();
+
+            if (code == 'update' && userInfo && userInfo.eMail == eMail) {
                 Util.postJson("./common-server/user/api/v1/sendEMail", param, function (response) {
                     if (response.code != 0) {
                         layer.msg(response.message);
@@ -240,8 +240,21 @@
                     }
                     layer.msg('发送成功，请查收邮件！');
                 });
-            });
-
+            } else {
+                Util.postJson("./common-server/user/api/v1/checkUserExist", param, function (response) {
+                    if (response.code != 0) {
+                        layer.msg(response.message);
+                        return;
+                    }
+                    Util.postJson("./common-server/user/api/v1/sendEMail", param, function (response) {
+                        if (response.code != 0) {
+                            layer.msg(response.message);
+                            return;
+                        }
+                        layer.msg('发送成功，请查收邮件！');
+                    });
+                });
+            }
 
         });
 
