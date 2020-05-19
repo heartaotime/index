@@ -53,6 +53,24 @@
         body .layui-form-label {
             padding: 9px 5px;
         }
+
+        .sendEMaila {
+            color: white;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50px;
+            text-align: center;
+            /* border: 1px solid; */
+            line-height: 38px;
+            background: #009688;
+        }
+
+        .sendEMaila:hover {
+            opacity: .8;
+            filter: alpha(opacity=80);
+            color: #fff;
+        }
     </style>
 </head>
 <body class="">
@@ -104,22 +122,24 @@
                         <label class="layui-form-label"><span class="left-span">验证码</span></label>
                         <div class="layui-input-block">
                             <input type="text" name="verifyCode" required lay-verify="required" placeholder="请输入验证码"
-                                   spellcheck="false" id="verifyCode"
+                                   spellcheck="false" id="verifyCode" style="padding-right: 60px;"
                                    autocomplete="off" class="layui-input">
+                            <a class="sendEMaila" id="sendEMail" href="javascript:void(0);">发送</a><br>
                         </div>
                         <!--                        <div class="layui-input-inline" style="width: 260px">-->
                         <!--                            <button type="button" class="layui-btn" id="sendEMail">发送验证码</button>-->
                         <!--                            <span style="color: #FFB800">邮箱也可用于登陆</span>-->
                         <!--                        </div>-->
+
                     </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"><span class="left-span"></span></label>
-                        <div class="layui-input-block">
-                            <button type="button" class="layui-btn" id="sendEMail">发送验证码</button>
-                            <span style="color: #FFB800; font-size: 11px;">邮箱也可用于登陆</span>
-                        </div>
-                    </div>
+                    <!--                    <div class="layui-form-item">-->
+                    <!--                        <label class="layui-form-label"><span class="left-span"></span></label>-->
+                    <!--                        <div class="layui-input-block">-->
+                    <!--                            <button type="button" class="layui-btn" id="sendEMail">发送验证码</button>-->
+                    <!--                            <span style="color: #FFB800; font-size: 11px;">邮箱也可用于登陆</span>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
 
                     <div class="layui-form-item">
                         <div class="layui-input-block">
@@ -349,7 +369,6 @@
         } else if (code == 'login') {
             var a = '<span style="font-size: 15px;">没有账号？<a style="color: #009688;" target="_self" href="./user.html?code=regist">点此注册</a></span>';
             $('legend').html('<span style="font-weight: bold;">用户登陆</span> ' + a);
-            $('.layui-form-item:eq(2)').remove();
             $('.layui-form-item:eq(2)').remove();
             $('.layui-form-item:eq(2)').remove();
             $('.layui-form-item:eq(2)').remove();
