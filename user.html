@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户</title>
+
+    <!--为移动设备添加 viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./module/layui/css/layui.css">
+
+    <script src="./js/util.js"></script>
+
+
+    <style>
+        body {
+            /*background: url("https://www.myindex.top/file/img/DEFAULT_BG_IMG_PHONE.jpg");*/
+            /*background-color: #eeeeee;;*/
+        }
+
+        .left-span {
+            border-left: 3px solid #5FB878;
+            padding-left: 2px;
+            display: block;
+        }
+
+        .main-title {
+            display: block;
+            border-left: none;
+            border-radius: 10px;
+            background: #e2e2e2;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            font-size: 20px;
+            /*color: white;*/
+        }
+
+        .main {
+            margin: 15% auto 0;
+            /*border: 1px solid lightgrey;*/
+            padding: 10px 5px 0;
+
+            border-radius: 10px;
+            box-shadow: 0 0 18px rgba(70, 70, 40, .255);
+        }
+
+    </style>
+</head>
+<body class="">
+
+<div class="layui-container" style="padding: 0 5px;">
+
+    <div>
+        <fieldset class="layui-elem-field main">
+            <legend></legend>
+            <div class="layui-field-box">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="left-span">登陆账号</span></label>
+                        <div class="layui-input-block">
+                            <input type="text" name="userName" required lay-verify="required" id="userName"
+                                   placeholder="请输入登陆账号"
+                                   spellcheck="false"
+                                   autocomplete="off" class="layui-input" autofocus>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="left-span">登陆密码</span></label>
+                        <div class="layui-input-block">
+                            <input type="password" name="passWord" required lay-verify="required" placeholder="请输入登陆密码"
+                                   spellcheck="false" id="passWord"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="left-span">确认密码</span></label>
+                        <div class="layui-input-block">
+                            <input type="password" name="passWord2" required lay-verify="required"
+                                   placeholder="请再次输入登陆密码"
+                                   spellcheck="false" id="passWord2"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="left-span">邮箱</span></label>
+                        <div class="layui-input-block">
+                            <input type="text" name="eMail" required lay-verify="required|email" placeholder="请输入邮箱"
+                                   spellcheck="false" id="eMail"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="left-span">验证码</span></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="verifyCode" required lay-verify="required" placeholder="请输入验证码"
+                                   spellcheck="false" id="verifyCode"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline" style="width: 260px">
+                            <button type="button" class="layui-btn" id="sendEMail">发送验证码</button>
+                            <span style="color: #FFB800">邮箱也可用于登陆</span>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
+                            <!--                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+                            <a style="color: #009688; margin-left: 10px;" href="./">回到首页</a><br>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </fieldset>
+
+
+    </div>
+</div>
+
+
+<script src="./module/layui/layui.all.js"></script>
+<script>
+
+    //由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
+    ;!function () {
+        var layer = layui.layer, form = layui.form;
+
+        var code = Util.getReqParam('code');
+
+
+        // layer.msg('Hello World');
+
+        $('#userName').on('blur', function () {
+            var userName = $(this).val();
+            if (userName == '') {
+                return;
+            }
+
+            var userInfo = Util.getUserInfo();
+            if (code == 'update' && userInfo && userInfo.userName == userName) {
+                return;
+            }
+
+            if (code == 'login') {
+                return;
+            }
+
+            var param = {
+                param: {
+                    userName: userName
+                }
+            };
+            Util.postJson("./common-server/user/api/v1/checkUserExist", param, function (response) {
+                if (response.code != 0) {
+                    layer.msg(response.message);
+                    return;
+                }
+            });
+        });
+
+        $('#eMail').on('blur', function () {
+            var eMail = $(this).val();
+            if (eMail == '') {
+                return;
+            }
+
+            var userInfo = Util.getUserInfo();
+            if (code == 'update' && userInfo && userInfo.eMail == eMail) {
+                return;
+            }
+
+
+            var param = {
+                param: {
+                    eMail: eMail
+                }
+            };
+            Util.postJson("./common-server/user/api/v1/checkUserExist", param, function (response) {
+                if (response.code != 0) {
+                    layer.msg(response.message);
+                    return;
+                }
+            });
+        });
+
+        $('#passWord2').on('blur', function () {
+            var passwd = $('#passWord').val();
+            var passwd2 = $(this).val();
+            if (passwd == '') {
+                return;
+            }
+            if (code != 'login' && passwd != passwd2) {
+                layer.msg('密码不一致');
+                return;
+            }
+        });
+
+
+        $('#sendEMail').on('click', function () {
+            var eMail = $('#eMail').val();
+            if (eMail == '') {
+                layer.msg('邮箱地址不能为空！');
+                return;
+            }
+
+            var param = {
+                param: {
+                    eMail: eMail
+                }
+            };
+            Util.postJson("./common-server/user/api/v1/checkUserExist", param, function (response) {
+                if (response.code != 0) {
+                    layer.msg(response.message);
+                    return;
+                }
+                Util.postJson("./common-server/user/api/v1/sendEMail", param, function (response) {
+                    if (response.code != 0) {
+                        layer.msg(response.message);
+                        return;
+                    }
+                    layer.msg('发送成功，请查收邮件！');
+                });
+            });
+
+
+        });
+
+
+        //监听提交
+        form.on('submit(submit)', function (data) {
+            var passwd = $('#passWord').val();
+            var passwd2 = $('#passWord2').val();
+            if (code != 'login' && passwd != passwd2) {
+                layer.msg('密码不一致');
+                return false;
+            }
+
+            // layer.msg(JSON.stringify(data.field));
+            var field = data.field;
+            var param = {
+                param: {
+                    userName: field.userName,
+                    passWord: field.passWord,
+                    eMail: field.eMail,
+                    verifyCode: field.verifyCode
+                }
+            };
+
+
+            var action = 'registUser';
+            if (code == 'regist') {
+                action = 'registUser';
+            } else if (code == 'update') {
+                var userInfo = Util.getUserInfo();
+                if (!userInfo) {
+                    layer.msg('请先登陆！');
+                    return false;
+                }
+                action = 'updateUser';
+                param.param.id = userInfo.id;
+            } else if (code == 'login') {
+                action = 'loginUser';
+            }
+
+
+            Util.postJson("./common-server/user/api/v1/" + action, param, function (response) {
+                if (response.code != 0) {
+                    layer.msg(response.message);
+                    return;
+                }
+                Util.setUserInfo(response.data);
+                layer.msg('提交成功，正在登陆中...');
+                window.location.href = './set.html?code=user';
+            });
+            return false;
+        });
+
+        form.verify({
+            isSame: function (value, item) { //value：表单的值、item：表单的DOM对象
+                var passwd = $('#passwd').val();
+                var passwd2 = value;
+                if (passwd != passwd2) {
+                    return '密码不一致';
+                }
+            }
+        });
+
+
+        if (!code || code == null || code == '') {
+            code == 'regist'
+        }
+
+        if (code == 'regist') {
+            var a = '<span style="font-size: 15px;">已有账号？<a style="color: #009688;" target="_self" href="./user.html?code=login">点此登陆</a></span>';
+            $('legend').html('<span style="font-weight: bold;">用户注册</span> ' + a);
+        } else if (code == 'update') {
+            $('legend').html('<span style="font-weight: bold;">用户信息修改</span>');
+            // 说明用户已经登陆
+            var userInfo = Util.getUserInfo();
+            if (!userInfo) {
+                layer.msg('请先登陆！');
+                return;
+            }
+
+            var userName = userInfo.userName;
+            $('#userName').val(userName);
+
+            var eMail = userInfo.eMail;
+            if (!eMail || eMail == null || eMail == '') {
+                // 没有绑定 eMail 需要先绑定后才可以修改登陆账号
+                $('#userName').attr('readonly', true).css('background', '#eeee');
+            } else {
+                $('#eMail').val(eMail).attr('readonly', true).css('background', '#eeee');
+            }
+
+        } else if (code == 'login') {
+            var a = '<span style="font-size: 15px;">没有账号？<a style="color: #009688;" target="_self" href="./user.html?code=regist">点此注册</a></span>';
+            $('legend').html('<span style="font-weight: bold;">用户登陆</span> ' + a);
+            $('.layui-form-item:eq(2)').remove();
+            $('.layui-form-item:eq(2)').remove();
+            $('.layui-form-item:eq(2)').remove();
+
+            $('#userName').attr('placeholder', '请输入登陆账号/邮箱');
+        }
+
+    }();
+</script>
+</body>
+</html>

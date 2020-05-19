@@ -574,20 +574,27 @@ $('.sets a').on('mouseenter', function () {
         }
         return;
     }
+
+    if (!userInfo || userInfo.id == -1) {
+        window.location.href = './user.html?code=login';
+        return;
+    }
+
     var code = '';
     if (index == 0) {
         code = 'modify';
-    }
-    if (index == 1) {
+        window.location.href = 'set.html?code=' + code;
+    } else if (index == 1) {
         code = 'add';
-    }
-    if (index == 2) {
+        window.location.href = 'set.html?code=' + code;
+    } else if (index == 2) {
         code = 'set';
+        window.location.href = 'set.html?code=' + code;
+    } else if (index == 3) {
+        code = 'user';
+        window.location.href = 'set.html?code=' + code;
     }
-    if (index == 3) {
-        code = 'login';
-    }
-    window.location.href = 'set.html?code=' + code;
+
 });
 
 

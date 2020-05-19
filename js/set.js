@@ -13,7 +13,11 @@ function init() {
     Util.statistics('setting');
     userInfo = Util.getUserInfo();
     if (userInfo) {
-        $('.layui-tab-title li:eq(3)').html(userInfo.userName);
+        // $('.layui-tab-title li:eq(3)').html(userInfo.userName);
+    }
+    if (!userInfo || userInfo.id == -1) {
+        window.location.href = './user.html?code=login';
+        return;
     }
 
     $('#menuimgurl-add').attr('src', Util.getDefaultImg());
@@ -36,6 +40,7 @@ function init() {
 }
 
 $(function () {
+
     layui.use(['layer', 'element', 'form', 'upload'], function () {
         layer = layui.layer;
         element = layui.element;
@@ -70,16 +75,22 @@ $(function () {
             }
             if (index == 3) { // 登陆
                 if (userInfo) {
-                    $(this).html(userInfo.userName);
-                    form.val('login', {
-                        'username': userInfo.userName
-                    });
+                    // $(this).html(userInfo.userName);
+                    // form.val('login', {
+                    //     'username': userInfo.userName
+                    // });
+                    $('#userName').html(userInfo.userName);
+                    var eMail = userInfo.eMail;
+                    if(!eMail || eMail == null || eMail == '') {
+                        eMail = '暂无 <a style="color: #009688;" href="./user.html?code=update">点此绑定邮箱</a>'
+                    }
+                    $('#eMail').html(eMail);
                 }
             }
             if (index == 4) { // 登陆
                 // window.location.href = 'https://www.myindex.top/';
-                window.location.href = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';;
-
+                // window.location.href = splitUrl[0] + "//" + splitUrl[2].split(':')[0] + '/';
+                window.location.href = './';
             }
         });
 
@@ -147,7 +158,7 @@ $(function () {
                     localStorage.clear();
                 }
                 Util.setUserInfo(response.userInfo);
-                $('.layui-tab-title li:eq(3)').html(response.userInfo.userName);
+                // $('.layui-tab-title li:eq(3)').html(response.userInfo.userName);
                 layer.msg("登陆成功[" + response.userInfo.userName + "]，正在重新载入...");
 
                 setTimeout(function () {
@@ -609,7 +620,6 @@ $(function () {
 });
 
 
-
 $('img').on('error', function () {
     $(this).attr('src', Util.getDefaultImg());
     layer.msg('获取网站图标失败');
@@ -675,7 +685,7 @@ $('#del').on('click', function () {
     });
 });
 
-$('#logout').on('click', function () {
+$('#logout, #userName').on('click', function () {
     if (!userInfo) {
         layer.msg('请先 登陆/注册');
         return;

@@ -25,7 +25,7 @@
 
     <script>
         var _hmt = _hmt || [];
-        (function() {
+        (function () {
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?0d0fadf3149cf371239240aa0b352c9d";
             var s = document.getElementsByTagName("script")[0];
@@ -62,7 +62,7 @@
         <li lay-id="add" class="layui-this">新增导航</li>
         <li lay-id="modify">修改导航</li>
         <li lay-id="set">导航配置</li>
-        <li lay-id="login">登陆/注册</li>
+        <li lay-id="user">用户</li>
         <li lay-id="back">回到首页</li>
     </ul>
 
@@ -104,7 +104,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">排序</label>
                     <div class="layui-input-inline">
-                        <input type="text" spellcheck="false" name="sort" lay-verify="required|number" lay-verType="tips"
+                        <input type="text" spellcheck="false" name="sort" lay-verify="required|number"
+                               lay-verType="tips"
                                placeholder="请输入排序"
                                autocomplete="off" class="layui-input">
                     </div>
@@ -126,7 +127,8 @@
                     5：<a style="color: #009688;" href="https://www.myindex.top/guide/" target="_blank">导航</a><br>
                     6：© 2019 <a id="readme" style="color: #009688;" href="javascript:void(0);">点下看看</a><br>
                     7：去年收到的捐赠还是很少哈，但是我还是决定再续费一年，大佬们尽情放心的使用吧，还是希望多些捐赠哈，毕竟是无广告，多端同步！后续我会做2.0的版本敬请期待<br>
-                    8：由于服务器要到期了，最近我还需要重新备案，域名访问可能会挂掉，最好先 <a style="color: #009688;" href="http://139.186.66.121" target="_blank">直接IP访问</a> <br>
+                    8：由于服务器要到期了，最近我还需要重新备案，域名访问可能会挂掉，最好先 <a style="color: #009688;" href="http://139.186.66.121"
+                                                            target="_blank">直接IP访问</a> <br>
                     <!-- tips：<a style="color: #009688;" target="_blank" href="https://www.myindex.top/todo/">Todo(测试版)</a> -->
                     <!-- 1.现在可以单独对电脑和手机设置不同的背景，2.还可以修改账号和密码，3.还可以 通过 https://www.myindex.top/?u=你的账号&p=你的密码 登陆了哦，
                     但是这种方式登陆每次都会清空缓存在本地的信息，可能会有点慢（设置前请清空下浏览器缓存哦！） -->
@@ -263,7 +265,7 @@
                     </div>
                     <div class="layui-input-inline" id="weathercitydiv">
                         <input type="text" name="weathercity" placeholder="请填写所在城市" autocomplete="off"
-                               class="layui-input">
+                               class="layui-input" spellcheck="false">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -277,7 +279,7 @@
                     <label class="layui-form-label">网址名称</label>
                     <div class="layui-input-inline">
                         <input type="checkbox" name="menunameshow" lay-skin="switch" lay-text="开启|关闭"
-                               lay-filter="menunameshow-filter">
+                               lay-filter="menunameshow-filter" spellcheck="false">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -331,38 +333,49 @@
         </div>
 
         <div class="layui-tab-item layui-anim layui-anim-upbit">
+
+            <blockquote class="layui-elem-quote">
+                当前已登陆账号 <a style="color: #009688;" href="javascript:void(0);" id="userName"></a><br>
+                当前已绑定邮箱 <span id="eMail"></span><br>
+                <a style="color: #009688;" href="./user.html?code=update">修改账号/密码</a><br>
+                部分信息是缓存在浏览器本地的哦，比如登陆信息等，建议允许缓存<br>
+                如遇部分问题，可以试着清除浏览器缓存或者重新登陆下看看哦<br>
+                如果你有任何问题或者建议，发送至 heartaotime@foxmail.com 或者酷安 @皮皮狗子<br>
+            </blockquote>
+
+
             <!--登陆-->
-            <div class="layui-form" lay-filter="login">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">账号</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="username" lay-verify="required" lay-verType="tips"
-                               placeholder="请输入账号"
-                               autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">密码</label>
-                    <div class="layui-input-inline">
-                        <input type="password" name="password" lay-verify="required" lay-verType="tips"
-                               placeholder="请输入密码"
-                               autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="submit-login">登陆</button>
-                        <button id="logout" class="layui-btn layui-btn-primary">登出</button>
-                    </div>
-                </div>
-                <blockquote class="layui-elem-quote">
-                    1：账号不存在会自动注册<br>
-                    2：部分信息是缓存在浏览器本地的哦，比如登陆信息等，建议允许缓存<br>
-                    3：如遇部分问题，可以试着清除浏览器缓存或者重新登陆下看看哦<br>
-                    4：<a style="color: #009688;" href="javascript:void(0);" id="modifyUser">修改账号/密码</a><br>
-                    5：如果你有任何问题或者建议，发送至 heartaotime@foxmail.com 或者酷安 @皮皮狗子<br>
-                </blockquote>
-            </div>
+<!--            <div class="layui-form" lay-filter="login">-->
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">账号</label>-->
+<!--                    <div class="layui-input-inline">-->
+<!--                        <input type="text" name="username" lay-verify="required" lay-verType="tips"-->
+<!--                               placeholder="请输入账号" spellcheck="false"-->
+<!--                               autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">密码</label>-->
+<!--                    <div class="layui-input-inline">-->
+<!--                        <input type="password" name="password" lay-verify="required" lay-verType="tips"-->
+<!--                               placeholder="请输入密码" spellcheck="false"-->
+<!--                               autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="layui-form-item">-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <button class="layui-btn" lay-submit lay-filter="submit-login">登陆</button>-->
+<!--                        <button id="logout" class="layui-btn layui-btn-primary">登出</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <blockquote class="layui-elem-quote">-->
+<!--                    1：账号不存在会自动注册<br>-->
+<!--                    2：部分信息是缓存在浏览器本地的哦，比如登陆信息等，建议允许缓存<br>-->
+<!--                    3：如遇部分问题，可以试着清除浏览器缓存或者重新登陆下看看哦<br>-->
+<!--                    4：<a style="color: #009688;" href="javascript:void(0);" id="modifyUser">修改账号/密码</a><br>-->
+<!--                    5：如果你有任何问题或者建议，发送至 heartaotime@foxmail.com 或者酷安 @皮皮狗子<br>-->
+<!--                </blockquote>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
