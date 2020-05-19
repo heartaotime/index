@@ -45,6 +45,14 @@
             box-shadow: 0 0 18px rgba(70, 70, 40, .255);
         }
 
+        body .layui-field-box {
+            padding: 10px 0;
+
+        }
+
+        body .layui-form-label {
+            padding: 9px 5px;
+        }
     </style>
 </head>
 <body class="">
@@ -94,14 +102,22 @@
 
                     <div class="layui-form-item">
                         <label class="layui-form-label"><span class="left-span">验证码</span></label>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-block">
                             <input type="text" name="verifyCode" required lay-verify="required" placeholder="请输入验证码"
                                    spellcheck="false" id="verifyCode"
                                    autocomplete="off" class="layui-input">
                         </div>
-                        <div class="layui-input-inline" style="width: 260px">
+                        <!--                        <div class="layui-input-inline" style="width: 260px">-->
+                        <!--                            <button type="button" class="layui-btn" id="sendEMail">发送验证码</button>-->
+                        <!--                            <span style="color: #FFB800">邮箱也可用于登陆</span>-->
+                        <!--                        </div>-->
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="left-span"></span></label>
+                        <div class="layui-input-block">
                             <button type="button" class="layui-btn" id="sendEMail">发送验证码</button>
-                            <span style="color: #FFB800">邮箱也可用于登陆</span>
+                            <span style="color: #FFB800; font-size: 11px;">邮箱也可用于登陆</span>
                         </div>
                     </div>
 
@@ -320,6 +336,7 @@
         } else if (code == 'login') {
             var a = '<span style="font-size: 15px;">没有账号？<a style="color: #009688;" target="_self" href="./user.html?code=regist">点此注册</a></span>';
             $('legend').html('<span style="font-weight: bold;">用户登陆</span> ' + a);
+            $('.layui-form-item:eq(2)').remove();
             $('.layui-form-item:eq(2)').remove();
             $('.layui-form-item:eq(2)').remove();
             $('.layui-form-item:eq(2)').remove();

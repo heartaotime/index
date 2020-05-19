@@ -82,7 +82,7 @@ $(function () {
                     $('#userName').html(userInfo.userName);
                     var eMail = userInfo.eMail;
                     if(!eMail || eMail == null || eMail == '') {
-                        eMail = '暂无 <a style="color: #009688;" href="./user.html?code=update">点此绑定邮箱</a>'
+                        eMail = '暂无 <a style="color: #009688; line-height: 30px;" href="./user.html?code=update">点此绑定邮箱</a>'
                     }
                     $('#eMail').html(eMail);
                 }
