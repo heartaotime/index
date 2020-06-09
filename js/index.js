@@ -356,10 +356,10 @@ function getConfig() {
                 var clientWidth = document.body.clientWidth; // 网页可见区域宽
                 if (clientWidth > 700) {
                     // $('body').css("background", "url('http://127.0.0.1:5555/api/common/v1/getPicture/0') center no-repeat fixed");
-                    $('body').css("background", "url('https://www.myindex.top/api/common/v1/getPicture/1') center no-repeat fixed");
+                    $('body').css("background", "url('https://www.myindex.top/api/common/v1/getPicture/lastest/pc') center no-repeat fixed");
                 } else {
                     // $('body').css("background", "url('http://127.0.0.1:5555/api/common/v1/getPicture/2') center no-repeat fixed");
-                    $('body').css("background", "url('https://www.myindex.top/api/common/v1/getPicture/2') center no-repeat fixed");
+                    $('body').css("background", "url('https://www.myindex.top/api/common/v1/getPicture/lastest/phone') center no-repeat fixed");
                 }
 
 
