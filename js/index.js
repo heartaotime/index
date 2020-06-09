@@ -352,52 +352,44 @@ function getConfig() {
 
             var autoChangeBgImgShow = config.autoChangeBgImgShow;
             if (autoChangeBgImgShow) {
-                // 获取随机壁纸
-                // var imageUrl = 'https://api.btstu.cn/sjbz/api.php?lx=fengjing';
-                // var clientWidth = document.body.clientWidth; // 网页可见区域宽
-                // if (clientWidth > 700) {
-                //     imageUrl += '&method=pc';
-                // } else {
-                //     imageUrl += '&method=mobile';
-                // }
-                // var imageUrl = 'https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture';
-                // var imageUrl = 'https://bing.ioliu.cn/v1/rand?';
-                // if (clientWidth > 700) {
-                //     imageUrl += '&w=1920&h=1080';
-                // } else {
-                //     imageUrl += '&w=1080&h=2340';
-                // }
-                // // center no-repeat fixed
-                // var imageUrl = 'https://api.imo6.cn/nice/api.php?type=pola';
-                // $('body').css("background", "url('" + imageUrl + "') center no-repeat fixed ");
-                // return;
+
+                var clientWidth = document.body.clientWidth; // 网页可见区域宽
+                if (clientWidth > 700) {
+                    // $('body').css("background", "url('http://127.0.0.1:5555/api/common/v1/getPicture/0') center no-repeat fixed");
+                    $('body').css("background", "url('https://www.myindex.top/api/common/v1/getPicture/1') center no-repeat fixed");
+                } else {
+                    // $('body').css("background", "url('http://127.0.0.1:5555/api/common/v1/getPicture/2') center no-repeat fixed");
+                    $('body').css("background", "url('https://www.myindex.top/api/common/v1/getPicture/2') center no-repeat fixed");
+                }
+
 
                 // 获取必应每日精选壁纸
-                $.ajax({
-                    // https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc=1572487353393&pid=hp&video=0
-                    url: './bingBgImg?format=js&idx=0&n=1&nc=' + new Date().getTime() + '&pid=hp&video=0',
-                    type: "GET",
-                    success: function (result, status) {
-                        console.log(result);
-                        if (result && result.images && result.images.length > 0) {
-                            // 是否存在视频文件
-                            // var vid = result.images[0].vid;
-                            // if (vid && vid != '') {
-                            //     // <video id="vid" onended="_w.VM &amp;&amp; VM.play();"
-                            //     //     muted="muted" loop="loop" autobuffer="autobuffer"
-                            //     //     preload="auto" oncontextmenu="return false" data-hasaudio="1"
-                            //     //     src="//az29176.vo.msecnd.net/videocontent/VampireCastle_HP_FULL_1920x1080_HD_ZH-CN.mp4"
-                            //     //     style="width: 1519px; height: 855px; top: -128px; left: 0px; opacity: 1; visibility: visible;"></video>
-                            //     var html = '<video src="https://cn.bing.com//az29176.vo.msecnd.net/videocontent/VampireCastle_HP_FULL_1920x1080_HD_ZH-CN.mp4"></video>';
-                            //     $('body').append(html);
-                            // }
-                            var imageUrl = result.images[0].url;
-                            // $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
-                            // center no-repeat fixed
-                            $('body').css("background", "url('https://cn.bing.com/" + imageUrl + "') center no-repeat fixed");
-                        }
-                    }
-                });
+                // $.ajax({
+                //     // https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc=1572487353393&pid=hp&video=0
+                //     url: './bingBgImg?format=js&idx=0&n=1&nc=' + new Date().getTime() + '&pid=hp&video=0',
+                //     type: "GET",
+                //     success: function (result, status) {
+                //         console.log(result);
+                //         if (result && result.images && result.images.length > 0) {
+                //             // 是否存在视频文件
+                //             // var vid = result.images[0].vid;
+                //             // if (vid && vid != '') {
+                //             //     // <video id="vid" onended="_w.VM &amp;&amp; VM.play();"
+                //             //     //     muted="muted" loop="loop" autobuffer="autobuffer"
+                //             //     //     preload="auto" oncontextmenu="return false" data-hasaudio="1"
+                //             //     //     src="//az29176.vo.msecnd.net/videocontent/VampireCastle_HP_FULL_1920x1080_HD_ZH-CN.mp4"
+                //             //     //     style="width: 1519px; height: 855px; top: -128px; left: 0px; opacity: 1; visibility: visible;"></video>
+                //             //     var html = '<video src="https://cn.bing.com//az29176.vo.msecnd.net/videocontent/VampireCastle_HP_FULL_1920x1080_HD_ZH-CN.mp4"></video>';
+                //             //     $('body').append(html);
+                //             // }
+                //             var imageUrl = result.images[0].url;
+                //             // $('body').css("background-image", "url('https://cn.bing.com/" + imageUrl + "')");
+                //             // center no-repeat fixed
+                //             $('body').css("background", "url('https://cn.bing.com/" + imageUrl + "') center no-repeat fixed");
+                //         }
+                //     }
+                // });
+
             } else {
                 // var curSystem = Util.getCurSystem();
                 var clientWidth = document.body.clientWidth; // 网页可见区域宽
