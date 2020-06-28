@@ -16,8 +16,8 @@ function init() {
         // $('.layui-tab-title li:eq(3)').html(userInfo.userName);
     }
     if (!userInfo || userInfo.id == -1) {
-        window.location.href = './user.html?code=login';
-        return;
+        // window.location.href = './user.html?code=login';
+        // return;
     }
 
     $('#menuimgurl-add').attr('src', Util.getDefaultImg());
